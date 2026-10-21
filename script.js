@@ -1,1118 +1,1091 @@
 /**
- * Ujjawal Kushwaha - 3D Interactive Portfolio
- * Master Cyber-Cosmic Interactive Engine:
- * - Three.js 3D Space Background & Interactive Hero Centerpiece
- * - Multi-Theme Dynamic Switching (Cyan, Synthwave, Matrix, Amber)
- * - Interactive Cyber Console / Terminal Modal with Commands
- * - Matrix Digital Rain Canvas Simulation
- * - Real-time Tip Amount Presets & Interactive UPI System
- * - Holographic 3D Tilt with Coordinate Glare
- * - Project Interactive Tabs (Preview, Architecture, Specs)
- * - Smooth Lerp Cursor, Live IST Clock, Live Code Simulator & Typing FX
+ * ==============================================================================
+ * NEXORA by Ujjwal - Flagship Product Marketing Landing Page Script
+ * ------------------------------------------------------------------------------
+ * Technologies: HTML5, CSS3, Vanilla JavaScript (ES6+), Web Audio API
+ * Features:
+ *   1. Scroll Progress Bar
+ *   2. Futuristic Web Audio Synthesizer (SFX Toggle)
+ *   3. Interactive Hero Finish Switcher & Ambient Aura Sync
+ *   4. 3D Mouse Parallax & Specular Light Glare
+ *   5. Interactive Hotspot Pins & Micro-Tooltips
+ *   6. 120W HyperCharge Real-Time Interactive Simulator
+ *   7. 108MP Camera Lab Viewfinder with Focal Length Zoom
+ *   8. Interactive Product Image Gallery with Crossfade
+ *   9. Accessible FAQ Accordion
+ *  10. Sticky Navbar, Scrollspy, & Scroll-to-Top Button
+ *  11. Interactive Buy Now Modal with Coupon Code & Order Receipt
+ *  12. Newsletter Form Validation & Animated Toasts
+ *  13. Scroll Reveal Animations (IntersectionObserver)
+ * ==============================================================================
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initScrollProgress();
-    initCyberCursor();
-    initScrollReveal();
-    initAnimatedCounters();
-    initTypingEffect();
-    initNavbarScroll();
-    initMobileMenu();
-    initSkillObserver();
-    initSkillsFilter();
-    initLiveClock();
-    initCodeSnippetSimulator();
-    initAdvancedTiltEffect();
-    initProjectTabs();
-    initContactForm();
-    initUPIInteractions();
-    initThemeSwitcher();
-    initCyberTerminal();
-    initMatrixRain();
-    initBackground3D();
-    initHero3D();
-});
+  'use strict';
 
-/* ==========================================================================
-   1. Scroll Progress Bar at Top
-   ========================================================================== */
-function initScrollProgress() {
-    const progressBar = document.getElementById('scroll-progress');
-    if (!progressBar) return;
+  // ============================================================================
+  // 1. TOP SCROLL PROGRESS BAR
+  // ============================================================================
+  const scrollProgress = document.getElementById('scrollProgress');
 
-    window.addEventListener('scroll', () => {
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (totalHeight > 0) {
-            const progress = (window.pageYOffset / totalHeight) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
-    }, { passive: true });
-}
+  const updateScrollProgress = () => {
+    if (!scrollProgress) return;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = `${progress}%`;
+  };
 
-/* ==========================================================================
-   2. Custom Cyber Glow Cursor
-   ========================================================================== */
-function initCyberCursor() {
-    const dot = document.getElementById('cursor-dot');
-    const outline = document.getElementById('cursor-outline');
-    if (!dot || !outline) return;
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let outlineX = mouseX;
-    let outlineY = mouseY;
+  // ============================================================================
+  // 2. FUTURISTIC WEB AUDIO SYNTHESIZER (NO EXTERNAL AUDIO FILES NEEDED)
+  // ============================================================================
+  let audioCtx = null;
+  let soundEnabled = true;
 
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-    });
-
-    function renderCursor() {
-        outlineX += (mouseX - outlineX) * 0.16;
-        outlineY += (mouseY - outlineY) * 0.16;
-        outline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
-        requestAnimationFrame(renderCursor);
+  const initAudio = () => {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) {
+        audioCtx = new AudioContext();
+      }
     }
-    renderCursor();
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  };
 
-    const interactiveSelectors = 'a, button, input, textarea, .tilt-card, .btn, .icon-circle, .p-tab, .preset-btn, .chip-cmd';
-    document.querySelectorAll(interactiveSelectors).forEach((el) => {
-        el.addEventListener('mouseenter', () => outline.classList.add('hovering'));
-        el.addEventListener('mouseleave', () => outline.classList.remove('hovering'));
+  // Synthesize futuristic UI click blip
+  const playClickSound = () => {
+    if (!soundEnabled) return;
+    try {
+      initAudio();
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.04);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.05);
+    } catch (e) {
+      // Audio not permitted yet
+    }
+  };
+
+  // Synthesize soft swoosh for modals/drawers
+  const playSwooshSound = () => {
+    if (!soundEnabled) return;
+    try {
+      initAudio();
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(640, audioCtx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.09);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.09);
+    } catch (e) {}
+  };
+
+  // Synthesize charging harmonic chime
+  const playChargeChime = () => {
+    if (!soundEnabled) return;
+    try {
+      initAudio();
+      if (!audioCtx) return;
+      [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.04);
+        gain.gain.setValueAtTime(0.03, audioCtx.currentTime + i * 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + i * 0.04 + 0.12);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + i * 0.04);
+        osc.stop(audioCtx.currentTime + i * 0.04 + 0.13);
+      });
+    } catch (e) {}
+  };
+
+  // Sound Toggle Button in Header
+  const soundToggle = document.getElementById('soundToggle');
+  const soundOnIcon = soundToggle ? soundToggle.querySelector('.sound-on') : null;
+  const soundOffIcon = soundToggle ? soundToggle.querySelector('.sound-off') : null;
+
+  if (soundToggle) {
+    soundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      initAudio();
+
+      if (soundEnabled) {
+        soundToggle.classList.remove('sound-muted');
+        if (soundOnIcon) soundOnIcon.style.display = 'block';
+        if (soundOffIcon) soundOffIcon.style.display = 'none';
+        playClickSound();
+        showToast('🔊 Futuristic sound effects: ENABLED');
+      } else {
+        soundToggle.classList.add('sound-muted');
+        if (soundOnIcon) soundOnIcon.style.display = 'none';
+        if (soundOffIcon) soundOffIcon.style.display = 'block';
+        showToast('🔇 Sound effects: MUTED');
+      }
     });
-}
+  }
 
-/* ==========================================================================
-   3. Scroll-Triggered Reveal Animations
-   ========================================================================== */
-function initScrollReveal() {
-    const revealElements = document.querySelectorAll('.reveal-element');
-    if (!revealElements.length) return;
+  // ============================================================================
+  // 3. TOP NOTIFICATION BANNER
+  // ============================================================================
+  const topBanner = document.getElementById('topBanner');
+  const closeBannerBtn = document.getElementById('closeBanner');
 
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        root: null,
-        threshold: 0.1,
-        rootMargin: '0px 0px -30px 0px'
+  if (closeBannerBtn && topBanner) {
+    closeBannerBtn.addEventListener('click', () => {
+      playClickSound();
+      topBanner.style.transition = 'all 0.3s ease';
+      topBanner.style.opacity = '0';
+      topBanner.style.height = '0';
+      topBanner.style.padding = '0';
+      topBanner.style.overflow = 'hidden';
+      setTimeout(() => topBanner.remove(), 300);
     });
+  }
 
-    revealElements.forEach((el) => revealObserver.observe(el));
-}
+  // ============================================================================
+  // 4. STICKY NAVBAR & SCROLL-TO-TOP BUTTON
+  // ============================================================================
+  const header = document.getElementById('header');
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-/* ==========================================================================
-   4. Animated Number Counters
-   ========================================================================== */
-function initAnimatedCounters() {
-    const counters = document.querySelectorAll('.counter-number');
-    if (!counters.length) return;
+  window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY;
 
-    const counterObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = parseFloat(counter.getAttribute('data-target'));
-                const suffix = counter.getAttribute('data-suffix') || '';
-                const decimals = parseInt(counter.getAttribute('data-decimals') || '0', 10);
-                const duration = 1800;
-                const startTime = performance.now();
-
-                function updateCounter(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                    const currentVal = target * easeProgress;
-
-                    counter.textContent = currentVal.toFixed(decimals) + suffix;
-
-                    if (progress < 1) {
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target.toFixed(decimals) + suffix;
-                    }
-                }
-
-                requestAnimationFrame(updateCounter);
-                observer.unobserve(counter);
-            }
-        });
-    }, { threshold: 0.4 });
-
-    counters.forEach((c) => counterObserver.observe(c));
-}
-
-/* ==========================================================================
-   5. Typewriter Effect
-   ========================================================================== */
-function initTypingEffect() {
-    const typingElement = document.getElementById('typing-text');
-    if (!typingElement) return;
-
-    const phrases = [
-        "Computer Science Engineer",
-        "3D WebGL & Three.js Crafter",
-        "Full-Stack Web Architect",
-        "High-Framerate UI Designer",
-        "Creative Technologist"
-    ];
-
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 90;
-
-    function type() {
-        const currentPhrase = phrases[phraseIndex];
-
-        if (isDeleting) {
-            typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
-            charIndex--;
-            typingSpeed = 45;
-        } else {
-            typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
-            charIndex++;
-            typingSpeed = 95;
-        }
-
-        if (!isDeleting && charIndex === currentPhrase.length) {
-            typingSpeed = 1900;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            typingSpeed = 400;
-        }
-
-        setTimeout(type, typingSpeed);
+    // Glass effect on scroll
+    if (scrollPos > 30) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
     }
 
-    type();
-}
+    // Toggle Scroll-to-Top Button visibility
+    if (scrollTopBtn) {
+      if (scrollPos > 320) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    }
+  }, { passive: true });
 
-/* ==========================================================================
-   6. Navbar Scroll Blur & Active Link Spy
-   ========================================================================== */
-function initNavbarScroll() {
-    const navbar = document.getElementById('navbar');
-    if (!navbar) return;
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+      playClickSound();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
+  // ============================================================================
+  // 5. RESPONSIVE MOBILE NAVIGATION DRAWER
+  // ============================================================================
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  const mobileBackdrop = document.getElementById('mobileBackdrop');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 40) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+  const toggleMobileMenu = (forceClose = false) => {
+    const isOpen = forceClose ? false : !mobileDrawer.classList.contains('open');
 
-        let currentSection = '';
-        const scrollPosition = window.pageYOffset + 240;
+    playSwooshSound();
+    mobileToggle.classList.toggle('active', isOpen);
+    mobileDrawer.classList.toggle('open', isOpen);
+    mobileBackdrop.classList.toggle('active', isOpen);
+    mobileToggle.setAttribute('aria-expanded', isOpen.toString());
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  };
 
-        sections.forEach((section) => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                currentSection = section.getAttribute('id');
-            }
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', () => toggleMobileMenu());
+  }
+
+  if (mobileBackdrop) {
+    mobileBackdrop.addEventListener('click', () => toggleMobileMenu(true));
+  }
+
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => toggleMobileMenu(true));
+  });
+
+  // ============================================================================
+  // 6. SCROLLSPY (ACTIVE NAV LINK)
+  // ============================================================================
+  const sections = document.querySelectorAll('section[id]');
+  const desktopNavLinks = document.querySelectorAll('.nav-menu .nav-link');
+
+  const updateActiveNavLink = () => {
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(current => {
+      const sectionHeight = current.offsetHeight;
+      const sectionTop = current.offsetTop - 120;
+      const sectionId = current.getAttribute('id');
+
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        desktopNavLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+          }
         });
+      }
+    });
+  };
 
-        navLinks.forEach((link) => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSection}`) {
-                link.classList.add('active');
-            }
-        });
-    }, { passive: true });
-}
+  window.addEventListener('scroll', updateActiveNavLink, { passive: true });
 
-/* ==========================================================================
-   7. Mobile Hamburger Menu
-   ========================================================================== */
-function initMobileMenu() {
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-    if (!hamburger || !navMenu) return;
+  // ============================================================================
+  // 7. HERO FINISH COLOR SWITCHER & REAL-TIME PHONE FACE TINTING
+  // ============================================================================
+  const finishPills = document.querySelectorAll('.finish-pill');
+  const heroGlow1 = document.getElementById('heroGlow1');
+  const heroRing = document.getElementById('heroRing');
+  const heroPhoneFrame = document.getElementById('heroPhoneFrame');
+  const phoneColorTint = document.getElementById('phoneColorTint');
+  const colorOptions = document.querySelectorAll('.color-opt');
 
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('open');
+  // UI Theme Dock & Controls
+  const uiColorDock = document.getElementById('uiColorDock');
+  const uiColorToggle = document.getElementById('uiColorToggle');
+  const navThemeBtn = document.getElementById('navThemeBtn');
+  const navThemeDot = document.getElementById('navThemeDot');
+  const activeThemeBadge = document.getElementById('activeThemeBadge');
+  const themeButtons = document.querySelectorAll('.theme-btn');
+  const syncCheckbox = document.getElementById('syncColorWithDevice');
+
+  const themeDisplayNames = {
+    'cyber-blue': 'Cyber Cyan',
+    'neon-violet': 'Cosmic Violet',
+    'aurora-emerald': 'Aurora Emerald',
+    'sunset-crimson': 'Sunset Crimson',
+    'cyber-gold': 'Solar Gold',
+    'prism-rainbow': 'Prism 🌈'
+  };
+
+  const themeColorDots = {
+    'cyber-blue': '#00d2ff',
+    'neon-violet': '#a855f7',
+    'aurora-emerald': '#10b981',
+    'sunset-crimson': '#f43f5e',
+    'cyber-gold': '#f59e0b',
+    'prism-rainbow': 'linear-gradient(135deg, #00f0ff, #a855f7, #f43f5e, #f59e0b)'
+  };
+
+  const setUITheme = (themeName, showNotification = true) => {
+    document.documentElement.setAttribute('data-theme', themeName);
+    try {
+      localStorage.setItem('nexora_theme', themeName);
+    } catch (e) {}
+
+    themeButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-theme') === themeName);
     });
 
-    document.querySelectorAll('.nav-link').forEach((link) => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('open');
-        });
-    });
-}
+    const displayName = themeDisplayNames[themeName] || 'Cyber Cyan';
+    if (activeThemeBadge) activeThemeBadge.textContent = displayName;
 
-/* ==========================================================================
-   8. Skills Progress Bar Animation
-   ========================================================================== */
-function initSkillObserver() {
-    const progressBars = document.querySelectorAll('.progress-bar-fill');
-    if (!progressBars.length) return;
+    if (navThemeDot) {
+      if (themeName === 'prism-rainbow') {
+        navThemeDot.style.background = 'linear-gradient(135deg, #00f0ff, #a855f7, #f43f5e, #f59e0b)';
+        navThemeDot.style.boxShadow = '0 0 10px rgba(168, 85, 247, 0.6)';
+      } else {
+        const dotCol = themeColorDots[themeName] || '#00d2ff';
+        navThemeDot.style.background = dotCol;
+        navThemeDot.style.boxShadow = `0 0 8px ${dotCol}`;
+      }
+    }
 
-    const skillObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const bar = entry.target;
-                const progress = bar.getAttribute('data-progress');
-                bar.style.width = progress;
-                observer.unobserve(bar);
-            }
-        });
-    }, { threshold: 0.25 });
+    if (showNotification) {
+      showToast(`🎨 UI Theme switched to ${displayName}`);
+    }
+  };
 
-    progressBars.forEach((bar) => skillObserver.observe(bar));
-}
+  // Restore saved theme on load
+  let savedTheme = 'cyber-blue';
+  try {
+    savedTheme = localStorage.getItem('nexora_theme') || 'cyber-blue';
+  } catch (e) {}
+  setUITheme(savedTheme, false);
 
-/* ==========================================================================
-   9. Category Filter for Skills Bento Grid
-   ========================================================================== */
-function initSkillsFilter() {
-    const filterButtons = document.querySelectorAll('.skill-filter-btn');
-    const skillCards = document.querySelectorAll('.skill-card');
-    if (!filterButtons.length || !skillCards.length) return;
+  // Floating dock theme buttons
+  themeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      playClickSound();
+      const chosenTheme = btn.getAttribute('data-theme');
+      setUITheme(chosenTheme);
 
-    filterButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            filterButtons.forEach((b) => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const filterValue = btn.getAttribute('data-filter');
-
-            skillCards.forEach((card) => {
-                const category = card.getAttribute('data-category');
-                if (filterValue === 'all' || category === filterValue) {
-                    card.classList.remove('hidden');
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    }, 50);
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-        });
-    });
-}
-
-/* ==========================================================================
-   10. Real-time Live IST Clock in Footer
-   ========================================================================== */
-function initLiveClock() {
-    const clockElement = document.getElementById('live-clock-text');
-    if (!clockElement) return;
-
-    function updateClock() {
-        const now = new Date();
-        const options = {
-            timeZone: 'Asia/Kolkata',
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
+      // If sync with phone is enabled, select matching device finish
+      if (syncCheckbox && syncCheckbox.checked) {
+        const themeToColor = {
+          'cyber-blue': 'blue',
+          'neon-violet': 'purple',
+          'aurora-emerald': 'emerald',
+          'sunset-crimson': 'crimson',
+          'cyber-gold': 'crimson'
         };
-        clockElement.textContent = now.toLocaleTimeString('en-GB', options) + ' IST';
+        const targetColor = themeToColor[chosenTheme];
+        if (targetColor) {
+          const matchingPill = document.querySelector(`.finish-pill[data-color="${targetColor}"]`);
+          if (matchingPill) {
+            matchingPill.click();
+          }
+        }
+      }
+    });
+  });
+
+  // Toggle UI color dock menu
+  if (uiColorToggle && uiColorDock) {
+    uiColorToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClickSound();
+      const isOpen = uiColorDock.classList.toggle('open');
+      uiColorToggle.setAttribute('aria-expanded', isOpen.toString());
+    });
+  }
+
+  // Header Nav button toggles dock
+  if (navThemeBtn && uiColorDock) {
+    navThemeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playClickSound();
+      uiColorDock.classList.toggle('open');
+      if (uiColorDock.classList.contains('open')) {
+        uiColorDock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+
+  // Close dock menu if clicked outside
+  document.addEventListener('click', (e) => {
+    if (uiColorDock && uiColorDock.classList.contains('open') && !uiColorDock.contains(e.target) && e.target !== navThemeBtn) {
+      uiColorDock.classList.remove('open');
+      if (uiColorToggle) uiColorToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Device Color Finish Palettes
+  const colorPalettes = {
+    blue: {
+      name: 'Cyber Blue',
+      themeKey: 'cyber-blue',
+      glow1: 'radial-gradient(circle, rgba(0, 210, 255, 0.28) 0%, rgba(0, 102, 255, 0.1) 70%, transparent 100%)',
+      ring: 'radial-gradient(circle, rgba(0, 210, 255, 0.4) 0%, rgba(0, 102, 255, 0.2) 50%, transparent 75%)',
+      tint: 'radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.45) 0%, rgba(0, 102, 255, 0.25) 60%, transparent 100%)',
+      blend: 'color',
+      frameBorder: 'rgba(0, 210, 255, 0.45)',
+      frameShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 210, 255, 0.3)'
+    },
+    purple: {
+      name: 'Cosmic Purple',
+      themeKey: 'neon-violet',
+      glow1: 'radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(126, 34, 206, 0.12) 70%, transparent 100%)',
+      ring: 'radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(126, 34, 206, 0.22) 50%, transparent 75%)',
+      tint: 'radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.55) 0%, rgba(126, 34, 206, 0.3) 60%, transparent 100%)',
+      blend: 'color',
+      frameBorder: 'rgba(168, 85, 247, 0.5)',
+      frameShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(168, 85, 247, 0.35)'
+    },
+    emerald: {
+      name: 'Aurora Emerald',
+      themeKey: 'aurora-emerald',
+      glow1: 'radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.12) 70%, transparent 100%)',
+      ring: 'radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(5, 150, 105, 0.22) 50%, transparent 75%)',
+      tint: 'radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.55) 0%, rgba(5, 150, 105, 0.3) 60%, transparent 100%)',
+      blend: 'color',
+      frameBorder: 'rgba(16, 185, 129, 0.5)',
+      frameShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(16, 185, 129, 0.35)'
+    },
+    crimson: {
+      name: 'Sunset Crimson',
+      themeKey: 'sunset-crimson',
+      glow1: 'radial-gradient(circle, rgba(244, 63, 94, 0.3) 0%, rgba(225, 29, 72, 0.12) 70%, transparent 100%)',
+      ring: 'radial-gradient(circle, rgba(244, 63, 94, 0.45) 0%, rgba(225, 29, 72, 0.22) 50%, transparent 75%)',
+      tint: 'radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.55) 0%, rgba(225, 29, 72, 0.3) 60%, transparent 100%)',
+      blend: 'color',
+      frameBorder: 'rgba(244, 63, 94, 0.5)',
+      frameShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(244, 63, 94, 0.35)'
+    },
+    silver: {
+      name: 'Titanium Silver',
+      themeKey: 'cyber-blue',
+      glow1: 'radial-gradient(circle, rgba(220, 235, 255, 0.25) 0%, rgba(140, 170, 220, 0.08) 70%, transparent 100%)',
+      ring: 'radial-gradient(circle, rgba(230, 240, 255, 0.35) 0%, rgba(150, 180, 230, 0.15) 50%, transparent 75%)',
+      tint: 'rgba(226, 232, 240, 0.22)',
+      blend: 'screen',
+      frameBorder: 'rgba(226, 232, 240, 0.45)',
+      frameShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(226, 232, 240, 0.25)'
+    },
+    black: {
+      name: 'Phantom Black',
+      themeKey: 'cyber-blue',
+      glow1: 'radial-gradient(circle, rgba(70, 80, 100, 0.25) 0%, rgba(20, 25, 35, 0.1) 70%, transparent 100%)',
+      ring: 'radial-gradient(circle, rgba(100, 115, 140, 0.35) 0%, rgba(25, 30, 45, 0.2) 50%, transparent 75%)',
+      tint: 'rgba(10, 12, 18, 0.4)',
+      blend: 'multiply',
+      frameBorder: 'rgba(70, 85, 110, 0.4)',
+      frameShadow: '0 20px 50px rgba(0, 0, 0, 0.9), 0 0 25px rgba(50, 65, 90, 0.3)'
+    }
+  };
+
+  finishPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      playClickSound();
+      finishPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const colorKey = pill.getAttribute('data-color');
+      const palette = colorPalettes[colorKey];
+
+      if (palette) {
+        if (heroGlow1) heroGlow1.style.background = palette.glow1;
+        if (heroRing) heroRing.style.background = palette.ring;
+        if (phoneColorTint) {
+          phoneColorTint.style.background = palette.tint;
+          phoneColorTint.style.mixBlendMode = palette.blend;
+        }
+        if (heroPhoneFrame) {
+          heroPhoneFrame.style.borderColor = palette.frameBorder;
+          heroPhoneFrame.style.boxShadow = palette.frameShadow;
+        }
+
+        // If sync with phone is enabled, switch UI color theme too
+        if (syncCheckbox && syncCheckbox.checked && palette.themeKey) {
+          setUITheme(palette.themeKey);
+        }
+      }
+
+      // Sync with checkout modal color picker
+      const colorValName = palette ? palette.name : 'Cyber Blue';
+      colorOptions.forEach(opt => {
+        const radio = opt.querySelector('input[type="radio"]');
+        if (radio && radio.value === colorValName) {
+          colorOptions.forEach(o => o.classList.remove('active'));
+          opt.classList.add('active');
+          radio.checked = true;
+          orderState.color = colorValName;
+          updateModalDisplay();
+        }
+      });
+    });
+  });
+
+  // ============================================================================
+  // 8. 3D MOUSE PARALLAX & SPECULAR GLARE ON HERO PHONE
+  // ============================================================================
+  const heroVisual = document.getElementById('heroVisual');
+  const heroDeviceWrapper = document.getElementById('heroDeviceWrapper');
+  const phoneGlare = document.getElementById('phoneGlare');
+
+  if (heroVisual && heroDeviceWrapper) {
+    heroVisual.addEventListener('mousemove', (e) => {
+      const rect = heroVisual.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      // Calculate tilt angles (limit to -14deg to +14deg)
+      const rotateX = -((y - centerY) / centerY) * 14;
+      const rotateY = ((x - centerX) / centerX) * 14;
+
+      heroDeviceWrapper.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+
+      // Specular light reflection on glass
+      if (phoneGlare) {
+        const glareX = (x / rect.width) * 100;
+        const glareY = (y / rect.height) * 100;
+        phoneGlare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.3) 0%, transparent 65%)`;
+      }
+    });
+
+    heroVisual.addEventListener('mouseleave', () => {
+      heroDeviceWrapper.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      if (phoneGlare) {
+        phoneGlare.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%)';
+      }
+    });
+  }
+
+  // Hotspot sound
+  document.querySelectorAll('.hotspot-pin').forEach(pin => {
+    pin.addEventListener('mouseenter', () => playClickSound());
+    pin.addEventListener('click', () => playClickSound());
+  });
+
+  // ============================================================================
+  // 9. INTERACTIVE 120W HYPERCHARGE SIMULATOR
+  // ============================================================================
+  const chargeSlider = document.getElementById('chargeSlider');
+  const chargeMinutesDisplay = document.getElementById('chargeMinutesDisplay');
+  const batteryLiquid = document.getElementById('batteryLiquid');
+  const batteryPctText = document.getElementById('batteryPctText');
+  const batteryStatusText = document.getElementById('batteryStatusText');
+  const calcTalkTime = document.getElementById('calcTalkTime');
+  const calcVideoTime = document.getElementById('calcVideoTime');
+  const calcGameTime = document.getElementById('calcGameTime');
+  const simPlayBtn = document.getElementById('simPlayBtn');
+
+  const updateBatterySimulator = (minutes) => {
+    const mins = parseInt(minutes, 10);
+    // 0 min = 5%, 7 min = 50%, 18 min = 100%
+    const pct = Math.min(100, Math.round(5 + (mins / 18) * 95));
+
+    if (chargeMinutesDisplay) {
+      chargeMinutesDisplay.textContent = `${mins} Minute${mins === 1 ? '' : 's'}`;
     }
 
-    updateClock();
-    setInterval(updateClock, 1000);
-}
-
-/* ==========================================================================
-   11. Code Editor Typing Simulator in Project 2
-   ========================================================================== */
-function initCodeSnippetSimulator() {
-    const snippetElement = document.getElementById('live-code-snippet');
-    if (!snippetElement) return;
-
-    const snippets = [
-        "> const room = new Room('3d-lab');",
-        "> socket.emit('join', { user: 'Ujjawal' });",
-        "> gl.drawElements(gl.TRIANGLES, count);",
-        "> engine.render({ fps: 60, spatial: true });",
-        "> status: SYNC_LATENCY_12MS_ESTABLISHED"
-    ];
-
-    let snippetIndex = 0;
-    let charIdx = 0;
-    let isDeleting = false;
-
-    function animateSnippet() {
-        const text = snippets[snippetIndex];
-
-        if (isDeleting) {
-            snippetElement.textContent = text.substring(0, charIdx - 1);
-            charIdx--;
-        } else {
-            snippetElement.textContent = text.substring(0, charIdx + 1);
-            charIdx++;
-        }
-
-        let speed = isDeleting ? 30 : 65;
-
-        if (!isDeleting && charIdx === text.length) {
-            speed = 2200;
-            isDeleting = true;
-        } else if (isDeleting && charIdx === 0) {
-            isDeleting = false;
-            snippetIndex = (snippetIndex + 1) % snippets.length;
-            speed = 400;
-        }
-
-        setTimeout(animateSnippet, speed);
+    if (batteryLiquid) {
+      batteryLiquid.style.height = `${pct}%`;
     }
 
-    animateSnippet();
-}
+    if (batteryPctText) {
+      batteryPctText.textContent = `${pct}%`;
+    }
 
-/* ==========================================================================
-   12. Holographic 3D Tilt with Coordinate Glare
-   ========================================================================== */
-function initAdvancedTiltEffect() {
-    const tiltCards = document.querySelectorAll('.tilt-card');
-    if (!tiltCards.length) return;
+    if (batteryStatusText) {
+      batteryStatusText.textContent = pct === 100 ? '⚡ Fully Charged' : '⚡ HyperCharging';
+    }
 
-    tiltCards.forEach((card) => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+    // Dynamic endurance calculations
+    if (calcTalkTime) calcTalkTime.textContent = (pct * 0.32).toFixed(1) + ' hrs';
+    if (calcVideoTime) calcVideoTime.textContent = (pct * 0.23).toFixed(1) + ' hrs';
+    if (calcGameTime) calcGameTime.textContent = (pct * 0.10).toFixed(1) + ' hrs';
+  };
 
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -7;
-            const rotateY = ((x - centerX) / centerX) * 7;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
-        });
+  if (chargeSlider) {
+    chargeSlider.addEventListener('input', (e) => {
+      updateBatterySimulator(e.target.value);
     });
-}
+  }
 
-/* ==========================================================================
-   13. Project Interactive Tabs (Preview / Architecture / Specs)
-   ========================================================================== */
-function initProjectTabs() {
-    const projectCards = document.querySelectorAll('.project-card');
-    if (!projectCards.length) return;
+  // Auto Simulate Animation
+  let simInterval = null;
+  if (simPlayBtn && chargeSlider) {
+    simPlayBtn.addEventListener('click', () => {
+      playClickSound();
+      if (simInterval) clearInterval(simInterval);
 
-    const projectData = {
-        "CosmoSphere 3D Solar Explorer": {
-            preview: "An interactive real-time 3D planetary physics engine with accurate orbital dynamics, custom GLSL lighting shaders, orbital mouse controls, and educational data overlays.",
-            arch: "Built on Three.js scene graphs with Kepler orbital trajectory algorithms. Features custom multi-pass GLSL shaders for solar flares and atmospheric Rayleigh scattering.",
-            specs: "60 FPS WebGL 2.0 • Orbital Matrix Math • 14 Celestial Bodies • Sub-second PBR texture streaming"
-        },
-        "CodeSync Live Collaborative IDE": {
-            preview: "A cloud collaborative IDE featuring sub-50ms multi-user syntax highlighting, WebSockets live cursor sharing, audio channels, and sandboxed Docker code execution.",
-            arch: "Microservices architecture utilizing Socket.io rooms, Redis pub/sub backplane, and sandboxed Docker containers executing arbitrary user code securely.",
-            specs: "Sub-50ms latency • Monaco Editor integration • Operational Transformation (OT) conflict resolution"
-        },
-        "PulseMetric AI Developer Analytics": {
-            preview: "An AI developer dashboard that aggregates GitHub pull requests, commits, and code churn, predicting delivery bottlenecks using lightweight machine learning regression.",
-            arch: "FastAPI asynchronous background collectors hitting GitHub GraphQL API, normalized into PostgreSQL, and evaluated with Scikit-learn polynomial regression models.",
-            specs: "Python 3.11 • Async SQLAlchemy • Chart.js visualizations • Automated CI/CD webhook triggers"
-        },
-        "SonicWave 3D Audio Visualizer": {
-            preview: "Dynamic audio reactive web application that maps Web Audio API frequency matrices into an undulating 3D particle vortex with real-time bloom shaders.",
-            arch: "Web Audio API AnalyserNode captures FFT buffer chunks mapped to InstancedMesh vertex displacements and Post-processing UnrealBloomPass shaders.",
-            specs: "2,048 frequency bins • 10,000 instanced particle points • Real-time microphone input stream"
+      simPlayBtn.disabled = true;
+      chargeSlider.value = 0;
+      updateBatterySimulator(0);
+
+      let currentMin = 0;
+      simInterval = setInterval(() => {
+        currentMin++;
+        chargeSlider.value = currentMin;
+        updateBatterySimulator(currentMin);
+
+        if (currentMin >= 18) {
+          clearInterval(simInterval);
+          simPlayBtn.disabled = false;
+          playChargeChime();
+          showToast('⚡ 100% Full Charge reached in 18 minutes!');
         }
-    };
-
-    projectCards.forEach((card) => {
-        const titleEl = card.querySelector('h3');
-        const descEl = card.querySelector('.project-desc');
-        const tabs = card.querySelectorAll('.p-tab');
-        if (!titleEl || !descEl || !tabs.length) return;
-
-        const title = titleEl.textContent.trim();
-        const data = projectData[title];
-        if (!data) return;
-
-        tabs.forEach((tab) => {
-            tab.addEventListener('click', () => {
-                tabs.forEach((t) => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                const mode = tab.getAttribute('data-tab');
-                descEl.style.opacity = '0';
-                setTimeout(() => {
-                    descEl.textContent = data[mode] || data.preview;
-                    descEl.style.transition = 'opacity 0.3s ease';
-                    descEl.style.opacity = '1';
-                }, 150);
-            });
-        });
+      }, 160);
     });
-}
+  }
 
-/* ==========================================================================
-   14. Contact Form Validation & Feedback
-   ========================================================================== */
-function initContactForm() {
-    const form = document.getElementById('contact-form');
-    const feedback = document.getElementById('form-feedback');
-    const submitBtn = document.getElementById('submit-btn');
-    if (!form || !feedback || !submitBtn) return;
+  // ============================================================================
+  // 10. 108MP CAMERA LAB VIEW FINDER WITH FOCAL ZOOM
+  // ============================================================================
+  const lensButtons = document.querySelectorAll('.lens-btn');
+  const cameraSampleImg = document.getElementById('cameraSampleImg');
+  const hudAperture = document.getElementById('hudAperture');
+  const hudFocal = document.getElementById('hudFocal');
+  const lensDescription = document.getElementById('lensDescription');
 
-    form.addEventListener('submit', (e) => {
+  if (lensButtons.length > 0 && cameraSampleImg) {
+    lensButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        playClickSound();
+        lensButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const aperture = btn.getAttribute('data-aperture');
+        const focal = btn.getAttribute('data-focal');
+        const scale = btn.getAttribute('data-scale');
+        const desc = btn.getAttribute('data-desc');
+
+        cameraSampleImg.style.transform = `scale(${scale})`;
+
+        if (hudAperture) hudAperture.textContent = aperture;
+        if (hudFocal) hudFocal.textContent = focal;
+        if (lensDescription) lensDescription.textContent = desc;
+      });
+    });
+  }
+
+  // ============================================================================
+  // 11. INTERACTIVE PRODUCT IMAGE GALLERY
+  // ============================================================================
+  const galleryMainImg = document.getElementById('galleryMainImg');
+  const galleryViewTag = document.getElementById('galleryViewTag');
+  const galleryViewTitle = document.getElementById('galleryViewTitle');
+  const galleryViewDesc = document.getElementById('galleryViewDesc');
+  const thumbBtns = document.querySelectorAll('.thumb-btn');
+
+  if (galleryMainImg && thumbBtns.length > 0) {
+    thumbBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        playClickSound();
+        thumbBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const newSrc = btn.getAttribute('data-img');
+        const newTag = btn.getAttribute('data-tag');
+        const newTitle = btn.getAttribute('data-title');
+        const newDesc = btn.getAttribute('data-desc');
+
+        galleryMainImg.classList.add('fade-out');
+
+        setTimeout(() => {
+          galleryMainImg.src = newSrc;
+          if (galleryViewTag) galleryViewTag.textContent = newTag;
+          if (galleryViewTitle) galleryViewTitle.innerHTML = newTitle;
+          if (galleryViewDesc) galleryViewDesc.textContent = newDesc;
+
+          galleryMainImg.classList.remove('fade-out');
+        }, 180);
+      });
+    });
+  }
+
+  // ============================================================================
+  // 12. ACCESSIBLE FAQ ACCORDION
+  // ============================================================================
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const questionBtn = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    questionBtn.addEventListener('click', () => {
+      playClickSound();
+      const isCurrentlyActive = item.classList.contains('active');
+
+      faqItems.forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          otherItem.querySelector('.faq-answer').style.maxHeight = null;
+        }
+      });
+
+      if (isCurrentlyActive) {
+        item.classList.remove('active');
+        questionBtn.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = null;
+      } else {
+        item.classList.add('active');
+        questionBtn.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ============================================================================
+  // 13. BUY NOW DEMO MODAL WITH COUPON CODE APPLICATOR
+  // ============================================================================
+  const purchaseModal = document.getElementById('purchaseModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const buyButtons = [
+    document.getElementById('navBuyBtn'),
+    document.getElementById('mobileBuyBtn'),
+    document.getElementById('heroBuyBtn'),
+    document.getElementById('ctaBuyBtn')
+  ];
+
+  const purchaseForm = document.getElementById('purchaseForm');
+  const orderSuccess = document.getElementById('orderSuccess');
+  const resetModalBtn = document.getElementById('resetModalBtn');
+  const modalDisplayPrice = document.getElementById('modalDisplayPrice');
+  const modalDiscountTag = document.getElementById('modalDiscountTag');
+  const btnPriceAmount = document.getElementById('btnPriceAmount');
+  const modalSelectedSummary = document.getElementById('modalSelectedSummary');
+  const storageChips = document.querySelectorAll('.variant-chip');
+
+  const receiptOrderId = document.getElementById('receiptOrderId');
+  const receiptModel = document.getElementById('receiptModel');
+  const receiptPrice = document.getElementById('receiptPrice');
+  const receiptCustomer = document.getElementById('receiptCustomer');
+
+  const couponInput = document.getElementById('couponInput');
+  const applyCouponBtn = document.getElementById('applyCouponBtn');
+  const couponFeedback = document.getElementById('couponFeedback');
+
+  const orderName = document.getElementById('orderName');
+  const orderEmail = document.getElementById('orderEmail');
+  const orderPhone = document.getElementById('orderPhone');
+  const orderPincode = document.getElementById('orderPincode');
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+  const phoneError = document.getElementById('phoneError');
+  const pincodeError = document.getElementById('pincodeError');
+
+  const orderState = {
+    storageName: '8GB RAM + 128GB Storage',
+    basePrice: 29999,
+    discount: 0,
+    color: 'Cyber Blue'
+  };
+
+  const formatINR = (val) => '₹' + Number(val).toLocaleString('en-IN');
+
+  const updateModalDisplay = () => {
+    const finalPrice = Math.max(0, orderState.basePrice - orderState.discount);
+    const formattedPrice = formatINR(finalPrice);
+
+    if (modalDisplayPrice) modalDisplayPrice.textContent = formattedPrice;
+    if (btnPriceAmount) btnPriceAmount.textContent = formattedPrice;
+    if (modalSelectedSummary) {
+      modalSelectedSummary.textContent = `${orderState.storageName} • ${orderState.color}`;
+    }
+
+    if (modalDiscountTag) {
+      modalDiscountTag.style.display = orderState.discount > 0 ? 'inline-block' : 'none';
+    }
+  };
+
+  const openModal = () => {
+    if (purchaseModal) {
+      playSwooshSound();
+      purchaseModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (purchaseForm && purchaseForm.style.display !== 'none' && orderName) {
+        setTimeout(() => orderName.focus(), 250);
+      }
+    }
+  };
+
+  const closeModal = () => {
+    if (purchaseModal) {
+      playClickSound();
+      purchaseModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  buyButtons.forEach(btn => {
+    if (btn) {
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
-
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const subject = document.getElementById('subject').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        if (!name || !email || !subject || !message) {
-            feedback.className = 'form-feedback error';
-            feedback.textContent = 'Please fill out all fields before sending transmission.';
-            feedback.style.display = 'block';
-            return;
+        if (mobileDrawer && mobileDrawer.classList.contains('open')) {
+          toggleMobileMenu(true);
         }
+        openModal();
+      });
+    }
+  });
 
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span>Transmitting...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
 
-        setTimeout(() => {
-            feedback.className = 'form-feedback success';
-            feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> Message transmitted successfully! Ujjawal will respond via ${email} soon.`;
-            feedback.style.display = 'block';
-            form.reset();
-
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = `<span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>`;
-
-            setTimeout(() => {
-                feedback.style.display = 'none';
-            }, 6000);
-        }, 1200);
+  if (purchaseModal) {
+    purchaseModal.addEventListener('click', (e) => {
+      if (e.target === purchaseModal) closeModal();
     });
-}
+  }
 
-/* ==========================================================================
-   15. Interactive UPI Tip Presets, Dynamic Links & Confetti
-   ========================================================================== */
-function initUPIInteractions() {
-    const copyBtn = document.getElementById('copy-upi-btn');
-    const upiIdDisplay = document.getElementById('upi-id-display');
-    const tooltip = document.getElementById('copy-upi-tooltip');
-    const icon = document.getElementById('copy-upi-icon');
-    const upiCard = document.getElementById('upi-card-element');
-    const presetButtons = document.querySelectorAll('.preset-btn:not(#custom-tip-toggle)');
-    const customToggle = document.getElementById('custom-tip-toggle');
-    const customWrapper = document.getElementById('custom-tip-wrapper');
-    const customInput = document.getElementById('custom-amount-input');
-    const customApplyBtn = document.getElementById('apply-custom-amount-btn');
-    const directPayLink = document.getElementById('upi-direct-pay-link');
-    const directPayLabel = document.getElementById('upi-pay-btn-label');
-
-    const baseUpiId = "ujjawal.kushwaha@okaxis";
-    const payeeName = "Ujjawal Kushwaha";
-    let currentAmount = "51";
-
-    function updateUpiAmount(amount) {
-        currentAmount = amount;
-        if (directPayLink) {
-            directPayLink.href = `upi://pay?pa=${baseUpiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
-        }
-        if (directPayLabel) {
-            directPayLabel.textContent = `Pay ₹${amount} Directly via UPI App`;
-        }
-        if (upiCard) {
-            upiCard.classList.remove('highlight-pulse');
-            void upiCard.offsetWidth;
-            upiCard.classList.add('highlight-pulse');
-        }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && purchaseModal && purchaseModal.classList.contains('active')) {
+      closeModal();
     }
+  });
 
-    if (presetButtons.length) {
-        presetButtons.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.preset-btn').forEach((b) => b.classList.remove('active'));
-                btn.classList.add('active');
-                if (customWrapper) customWrapper.style.display = 'none';
+  // Variant change
+  storageChips.forEach(chip => {
+    const radio = chip.querySelector('input[type="radio"]');
+    chip.addEventListener('click', () => {
+      playClickSound();
+      storageChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      if (radio) {
+        radio.checked = true;
+        orderState.basePrice = parseInt(radio.getAttribute('data-price'), 10);
+        orderState.storageName = radio.getAttribute('data-name');
+        updateModalDisplay();
+      }
+    });
+  });
 
-                const amt = btn.getAttribute('data-amount');
-                updateUpiAmount(amt);
-            });
-        });
-    }
+  // Color change in modal
+  colorOptions.forEach(opt => {
+    const radio = opt.querySelector('input[type="radio"]');
+    opt.addEventListener('click', () => {
+      playClickSound();
+      colorOptions.forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      if (radio) {
+        radio.checked = true;
+        orderState.color = radio.value;
+        updateModalDisplay();
 
-    if (customToggle) {
-        customToggle.addEventListener('click', () => {
-            document.querySelectorAll('.preset-btn').forEach((b) => b.classList.remove('active'));
-            customToggle.classList.add('active');
-            if (customWrapper) {
-                customWrapper.style.display = 'flex';
-                if (customInput) customInput.focus();
+        // Sync with hero phone visual & UI theme
+        const nameToKey = {
+          'Cyber Blue': 'blue',
+          'Cosmic Purple': 'purple',
+          'Aurora Emerald': 'emerald',
+          'Sunset Crimson': 'crimson',
+          'Titanium Silver': 'silver',
+          'Phantom Black': 'black'
+        };
+        const matchingKey = nameToKey[radio.value];
+        if (matchingKey) {
+          const pill = document.querySelector(`.finish-pill[data-color="${matchingKey}"]`);
+          if (pill) {
+            finishPills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            const palette = colorPalettes[matchingKey];
+            if (palette) {
+              if (heroGlow1) heroGlow1.style.background = palette.glow1;
+              if (heroRing) heroRing.style.background = palette.ring;
+              if (phoneColorTint) {
+                phoneColorTint.style.background = palette.tint;
+                phoneColorTint.style.mixBlendMode = palette.blend;
+              }
+              if (heroPhoneFrame) {
+                heroPhoneFrame.style.borderColor = palette.frameBorder;
+                heroPhoneFrame.style.boxShadow = palette.frameShadow;
+              }
+              if (syncCheckbox && syncCheckbox.checked && palette.themeKey) {
+                setUITheme(palette.themeKey);
+              }
             }
-        });
-    }
-
-    if (customApplyBtn && customInput) {
-        customApplyBtn.addEventListener('click', () => {
-            const val = parseInt(customInput.value, 10);
-            if (val && val > 0) {
-                updateUpiAmount(val.toString());
-            }
-        });
-        customInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                customApplyBtn.click();
-            }
-        });
-    }
-
-    // Copy to clipboard with particle burst
-    if (copyBtn && upiIdDisplay) {
-        copyBtn.addEventListener('click', () => {
-            const upiId = upiIdDisplay.textContent.trim();
-            navigator.clipboard.writeText(upiId).then(() => {
-                copyBtn.classList.add('copied');
-                if (tooltip) tooltip.textContent = 'Copied!';
-                if (icon) {
-                    icon.className = 'fa-solid fa-check';
-                }
-
-                if (upiCard) {
-                    upiCard.classList.remove('highlight-pulse');
-                    void upiCard.offsetWidth;
-                    upiCard.classList.add('highlight-pulse');
-                }
-
-                setTimeout(() => {
-                    copyBtn.classList.remove('copied');
-                    if (tooltip) tooltip.textContent = 'Copy';
-                    if (icon) {
-                        icon.className = 'fa-regular fa-copy';
-                    }
-                }, 2400);
-            }).catch(() => {
-                // Fallback prompt
-                prompt("Copy Ujjawal's UPI ID:", upiId);
-            });
-        });
-    }
-}
-
-/* ==========================================================================
-   16. Multi-Theme Switcher (Cyan, Synthwave, Matrix, Amber)
-   ========================================================================== */
-function initThemeSwitcher() {
-    const themeBtn = document.getElementById('theme-switch-btn');
-    const dockThemeBtn = document.getElementById('dock-theme-btn');
-    const themes = ['cyan', 'synthwave', 'matrix', 'amber'];
-    let currentThemeIndex = 0;
-
-    function setTheme(themeName) {
-        document.documentElement.setAttribute('data-theme', themeName);
-        localStorage.setItem('portfolio-theme', themeName);
-        window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: themeName } }));
-    }
-
-    const savedTheme = localStorage.getItem('portfolio-theme');
-    if (savedTheme && themes.includes(savedTheme)) {
-        currentThemeIndex = themes.indexOf(savedTheme);
-        setTheme(savedTheme);
-    }
-
-    function cycleTheme() {
-        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-        const nextTheme = themes[currentThemeIndex];
-        setTheme(nextTheme);
-    }
-
-    if (themeBtn) themeBtn.addEventListener('click', cycleTheme);
-    if (dockThemeBtn) dockThemeBtn.addEventListener('click', cycleTheme);
-
-    // Keyboard shortcut 't' to cycle theme
-    window.addEventListener('keydown', (e) => {
-        if (e.key.toLowerCase() === 't' && !['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
-            cycleTheme();
+          }
         }
+      }
     });
+  });
 
-    window.switchThemeByName = setTheme;
-}
+  // Coupon Code Applicator
+  if (applyCouponBtn && couponInput) {
+    applyCouponBtn.addEventListener('click', () => {
+      const code = couponInput.value.trim().toUpperCase();
+      const validCodes = ['UJJWAL2026', 'UJJWAL', 'LAUNCH500', 'NEXORA1000'];
 
-/* ==========================================================================
-   17. Interactive Cyber Terminal (CLI Console Modal)
-   ========================================================================== */
-function initCyberTerminal() {
-    const modal = document.getElementById('terminal-modal');
-    const backdrop = document.getElementById('terminal-backdrop');
-    const openBtn = document.getElementById('terminal-trigger-btn');
-    const dockBtn = document.getElementById('dock-term-btn');
-    const closeButtons = document.querySelectorAll('.close-term');
-    const input = document.getElementById('terminal-input');
-    const output = document.getElementById('term-output');
-    const chips = document.querySelectorAll('.chip-cmd');
-    if (!modal || !input || !output) return;
-
-    function openTerminal() {
-        modal.classList.add('open');
-        input.focus();
-    }
-
-    function closeTerminal() {
-        modal.classList.remove('open');
-    }
-
-    if (openBtn) openBtn.addEventListener('click', openTerminal);
-    if (dockBtn) dockBtn.addEventListener('click', openTerminal);
-    if (backdrop) backdrop.addEventListener('click', closeTerminal);
-    closeButtons.forEach((b) => b.addEventListener('click', closeTerminal));
-
-    // Shortcut ` ~ ` or `Escape`
-    window.addEventListener('keydown', (e) => {
-        if (e.key === '`' && !['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
-            e.preventDefault();
-            modal.classList.contains('open') ? closeTerminal() : openTerminal();
-        } else if (e.key === 'Escape' && modal.classList.contains('open')) {
-            closeTerminal();
+      if (validCodes.includes(code)) {
+        orderState.discount = 1000;
+        updateModalDisplay();
+        playChargeChime();
+        if (couponFeedback) {
+          couponFeedback.textContent = '🎉 Launch Code Applied! ₹1,000 instant discount credited.';
+          couponFeedback.className = 'promo-feedback success';
         }
-    });
-
-    function executeCommand(rawCmd) {
-        const cmd = rawCmd.trim().toLowerCase();
-        const line = document.createElement('div');
-        line.className = 'term-line';
-        line.innerHTML = `<span class="term-prompt">ujjawal@portfolio:~$</span> ${rawCmd}`;
-        output.appendChild(line);
-
-        const res = document.createElement('div');
-        res.className = 'term-line';
-
-        if (cmd === 'help') {
-            res.innerHTML = `
-                &bull; <span class="highlight-cyan">about</span>: Display creator profile & academic info<br>
-                &bull; <span class="highlight-cyan">skills</span>: List technical competencies & stack<br>
-                &bull; <span class="highlight-cyan">projects</span>: Display featured software creations<br>
-                &bull; <span class="highlight-cyan">upi</span>: Show UPI ID & direct contribution links<br>
-                &bull; <span class="highlight-cyan">theme &lt;cyan|synthwave|matrix|amber&gt;</span>: Switch visual palette<br>
-                &bull; <span class="highlight-cyan">matrix</span>: Launch digital rain overlay<br>
-                &bull; <span class="highlight-cyan">contact</span>: Transmit mail coordinates<br>
-                &bull; <span class="highlight-cyan">clear</span>: Clear terminal screen<br>
-                &bull; <span class="highlight-cyan">exit</span>: Close this terminal session
-            `;
-        } else if (cmd === 'about') {
-            res.innerHTML = `Ujjawal Kushwaha | B.Tech CSE (3rd Year, ABC Tech, 8.8 CGPA). Specializing in 3D WebGL, Three.js, React, and Full-Stack Engineering.`;
-        } else if (cmd === 'skills') {
-            res.innerHTML = `Frontend: HTML5, CSS3, JavaScript ES6+, Three.js, React, Next.js<br>Backend: Node.js, Express, Python, MongoDB, SQL<br>Tools: Git, Docker, Linux, WebGL Shaders`;
-        } else if (cmd === 'projects') {
-            res.innerHTML = `1. CosmoSphere 3D Solar Explorer (Three.js/GLSL)<br>2. CodeSync Live IDE (Socket.io/Docker)<br>3. PulseMetric AI Analytics (Python/FastAPI)<br>4. SonicWave 3D Visualizer (Web Audio/Three.js)`;
-        } else if (cmd === 'upi') {
-            res.innerHTML = `UPI ID: <span class="highlight-cyan">ujjawal.kushwaha@okaxis</span> (Payee: Ujjawal Kushwaha). Tip preset buttons active in section #upi-support.`;
-            document.getElementById('upi-support')?.scrollIntoView({ behavior: 'smooth' });
-        } else if (cmd.startsWith('theme')) {
-            const parts = cmd.split(' ');
-            if (parts[1] && ['cyan', 'synthwave', 'matrix', 'amber'].includes(parts[1])) {
-                if (window.switchThemeByName) window.switchThemeByName(parts[1]);
-                res.innerHTML = `Theme dynamically switched to: <span class="highlight-cyan">${parts[1]}</span>`;
-            } else {
-                res.innerHTML = `Usage: theme &lt;cyan | synthwave | matrix | amber&gt;`;
-            }
-        } else if (cmd === 'matrix') {
-            window.toggleMatrixRain && window.toggleMatrixRain();
-            res.innerHTML = `Matrix Digital Rain stream toggled! Press any key or run 'matrix' again to toggle off.`;
-        } else if (cmd === 'contact') {
-            res.innerHTML = `Email: ujjawal.kushwaha@example.com | LinkedIn: /in/ujjawalkushwaha | GitHub: /ujjawalkushwaha`;
-        } else if (cmd === 'clear') {
-            output.innerHTML = '';
-            input.value = '';
-            return;
-        } else if (cmd === 'exit') {
-            closeTerminal();
-            input.value = '';
-            return;
-        } else if (cmd === '') {
-            input.value = '';
-            return;
-        } else {
-            res.innerHTML = `Command not recognized: '${rawCmd}'. Type <span class="highlight-cyan">'help'</span> for command inventory.`;
+        showToast('🏷️ ₹1,000 Promo Discount applied to order!');
+      } else {
+        playClickSound();
+        if (couponFeedback) {
+          couponFeedback.textContent = 'Invalid promo code. Try "UJJWAL2026" for ₹1,000 off.';
+          couponFeedback.className = 'promo-feedback error';
         }
+      }
+    });
+  }
 
-        output.appendChild(res);
-        input.value = '';
-        const body = document.getElementById('terminal-body');
-        if (body) body.scrollTop = body.scrollHeight;
-    }
+  // Form Field Validation
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
 
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            executeCommand(input.value);
+  const clearFormErrors = () => {
+    if (nameError) nameError.textContent = '';
+    if (emailError) emailError.textContent = '';
+    if (phoneError) phoneError.textContent = '';
+    if (pincodeError) pincodeError.textContent = '';
+  };
+
+  if (purchaseForm) {
+    purchaseForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clearFormErrors();
+      let hasError = false;
+
+      const nameVal = orderName.value.trim();
+      if (!nameVal || nameVal.length < 2) {
+        nameError.textContent = 'Please enter your full name.';
+        orderName.focus();
+        hasError = true;
+      }
+
+      const emailVal = orderEmail.value.trim();
+      if (!hasError && (!emailVal || !validateEmail(emailVal))) {
+        emailError.textContent = 'Please enter a valid email address.';
+        orderEmail.focus();
+        hasError = true;
+      }
+
+      const phoneVal = orderPhone.value.trim();
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!hasError && (!phoneVal || !phoneRegex.test(phoneVal))) {
+        phoneError.textContent = 'Please provide a valid 10-digit mobile number.';
+        orderPhone.focus();
+        hasError = true;
+      }
+
+      const pincodeVal = orderPincode.value.trim();
+      const pinRegex = /^[0-9]{6}$/;
+      if (!hasError && (!pincodeVal || !pinRegex.test(pincodeVal))) {
+        pincodeError.textContent = 'Please enter a valid 6-digit Indian PIN code.';
+        orderPincode.focus();
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+      const originalBtnHTML = confirmOrderBtn.innerHTML;
+      confirmOrderBtn.disabled = true;
+      confirmOrderBtn.innerHTML = '<span>Processing Demo Order...</span>';
+
+      setTimeout(() => {
+        const mockRandom = Math.floor(10000 + Math.random() * 90000);
+        const orderIdStr = `#NX-${mockRandom}`;
+        const finalPrice = Math.max(0, orderState.basePrice - orderState.discount);
+
+        if (receiptOrderId) receiptOrderId.textContent = orderIdStr;
+        if (receiptModel) receiptModel.textContent = `NEXORA ${orderState.storageName} (${orderState.color})`;
+        if (receiptPrice) receiptPrice.textContent = formatINR(finalPrice);
+        if (receiptCustomer) receiptCustomer.textContent = nameVal;
+
+        purchaseForm.style.display = 'none';
+        if (orderSuccess) orderSuccess.style.display = 'block';
+
+        confirmOrderBtn.disabled = false;
+        confirmOrderBtn.innerHTML = originalBtnHTML;
+
+        playChargeChime();
+        showToast(`🎉 Order ${orderIdStr} confirmed in demo mode!`);
+      }, 700);
+    });
+  }
+
+  if (resetModalBtn) {
+    resetModalBtn.addEventListener('click', () => {
+      closeModal();
+      setTimeout(() => {
+        if (purchaseForm) {
+          purchaseForm.reset();
+          purchaseForm.style.display = 'block';
         }
+        if (orderSuccess) orderSuccess.style.display = 'none';
+        orderState.discount = 0;
+        if (couponFeedback) couponFeedback.textContent = '';
+        updateModalDisplay();
+        clearFormErrors();
+      }, 300);
     });
+  }
 
-    chips.forEach((chip) => {
-        chip.addEventListener('click', () => {
-            const cmd = chip.getAttribute('data-cmd');
-            executeCommand(cmd);
-        });
-    });
-}
+  // ============================================================================
+  // 14. NEWSLETTER / CONTACT SUBSCRIPTION FORM
+  // ============================================================================
+  const newsletterForm = document.getElementById('newsletterForm');
+  const newsletterEmail = document.getElementById('newsletterEmail');
+  const newsletterFeedback = document.getElementById('newsletterFeedback');
 
-/* ==========================================================================
-   18. Matrix Digital Rain Canvas Simulation (Easter Egg)
-   ========================================================================== */
-function initMatrixRain() {
-    const canvas = document.getElementById('matrix-canvas');
-    if (!canvas) return;
+  if (newsletterForm && newsletterEmail) {
+    newsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = newsletterEmail.value.trim();
 
-    const ctx = canvas.getContext('2d');
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
-
-    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-    const fontSize = 16;
-    let columns = Math.floor(width / fontSize);
-    let drops = Array(columns).fill(1);
-    let animationId = null;
-    let isRunning = false;
-
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        columns = Math.floor(width / fontSize);
-        drops = Array(columns).fill(1);
-    });
-
-    function draw() {
-        ctx.fillStyle = 'rgba(5, 7, 17, 0.08)';
-        ctx.fillRect(0, 0, width, height);
-
-        ctx.fillStyle = '#00ff7f';
-        ctx.font = `${fontSize}px monospace`;
-
-        for (let i = 0; i < drops.length; i++) {
-            const text = characters.charAt(Math.floor(Math.random() * characters.length));
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-            if (drops[i] * fontSize > height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            drops[i]++;
+      if (!email || !validateEmail(email)) {
+        playClickSound();
+        if (newsletterFeedback) {
+          newsletterFeedback.textContent = 'Please enter a valid email address.';
+          newsletterFeedback.className = 'form-message error';
         }
-    }
+        newsletterEmail.focus();
+        return;
+      }
 
-    function loop() {
-        draw();
-        animationId = requestAnimationFrame(loop);
-    }
+      playChargeChime();
+      if (newsletterFeedback) {
+        newsletterFeedback.textContent = '✓ Thank you! You have been added to the NEXORA demo insider list.';
+        newsletterFeedback.className = 'form-message success';
+      }
+      showToast('⚡ Successfully subscribed to NEXORA updates!');
+      newsletterEmail.value = '';
 
-    function toggleRain() {
-        isRunning = !isRunning;
-        if (isRunning) {
-            canvas.classList.add('active');
-            loop();
-        } else {
-            canvas.classList.remove('active');
-            cancelAnimationFrame(animationId);
-            ctx.clearRect(0, 0, width, height);
+      setTimeout(() => {
+        if (newsletterFeedback) newsletterFeedback.textContent = '';
+      }, 5000);
+    });
+  }
+
+  // ============================================================================
+  // 15. SCROLL REVEAL ANIMATIONS (INTERSECTION OBSERVER)
+  // ============================================================================
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
         }
-    }
-
-    canvas.addEventListener('click', toggleRain);
-    window.toggleMatrixRain = toggleRain;
-}
-
-/* ==========================================================================
-   19. Background Three.js 3D Starfield & Constellation Grid
-   ========================================================================== */
-function initBackground3D() {
-    const canvas = document.getElementById('bg-3d-canvas');
-    if (!canvas || typeof THREE === 'undefined') return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 400;
-
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    // 1,200 Interactive Stars
-    const particleCount = 1200;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-
-    let colorPalette = [
-        new THREE.Color(0x00f2fe),
-        new THREE.Color(0x4facfe),
-        new THREE.Color(0x7928ca),
-        new THREE.Color(0xff0080)
-    ];
-
-    for (let i = 0; i < particleCount; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * 1200;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 1200;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 800;
-
-        const col = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-        colors[i * 3] = col.r;
-        colors[i * 3 + 1] = col.g;
-        colors[i * 3 + 2] = col.b;
-    }
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const material = new THREE.PointsMaterial({
-        size: 2.8,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.85,
-        blending: THREE.AdditiveBlending
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
     });
 
-    const starParticles = new THREE.Points(geometry, material);
-    scene.add(starParticles);
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    // Fallback for older browsers without IntersectionObserver
+    revealElements.forEach(el => el.classList.add('is-revealed'));
+  }
 
-    // Parallax & Dynamic Mouse Tracking
-    let targetX = 0;
-    let targetY = 0;
+  // ============================================================================
+  // 16. TOAST NOTIFICATION UTILITY
+  // ============================================================================
+  function showToast(message) {
+    const toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) return;
 
-    window.addEventListener('mousemove', (e) => {
-        targetX = (e.clientX - window.innerWidth / 2) * 0.08;
-        targetY = (e.clientY - window.innerHeight / 2) * 0.08;
-    });
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00d2ff" stroke-width="2.5">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <span>${message}</span>
+    `;
 
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    toastContainer.appendChild(toast);
 
-    // Theme adaptive color change
-    window.addEventListener('themeChanged', (e) => {
-        const theme = e.detail.theme;
-        let pColor = 0x00f2fe;
-        if (theme === 'synthwave') pColor = 0xff007f;
-        else if (theme === 'matrix') pColor = 0x00ff7f;
-        else if (theme === 'amber') pColor = 0xffbe0b;
-
-        const baseC = new THREE.Color(pColor);
-        const colAttr = geometry.attributes.color;
-        for (let i = 0; i < particleCount; i++) {
-            colAttr.setXYZ(i, baseC.r * (0.6 + Math.random() * 0.4), baseC.g * (0.6 + Math.random() * 0.4), baseC.b * (0.6 + Math.random() * 0.4));
-        }
-        colAttr.needsUpdate = true;
-    });
-
-    function animate() {
-        requestAnimationFrame(animate);
-
-        starParticles.rotation.y += 0.0006;
-        starParticles.rotation.x += 0.0003;
-
-        camera.position.x += (targetX - camera.position.x) * 0.05;
-        camera.position.y += (-targetY - camera.position.y) * 0.05;
-
-        renderer.render(scene, camera);
-    }
-
-    animate();
-}
-
-/* ==========================================================================
-   20. Interactive Three.js 3D Hero Centerpiece (Quantum Knot & Gimbal Core)
-   ========================================================================== */
-function initHero3D() {
-    const container = document.getElementById('hero-3d-container');
-    if (!container || typeof THREE === 'undefined') return;
-
-    const width = container.clientWidth || 450;
-    const height = container.clientHeight || 450;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.z = 7;
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    // Multi-Layered Centerpiece Group
-    const group = new THREE.Group();
-    scene.add(group);
-
-    // 1. Quantum Torus Knot
-    const knotGeom = new THREE.TorusKnotGeometry(1.4, 0.38, 128, 32, 2, 3);
-    const knotMat = new THREE.MeshStandardMaterial({
-        color: 0x00f2fe,
-        emissive: 0x005577,
-        roughness: 0.15,
-        metalness: 0.9,
-        wireframe: true
-    });
-    const knotMesh = new THREE.Mesh(knotGeom, knotMat);
-    group.add(knotMesh);
-
-    // 2. Concentric Wireframe Gimbal Rings
-    const ringGeom = new THREE.TorusGeometry(2.3, 0.03, 16, 100);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0xff0080, transparent: true, opacity: 0.75 });
-    const gimbalRing1 = new THREE.Mesh(ringGeom, ringMat);
-    gimbalRing1.rotation.x = Math.PI / 3;
-    group.add(gimbalRing1);
-
-    const ringGeom2 = new THREE.TorusGeometry(2.6, 0.025, 16, 100);
-    const ringMat2 = new THREE.MeshBasicMaterial({ color: 0x7928ca, transparent: true, opacity: 0.65 });
-    const gimbalRing2 = new THREE.Mesh(ringGeom2, ringMat2);
-    gimbalRing2.rotation.y = Math.PI / 4;
-    group.add(gimbalRing2);
-
-    // 3. Pulsing Core Icosahedron
-    const coreGeom = new THREE.IcosahedronGeometry(0.7, 1);
-    const coreMat = new THREE.MeshStandardMaterial({
-        color: 0x00f5a0,
-        emissive: 0x00aa66,
-        roughness: 0.2,
-        metalness: 0.8
-    });
-    const coreMesh = new THREE.Mesh(coreGeom, coreMat);
-    group.add(coreMesh);
-
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambientLight);
-
-    const pointLight1 = new THREE.PointLight(0x00f2fe, 2.5, 50);
-    pointLight1.position.set(5, 5, 5);
-    scene.add(pointLight1);
-
-    const pointLight2 = new THREE.PointLight(0xff0080, 2.0, 50);
-    pointLight2.position.set(-5, -5, -3);
-    scene.add(pointLight2);
-
-    // Interactive Drag / Momentum Physics
-    let isDragging = false;
-    let prevMouseX = 0;
-    let prevMouseY = 0;
-    let rotVelX = 0.005;
-    let rotVelY = 0.007;
-
-    container.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        prevMouseX = e.clientX;
-        prevMouseY = e.clientY;
-    });
-
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-    });
-
-    window.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const deltaX = e.clientX - prevMouseX;
-        const deltaY = e.clientY - prevMouseY;
-        prevMouseX = e.clientX;
-        prevMouseY = e.clientY;
-
-        rotVelY = deltaX * 0.005;
-        rotVelX = deltaY * 0.005;
-        group.rotation.y += rotVelY;
-        group.rotation.x += rotVelX;
-    });
-
-    // Interactive Click Particle Shockwave
-    container.addEventListener('click', () => {
-        knotMesh.scale.set(1.2, 1.2, 1.2);
-        coreMesh.scale.set(1.4, 1.4, 1.4);
-        setTimeout(() => {
-            knotMesh.scale.set(1, 1, 1);
-            coreMesh.scale.set(1, 1, 1);
-        }, 300);
-    });
-
-    // Theme Color Synchronization
-    window.addEventListener('themeChanged', (e) => {
-        const theme = e.detail.theme;
-        if (theme === 'synthwave') {
-            knotMat.color.setHex(0xff007f);
-            knotMat.emissive.setHex(0x550022);
-            ringMat.color.setHex(0x9b5de5);
-            ringMat2.color.setHex(0x00f5d4);
-            coreMat.color.setHex(0x00f5d4);
-            pointLight1.color.setHex(0xff007f);
-            pointLight2.color.setHex(0x00f5d4);
-        } else if (theme === 'matrix') {
-            knotMat.color.setHex(0x00ff7f);
-            knotMat.emissive.setHex(0x004411);
-            ringMat.color.setHex(0x00f5a0);
-            ringMat2.color.setHex(0x11998e);
-            coreMat.color.setHex(0x38ef7d);
-            pointLight1.color.setHex(0x00ff7f);
-            pointLight2.color.setHex(0x00f5a0);
-        } else if (theme === 'amber') {
-            knotMat.color.setHex(0xffbe0b);
-            knotMat.emissive.setHex(0x553300);
-            ringMat.color.setHex(0xfb5607);
-            ringMat2.color.setHex(0xff006e);
-            coreMat.color.setHex(0xff006e);
-            pointLight1.color.setHex(0xffbe0b);
-            pointLight2.color.setHex(0xfb5607);
-        } else {
-            knotMat.color.setHex(0x00f2fe);
-            knotMat.emissive.setHex(0x005577);
-            ringMat.color.setHex(0xff0080);
-            ringMat2.color.setHex(0x7928ca);
-            coreMat.color.setHex(0x00f5a0);
-            pointLight1.color.setHex(0x00f2fe);
-            pointLight2.color.setHex(0xff0080);
-        }
-    });
-
-    window.addEventListener('resize', () => {
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
-        renderer.setSize(w, h);
-    });
-
-    let clock = new THREE.Clock();
-
-    function render() {
-        requestAnimationFrame(render);
-        const elapsed = clock.getElapsedTime();
-
-        if (!isDragging) {
-            rotVelX *= 0.96;
-            rotVelY *= 0.96;
-            group.rotation.x += 0.005 + rotVelX;
-            group.rotation.y += 0.008 + rotVelY;
-        }
-
-        gimbalRing1.rotation.z += 0.012;
-        gimbalRing2.rotation.x += 0.015;
-
-        const pulse = 1 + Math.sin(elapsed * 3) * 0.08;
-        coreMesh.scale.set(pulse, pulse, pulse);
-
-        renderer.render(scene, camera);
-    }
-
-    render();
-}
+    setTimeout(() => {
+      toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(15px)';
+      setTimeout(() => toast.remove(), 400);
+    }, 4000);
+  }
+});
