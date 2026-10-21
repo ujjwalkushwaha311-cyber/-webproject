@@ -1,0 +1,13 @@
+customtkinter>=6.0.0
+pyttsx3>=2.99
+SpeechRecognition>=3.17.0
+psutil>=7.2.2
+pycaw>=20251023
+pyautogui>=0.9.54
+sounddevice>=0.5.6
+pillow>=12.2.0
+requests>=2.33.1
+numpy>=2.0.0
+pywin32>=306
+pyperclip>=1.8.2
+
