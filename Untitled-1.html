@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyan">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ujjawal Kushwaha | 3D Interactive Portfolio & Creative Developer</title>
+    <meta name="description" content="Portfolio of Ujjawal Kushwaha - Computer Science Undergrad, Full-Stack Developer, and 3D Web Graphics Enthusiast." />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome for modern icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Three.js CDN for 3D graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+
+    <!-- Custom Cyber Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <!-- Background 3D Canvas -->
+    <canvas id="bg-3d-canvas"></canvas>
+
+    <!-- Matrix Digital Rain Canvas Overlay (Interactive Easter Egg) -->
+    <canvas id="matrix-canvas" class="matrix-canvas"></canvas>
+
+    <!-- Background Ambient Aurora Mesh Orbs (Continuous Animation) -->
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+
+    <!-- Floating Always-Animated UPI Quick-Action Button -->
+    <div class="floating-upi-container" id="floating-upi">
+        <a href="#upi-support" class="floating-upi-btn" id="floating-upi-btn" aria-label="Support Ujjawal via UPI">
+            <span class="upi-pulse-ring ring-1"></span>
+            <span class="upi-pulse-ring ring-2"></span>
+            <span class="upi-pulse-ring ring-3"></span>
+            <span class="upi-btn-content">
+                <i class="fa-solid fa-indian-rupee-sign upi-currency-icon"></i>
+                <span class="upi-btn-text">Support / UPI</span>
+            </span>
+        </a>
+    </div>
+
+    <!-- Floating Island Navigation Bar -->
+    <header class="navbar-wrapper">
+        <nav class="navbar" id="navbar">
+            <a href="#home" class="logo">
+                <span class="logo-bracket">&lt;</span>Ujjawal<span class="gradient-text">.Dev</span><span class="logo-bracket">/&gt;</span>
+            </a>
+
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#experience" class="nav-link">Timeline</a>
+                <a href="#upi-support" class="nav-link upi-nav-link"><i class="fa-solid fa-bolt-lightning text-cyan"></i> UPI Tip</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <!-- Live Audio Harmonic Visualizer -->
+                <div class="audio-pulse-indicator" id="sound-indicator" title="Spatial Frequency Simulation">
+                    <div class="sound-bars"><span></span><span></span><span></span><span></span></div>
+                    <span class="sound-lbl">60 FPS</span>
+                </div>
+
+                <!-- Theme Switcher Button -->
+                <button class="theme-switch-btn" id="theme-switch-btn" aria-label="Switch UI Theme" title="Cycle Themes: Cyan | Synthwave | Matrix | Amber">
+                    <i class="fa-solid fa-palette"></i>
+                </button>
+
+                <!-- Terminal Trigger Button -->
+                <button class="terminal-trigger-btn" id="terminal-trigger-btn" aria-label="Open Cyber Console" title="Open Interactive CLI">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span class="term-lbl">CLI</span>
+                </button>
+
+                <!-- Live Availability Badge -->
+                <div class="live-status-pill">
+                    <span class="live-dot-pulse"></span>
+                    <span class="status-text">Available</span>
+                </div>
+
+                <a href="#contact" class="btn btn-sm btn-outline nav-cta-btn">Let's Talk</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="hero-content reveal-element">
+                <div class="hero-badge shimmer-effect">
+                    <span class="badge-dot"></span>
+                    <span>3D Creative Engineer &bull; B.Tech CSE</span>
+                    <span class="badge-sparkle"><i class="fa-solid fa-sparkles"></i></span>
+                </div>
+
+                <!-- Futuristic HUD Telemetry Bar -->
+                <div class="hud-telemetry-bar">
+                    <span class="hud-tag"><i class="fa-solid fa-circle-dot live-dot-pulse"></i> SYS.ONLINE</span>
+                    <span class="hud-divider">|</span>
+                    <span class="hud-tag"><i class="fa-solid fa-microchip"></i> NEURAL 60 FPS</span>
+                    <span class="hud-divider">|</span>
+                    <span class="hud-tag"><i class="fa-solid fa-signal"></i> 14ms DEL</span>
+                    <span class="hud-divider">|</span>
+                    <span class="hud-tag"><i class="fa-solid fa-cubes"></i> WEBGL 2.0</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Crafting <span class="gradient-text glow shimmer-text">Immersive 3D</span><br>
+                    & Scalable Web Realities
+                </h1>
+
+                <h2 class="hero-subtitle">
+                    Hi, I'm <strong>Ujjawal Kushwaha</strong> &mdash; <span class="typing-text" id="typing-text"></span><span class="cursor">&nbsp;</span>
+                </h2>
+
+                <p class="hero-description">
+                    Blending rigorous computer science algorithms with fluid WebGL graphics. Passionate about 60 FPS spatial interfaces, modern cloud architectures, and user-centric design.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary magnetic-btn">
+                        <span>Explore Creations</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#upi-support" class="btn btn-secondary magnetic-btn upi-highlight-btn">
+                        <i class="fa-solid fa-bolt-lightning text-cyan"></i>
+                        <span>Support via UPI</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary magnetic-btn">
+                        <span>Get In Touch</span>
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </a>
+                </div>
+
+                <!-- Quick Hero Stats Cards -->
+                <div class="hero-stats-row">
+                    <div class="hero-stat-pill">
+                        <span class="stat-num">15+</span>
+                        <span class="stat-desc">Projects Shipped</span>
+                    </div>
+                    <div class="hero-stat-pill">
+                        <span class="stat-num">3+</span>
+                        <span class="stat-desc">Years Coding</span>
+                    </div>
+                    <div class="hero-stat-pill">
+                        <span class="stat-num">8.8</span>
+                        <span class="stat-desc">CGPA B.Tech</span>
+                    </div>
+                </div>
+
+                <div class="hero-socials">
+                    <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://linkedin.com/in/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="mailto:ujjawal.kushwaha@example.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <!-- 3D Model / Canvas Container in Hero -->
+            <div class="hero-3d-wrapper reveal-element">
+                <div id="hero-3d-container"></div>
+                <div class="hero-3d-hint pulse-anim">
+                    <i class="fa-solid fa-hand-pointer"></i> Drag to Fling &bull; Click for Energy Shockwave
+                </div>
+                <div class="hero-floating-card tech-pill-1 float-anim-1">
+                    <i class="fa-brands fa-react"></i>
+                    <div>
+                        <strong>React & Next.js</strong>
+                        <span>Frontend Craft</span>
+                    </div>
+                </div>
+                <div class="hero-floating-card tech-pill-2 float-anim-2">
+                    <i class="fa-solid fa-cube"></i>
+                    <div>
+                        <strong>Three.js & WebGL</strong>
+                        <span>3D Interactive</span>
+                    </div>
+                </div>
+                <div class="hero-floating-card tech-pill-3 float-anim-3">
+                    <i class="fa-solid fa-bolt-lightning text-cyan"></i>
+                    <div>
+                        <strong>Real-time 60 FPS</strong>
+                        <span>GPU Accelerated</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Continuous Infinite Tech Stack Marquee (Always Animated) -->
+        <section class="marquee-section" aria-label="Tech Stack Strip">
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <div class="marquee-item"><i class="fa-brands fa-react text-cyan"></i> React.js</div>
+                    <div class="marquee-item"><i class="fa-solid fa-cube text-cyan"></i> Three.js / WebGL</div>
+                    <div class="marquee-item"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript ES6+</div>
+                    <div class="marquee-item"><i class="fa-brands fa-node-js" style="color: #68a063;"></i> Node.js & Express</div>
+                    <div class="marquee-item"><i class="fa-brands fa-python" style="color: #3776ab;"></i> Python & DSA</div>
+                    <div class="marquee-item"><i class="fa-brands fa-html5" style="color: #e44d26;"></i> HTML5 Semantic</div>
+                    <div class="marquee-item"><i class="fa-brands fa-css3-alt" style="color: #264de4;"></i> CSS3 & 3D Web</div>
+                    <div class="marquee-item"><i class="fa-solid fa-database" style="color: #4db33d;"></i> MongoDB & SQL</div>
+                    <div class="marquee-item"><i class="fa-brands fa-git-alt" style="color: #f05032;"></i> Git & GitHub</div>
+                    <div class="marquee-item"><i class="fa-solid fa-bolt text-cyan"></i> WebSockets & REST</div>
+                    <!-- Duplicate items for seamless continuous infinite loop -->
+                    <div class="marquee-item"><i class="fa-brands fa-react text-cyan"></i> React.js</div>
+                    <div class="marquee-item"><i class="fa-solid fa-cube text-cyan"></i> Three.js / WebGL</div>
+                    <div class="marquee-item"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript ES6+</div>
+                    <div class="marquee-item"><i class="fa-brands fa-node-js" style="color: #68a063;"></i> Node.js & Express</div>
+                    <div class="marquee-item"><i class="fa-brands fa-python" style="color: #3776ab;"></i> Python & DSA</div>
+                    <div class="marquee-item"><i class="fa-brands fa-html5" style="color: #e44d26;"></i> HTML5 Semantic</div>
+                    <div class="marquee-item"><i class="fa-brands fa-css3-alt" style="color: #264de4;"></i> CSS3 & 3D Web</div>
+                    <div class="marquee-item"><i class="fa-solid fa-database" style="color: #4db33d;"></i> MongoDB & SQL</div>
+                    <div class="marquee-item"><i class="fa-brands fa-git-alt" style="color: #f05032;"></i> Git & GitHub</div>
+                    <div class="marquee-item"><i class="fa-solid fa-bolt text-cyan"></i> WebSockets & REST</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section class="section" id="about">
+            <div class="section-header reveal-element">
+                <p class="section-tag">[SYS.SEC_01 // IDENTITY]</p>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="about-grid">
+                <div class="glass-card about-bio-card tilt-card reveal-element">
+                    <div class="bio-header">
+                        <div class="bio-avatar glow-box">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <div>
+                            <h3>Computer Science Undergrad & Creative Engineer</h3>
+                            <p class="bio-location"><i class="fa-solid fa-location-dot"></i> New Delhi, India &bull; <span class="text-cyan">Available for 2025/2026 Internships</span></p>
+                        </div>
+                    </div>
+                    <p class="bio-text">
+                        Currently in my 3rd year pursuing B.Tech in Computer Science & Engineering. My passion is bridging theoretical computer science algorithms with fluid, GPU-accelerated 3D graphics on the modern web.
+                    </p>
+                    <p class="bio-text">
+                        I specialize in developing high-framerate interactive Three.js environments, scalable React/Node.js full-stack architectures, and intuitive micro-interactions that leave lasting impressions.
+                    </p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <span class="highlight-number counter-number" data-target="3" data-suffix="+">0</span>
+                            <span class="highlight-label">Years of Coding</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-number counter-number" data-target="15" data-suffix="+">0</span>
+                            <span class="highlight-label">Projects Built</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-number counter-number" data-target="8.8" data-decimals="1" data-suffix="">0</span>
+                            <span class="highlight-label">Academic CGPA</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-number counter-number" data-target="5" data-suffix="+">0</span>
+                            <span class="highlight-label">Hackathons Won</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-details-column">
+                    <div class="glass-card detail-card tilt-card reveal-element">
+                        <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div>
+                            <h4>Academic Background</h4>
+                            <p class="detail-subtitle">B.Tech in Computer Science & Engineering</p>
+                            <p class="detail-info">ABC Institute of Technology (2022 - 2026)</p>
+                            <span class="detail-badge">Data Structures &bull; Computer Graphics &bull; OS &bull; Networks</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card detail-card tilt-card reveal-element">
+                        <div class="card-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+                        <div>
+                            <h4>Creative & Engineering Vision</h4>
+                            <p class="detail-subtitle">Full-Stack / Creative Frontend Architect</p>
+                            <p class="detail-info">Designing responsive web experiences with spatial 3D capabilities, clean state architecture, and microsecond latency.</p>
+                            <span class="detail-badge">60 FPS &bull; Accessible &bull; Modular Systems</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card detail-card tilt-card reveal-element">
+                        <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <div>
+                            <h4>Key Accolades</h4>
+                            <p class="detail-subtitle">Hackathon Champion & Community Lead</p>
+                            <p class="detail-info">Winner at College SIH Hackathon &bull; Lead Frontend Mentor at Google Developer Student Club (GDSC).</p>
+                            <span class="detail-badge">Mentored 80+ Students &bull; Open-Source Contributor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section with Bento Grid & Real-time Progress Lights -->
+        <section class="section" id="skills">
+            <div class="section-header reveal-element">
+                <p class="section-tag">[SYS.SEC_02 // PROFICIENCY]</p>
+                <h2 class="section-title">My Skills & Stack</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="skills-filter-row reveal-element">
+                <button class="skill-filter-btn active" data-filter="all">All Skills</button>
+                <button class="skill-filter-btn" data-filter="frontend">Frontend & 3D</button>
+                <button class="skill-filter-btn" data-filter="backend">Backend & DB</button>
+                <button class="skill-filter-btn" data-filter="tools">DevOps & Core</button>
+            </div>
+
+            <div class="skills-grid" id="skills-grid">
+                <!-- HTML5 -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
+                    <div class="skill-header">
+                        <div class="skill-icon html"><i class="fa-brands fa-html5"></i></div>
+                        <div class="skill-info">
+                            <h4>HTML5</h4>
+                            <span>Semantic & Accessible Web</span>
+                        </div>
+                        <div class="skill-percentage">95%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="95%"></div>
+                    </div>
+                </div>
+
+                <!-- CSS3 & 3D -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
+                    <div class="skill-header">
+                        <div class="skill-icon css"><i class="fa-brands fa-css3-alt"></i></div>
+                        <div class="skill-info">
+                            <h4>CSS3 & 3D Transitions</h4>
+                            <span>Grid, Flexbox & Shaders</span>
+                        </div>
+                        <div class="skill-percentage">90%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="90%"></div>
+                    </div>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
+                    <div class="skill-header">
+                        <div class="skill-icon js"><i class="fa-brands fa-js"></i></div>
+                        <div class="skill-info">
+                            <h4>JavaScript (ES6+)</h4>
+                            <span>Async, DOM APIs & Performance</span>
+                        </div>
+                        <div class="skill-percentage">88%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="88%"></div>
+                    </div>
+                </div>
+
+                <!-- Three.js & WebGL -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
+                    <div class="skill-header">
+                        <div class="skill-icon three"><i class="fa-solid fa-cube"></i></div>
+                        <div class="skill-info">
+                            <h4>Three.js & WebGL</h4>
+                            <span>3D Shaders, Lights, Meshes</span>
+                        </div>
+                        <div class="skill-percentage">85%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="85%"></div>
+                    </div>
+                </div>
+
+                <!-- React.js & Next.js -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
+                    <div class="skill-header">
+                        <div class="skill-icon react"><i class="fa-brands fa-react"></i></div>
+                        <div class="skill-info">
+                            <h4>React & Next.js</h4>
+                            <span>Hooks, State & SSR</span>
+                        </div>
+                        <div class="skill-percentage">86%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="86%"></div>
+                    </div>
+                </div>
+
+                <!-- Node.js & Express -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="backend">
+                    <div class="skill-header">
+                        <div class="skill-icon node"><i class="fa-brands fa-node-js"></i></div>
+                        <div class="skill-info">
+                            <h4>Node.js & Express</h4>
+                            <span>REST APIs, WebSockets & Auth</span>
+                        </div>
+                        <div class="skill-percentage">80%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="80%"></div>
+                    </div>
+                </div>
+
+                <!-- Python & Algorithms -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="backend">
+                    <div class="skill-header">
+                        <div class="skill-icon python"><i class="fa-brands fa-python"></i></div>
+                        <div class="skill-info">
+                            <h4>Python & DSA</h4>
+                            <span>Algorithms, Graph & Optimization</span>
+                        </div>
+                        <div class="skill-percentage">84%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="84%"></div>
+                    </div>
+                </div>
+
+                <!-- Database / SQL & MongoDB -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="backend">
+                    <div class="skill-header">
+                        <div class="skill-icon db"><i class="fa-solid fa-database"></i></div>
+                        <div class="skill-info">
+                            <h4>SQL & MongoDB</h4>
+                            <span>Relational & Document DBs</span>
+                        </div>
+                        <div class="skill-percentage">78%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="78%"></div>
+                    </div>
+                </div>
+
+                <!-- Git & DevOps Basics -->
+                <div class="glass-card skill-card tilt-card reveal-element" data-category="tools">
+                    <div class="skill-header">
+                        <div class="skill-icon git"><i class="fa-brands fa-git-alt"></i></div>
+                        <div class="skill-info">
+                            <h4>Git & DevOps Tools</h4>
+                            <span>CI/CD, GitHub Actions & Docker</span>
+                        </div>
+                        <div class="skill-percentage">85%</div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" data-progress="85%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section with Live Interactive Preview Screens -->
+        <section class="section" id="projects">
+            <div class="section-header reveal-element">
+                <p class="section-tag">[SYS.SEC_03 // CREATIONS]</p>
+                <h2 class="section-title">Projects & Demos</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1: CosmoSphere 3D -->
+                <div class="glass-card project-card tilt-card reveal-element">
+                    <div class="project-banner project-banner-1">
+                        <div class="project-banner-overlay">
+                            <span class="project-category"><i class="fa-solid fa-cube"></i> WebGL / 3D</span>
+                            <div class="project-links">
+                                <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="icon-circle" title="View Code"><i class="fa-brands fa-github"></i></a>
+                                <a href="#home" class="icon-circle" title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+                        </div>
+                        <div class="banner-visual-3d">
+                            <div class="orbit-circle circle-1"></div>
+                            <div class="orbit-circle circle-2"></div>
+                            <div class="planet-marker planet-sun"></div>
+                            <div class="planet-marker planet-earth"></div>
+                            <i class="fa-solid fa-globe banner-center-icon"></i>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tabs">
+                            <button class="p-tab active" data-tab="preview">Preview</button>
+                            <button class="p-tab" data-tab="arch">Architecture</button>
+                            <button class="p-tab" data-tab="specs">Specs</button>
+                        </div>
+                        <h3>CosmoSphere 3D Solar Explorer</h3>
+                        <p class="project-desc">
+                            An interactive real-time 3D planetary physics engine with accurate orbital dynamics, custom GLSL lighting shaders, orbital mouse controls, and educational data overlays.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Three.js</span>
+                            <span class="tag">WebGL</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">GLSL Shaders</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="#home" class="btn-link">Launch Demo <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="project-date">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: CodeSync Live IDE (with Live Typing Simulator) -->
+                <div class="glass-card project-card tilt-card reveal-element">
+                    <div class="project-banner project-banner-2">
+                        <div class="project-banner-overlay">
+                            <span class="project-category"><i class="fa-solid fa-bolt"></i> Full-Stack App</span>
+                            <div class="project-links">
+                                <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="icon-circle" title="View Code"><i class="fa-brands fa-github"></i></a>
+                                <a href="#home" class="icon-circle" title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+                        </div>
+                        <div class="banner-visual-3d">
+                            <div class="code-editor-preview">
+                                <div class="code-dots"><span></span><span></span><span></span></div>
+                                <span class="code-snippet" id="live-code-snippet">&gt; const room = new Room();</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tabs">
+                            <button class="p-tab active" data-tab="preview">Preview</button>
+                            <button class="p-tab" data-tab="arch">Architecture</button>
+                            <button class="p-tab" data-tab="specs">Specs</button>
+                        </div>
+                        <h3>CodeSync Live Collaborative IDE</h3>
+                        <p class="project-desc">
+                            A cloud collaborative IDE featuring sub-50ms multi-user syntax highlighting, WebSockets live cursor sharing, audio channels, and sandboxed Docker code execution.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Socket.io</span>
+                            <span class="tag">Monaco Editor</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="#home" class="btn-link">Launch Demo <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="project-date">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: PulseMetric AI Analytics -->
+                <div class="glass-card project-card tilt-card reveal-element">
+                    <div class="project-banner project-banner-3">
+                        <div class="project-banner-overlay">
+                            <span class="project-category"><i class="fa-solid fa-chart-line"></i> AI & Data</span>
+                            <div class="project-links">
+                                <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="icon-circle" title="View Code"><i class="fa-brands fa-github"></i></a>
+                                <a href="#home" class="icon-circle" title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+                        </div>
+                        <div class="banner-visual-3d">
+                            <div class="metric-graph-preview">
+                                <div class="bar bar-1"></div>
+                                <div class="bar bar-2"></div>
+                                <div class="bar bar-3"></div>
+                                <div class="bar bar-4"></div>
+                                <div class="bar bar-5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tabs">
+                            <button class="p-tab active" data-tab="preview">Preview</button>
+                            <button class="p-tab" data-tab="arch">Architecture</button>
+                            <button class="p-tab" data-tab="specs">Specs</button>
+                        </div>
+                        <h3>PulseMetric AI Developer Analytics</h3>
+                        <p class="project-desc">
+                            An AI developer dashboard that aggregates GitHub pull requests, commits, and code churn, predicting delivery bottlenecks using lightweight machine learning regression.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">React</span>
+                            <span class="tag">Chart.js</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="#home" class="btn-link">Launch Demo <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="project-date">2023</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: SonicWave 3D Visualizer -->
+                <div class="glass-card project-card tilt-card reveal-element">
+                    <div class="project-banner project-banner-4">
+                        <div class="project-banner-overlay">
+                            <span class="project-category"><i class="fa-solid fa-headphones"></i> Creative Audio</span>
+                            <div class="project-links">
+                                <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="icon-circle" title="View Code"><i class="fa-brands fa-github"></i></a>
+                                <a href="#home" class="icon-circle" title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
+                        </div>
+                        <div class="banner-visual-3d">
+                            <div class="sound-wave-preview">
+                                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tabs">
+                            <button class="p-tab active" data-tab="preview">Preview</button>
+                            <button class="p-tab" data-tab="arch">Architecture</button>
+                            <button class="p-tab" data-tab="specs">Specs</button>
+                        </div>
+                        <h3>SonicWave 3D Audio Visualizer</h3>
+                        <p class="project-desc">
+                            Dynamic audio reactive web application that maps Web Audio API frequency matrices into an undulating 3D particle vortex with real-time bloom shaders.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Web Audio API</span>
+                            <span class="tag">Three.js</span>
+                            <span class="tag">Canvas</span>
+                            <span class="tag">Audio Reactivity</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="#home" class="btn-link">Launch Demo <i class="fa-solid fa-arrow-right"></i></a>
+                            <span class="project-date">2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience / Timeline Section -->
+        <section class="section" id="experience">
+            <div class="section-header reveal-element">
+                <p class="section-tag">[SYS.SEC_04 // TIMELINE]</p>
+                <h2 class="section-title">Education & Experience</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item left reveal-element">
+                    <div class="timeline-dot pulse-dot-glow"></div>
+                    <div class="glass-card timeline-card tilt-card">
+                        <span class="timeline-year">2024 - Present</span>
+                        <h3>Frontend & 3D Web Lead</h3>
+                        <h4>Google Developer Student Club (GDSC)</h4>
+                        <p>Organized hands-on workshops on Three.js, React, and WebGL basics. Mentored 80+ fellow computer science peers in crafting modern frontends.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right reveal-element">
+                    <div class="timeline-dot pulse-dot-glow"></div>
+                    <div class="glass-card timeline-card tilt-card">
+                        <span class="timeline-year">2023 - 2024</span>
+                        <h3>Full-Stack Web Intern</h3>
+                        <h4>InnoTech Labs</h4>
+                        <p>Built modular UI components and connected Node.js endpoints. Improved client portal responsiveness and reduced first contentful paint by 35%.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item left reveal-element">
+                    <div class="timeline-dot pulse-dot-glow"></div>
+                    <div class="glass-card timeline-card tilt-card">
+                        <span class="timeline-year">2023</span>
+                        <h3>1st Place - Smart India Hackathon (College Level)</h3>
+                        <h4>National Innovation Cell</h4>
+                        <p>Designed and presented an automated disaster logistics tracking system with a 4-person team within 36 high-intensity hours.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right reveal-element">
+                    <div class="timeline-dot pulse-dot-glow"></div>
+                    <div class="glass-card timeline-card tilt-card">
+                        <span class="timeline-year">2022 - 2026</span>
+                        <h3>B.Tech in Computer Science & Engineering</h3>
+                        <h4>ABC Institute of Technology</h4>
+                        <p>Consistent 8.8/10 CGPA. Core coursework in Data Structures, Algorithms, Computer Graphics, Operating Systems, Database Systems, and Networks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dedicated Always-Animated UPI Support & Tipping Section -->
+        <section class="section upi-support-section" id="upi-support">
+            <div class="section-header reveal-element">
+                <p class="section-tag">[SYS.SEC_05 // CYBER SUPPORT]</p>
+                <h2 class="section-title">Support My Work via <span class="gradient-text glow shimmer-text">UPI</span></h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="upi-showcase-container reveal-element">
+                <!-- Always-Animated Holographic UPI Card -->
+                <div class="upi-hologram-card tilt-card" id="upi-card-element">
+                    <!-- Rotating Conic Glow Border Wrapper -->
+                    <div class="upi-rotating-border"></div>
+
+                    <!-- Floating Currency Particles -->
+                    <div class="upi-floating-token token-1">₹</div>
+                    <div class="upi-floating-token token-2"><i class="fa-solid fa-bolt-lightning"></i></div>
+                    <div class="upi-floating-token token-3">₹</div>
+                    <div class="upi-floating-token token-4">☕</div>
+                    <div class="upi-floating-token token-5">💎</div>
+
+                    <div class="upi-card-inner">
+                        <div class="upi-card-topbar">
+                            <div class="upi-live-beacon">
+                                <span class="live-dot-pulse"></span>
+                                <span>ALWAYS ANIMATED &bull; ZERO FEE</span>
+                            </div>
+                            <div class="upi-logo-chip">
+                                <i class="fa-solid fa-bolt-lightning text-cyan upi-flash-anim"></i>
+                                <span>UPI 2.0</span>
+                            </div>
+                        </div>
+
+                        <h3 class="upi-card-headline">Scan & Tip in Seconds</h3>
+                        <p class="upi-card-sub">Fuel coffee, server costs, and open-source 3D graphics development</p>
+
+                        <!-- Interactive Quick Tip Presets -->
+                        <div class="upi-tip-presets" id="upi-tip-presets">
+                            <span class="presets-label"><i class="fa-solid fa-coins text-cyan"></i> Instant Tip Preset:</span>
+                            <div class="preset-buttons">
+                                <button class="preset-btn" data-amount="21">₹21 <span>Chai</span></button>
+                                <button class="preset-btn active" data-amount="51">₹51 <span>Coffee</span></button>
+                                <button class="preset-btn" data-amount="101">₹101 <span>RedBull</span></button>
+                                <button class="preset-btn" data-amount="501">₹501 <span>Server</span></button>
+                                <button class="preset-btn" id="custom-tip-toggle">Custom</button>
+                            </div>
+                            <div class="custom-tip-input-wrapper" id="custom-tip-wrapper" style="display: none;">
+                                <input type="number" id="custom-amount-input" min="1" max="100000" placeholder="Custom amount (₹)..." />
+                                <button class="btn btn-sm btn-primary" id="apply-custom-amount-btn">Set</button>
+                            </div>
+                        </div>
+
+                        <!-- Cyber QR Container with Continuous Laser Scanner -->
+                        <div class="upi-qr-box">
+                            <!-- Laser Scanning Beam -->
+                            <div class="qr-laser-scanner"></div>
+
+                            <!-- Futuristic Tech Corner Reticles -->
+                            <div class="qr-reticle reticle-tl"></div>
+                            <div class="qr-reticle reticle-tr"></div>
+                            <div class="qr-reticle reticle-bl"></div>
+                            <div class="qr-reticle reticle-br"></div>
+
+                            <!-- Sharp Cyber QR Code SVG -->
+                            <svg class="upi-qr-svg" id="upi-qr-code-svg" viewBox="0 0 200 200" width="165" height="165" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="10" width="48" height="48" rx="8" fill="none" stroke="#00f2fe" stroke-width="5"/>
+                                <rect x="22" y="22" width="24" height="24" rx="4" fill="#00f2fe"/>
+
+                                <rect x="142" y="10" width="48" height="48" rx="8" fill="none" stroke="#00f2fe" stroke-width="5"/>
+                                <rect x="154" y="22" width="24" height="24" rx="4" fill="#00f2fe"/>
+
+                                <rect x="10" y="142" width="48" height="48" rx="8" fill="none" stroke="#00f2fe" stroke-width="5"/>
+                                <rect x="22" y="154" width="24" height="24" rx="4" fill="#00f2fe"/>
+
+                                <g fill="#f8fafc" opacity="0.95">
+                                    <rect x="68" y="14" width="8" height="8" rx="2"/>
+                                    <rect x="84" y="14" width="8" height="8" rx="2"/>
+                                    <rect x="100" y="14" width="8" height="8" rx="2"/>
+                                    <rect x="116" y="14" width="8" height="8" rx="2"/>
+
+                                    <rect x="68" y="30" width="8" height="8" rx="2"/>
+                                    <rect x="100" y="30" width="8" height="8" rx="2"/>
+                                    <rect x="116" y="30" width="8" height="8" rx="2"/>
+
+                                    <rect x="84" y="46" width="8" height="8" rx="2"/>
+                                    <rect x="116" y="46" width="8" height="8" rx="2"/>
+
+                                    <rect x="14" y="70" width="8" height="8" rx="2"/>
+                                    <rect x="30" y="70" width="8" height="8" rx="2"/>
+                                    <rect x="46" y="70" width="8" height="8" rx="2"/>
+                                    <rect x="62" y="70" width="8" height="8" rx="2"/>
+                                    <rect x="116" y="70" width="8" height="8" rx="2"/>
+                                    <rect x="132" y="70" width="8" height="8" rx="2"/>
+                                    <rect x="164" y="70" width="8" height="8" rx="2"/>
+                                    <rect x="180" y="70" width="8" height="8" rx="2"/>
+
+                                    <rect x="14" y="86" width="8" height="8" rx="2"/>
+                                    <rect x="46" y="86" width="8" height="8" rx="2"/>
+                                    <rect x="132" y="86" width="8" height="8" rx="2"/>
+                                    <rect x="148" y="86" width="8" height="8" rx="2"/>
+                                    <rect x="180" y="86" width="8" height="8" rx="2"/>
+
+                                    <rect x="30" y="102" width="8" height="8" rx="2"/>
+                                    <rect x="46" y="102" width="8" height="8" rx="2"/>
+                                    <rect x="62" y="102" width="8" height="8" rx="2"/>
+                                    <rect x="132" y="102" width="8" height="8" rx="2"/>
+                                    <rect x="164" y="102" width="8" height="8" rx="2"/>
+
+                                    <rect x="14" y="118" width="8" height="8" rx="2"/>
+                                    <rect x="30" y="118" width="8" height="8" rx="2"/>
+                                    <rect x="62" y="118" width="8" height="8" rx="2"/>
+                                    <rect x="78" y="118" width="8" height="8" rx="2"/>
+                                    <rect x="116" y="118" width="8" height="8" rx="2"/>
+                                    <rect x="148" y="118" width="8" height="8" rx="2"/>
+                                    <rect x="180" y="118" width="8" height="8" rx="2"/>
+
+                                    <rect x="68" y="146" width="8" height="8" rx="2"/>
+                                    <rect x="84" y="146" width="8" height="8" rx="2"/>
+                                    <rect x="116" y="146" width="8" height="8" rx="2"/>
+                                    <rect x="148" y="146" width="8" height="8" rx="2"/>
+                                    <rect x="164" y="146" width="8" height="8" rx="2"/>
+
+                                    <rect x="68" y="162" width="8" height="8" rx="2"/>
+                                    <rect x="100" y="162" width="8" height="8" rx="2"/>
+                                    <rect x="132" y="162" width="8" height="8" rx="2"/>
+                                    <rect x="164" y="162" width="8" height="8" rx="2"/>
+
+                                    <rect x="84" y="178" width="8" height="8" rx="2"/>
+                                    <rect x="116" y="178" width="8" height="8" rx="2"/>
+                                    <rect x="148" y="178" width="8" height="8" rx="2"/>
+                                    <rect x="180" y="178" width="8" height="8" rx="2"/>
+                                </g>
+
+                                <rect x="74" y="74" width="52" height="52" rx="10" fill="#060813" stroke="#00f2fe" stroke-width="2.5"/>
+                                <text x="100" y="106" font-family="'Space Grotesk', sans-serif" font-weight="800" font-size="16" fill="#00f2fe" text-anchor="middle">UPI</text>
+                            </svg>
+                        </div>
+
+                        <!-- Copyable UPI ID Box -->
+                        <div class="upi-id-pill" id="copy-upi-container">
+                            <div class="upi-id-meta">
+                                <span class="upi-id-prefix">UPI ID</span>
+                                <span class="upi-id-text" id="upi-id-display">ujjawal.kushwaha@okaxis</span>
+                            </div>
+                            <button class="upi-copy-action-btn" id="copy-upi-btn" aria-label="Copy UPI ID">
+                                <i class="fa-regular fa-copy" id="copy-upi-icon"></i>
+                                <span id="copy-upi-tooltip">Copy</span>
+                            </button>
+                        </div>
+
+                        <!-- Mobile Instant Pay Link -->
+                        <a href="upi://pay?pa=ujjawal.kushwaha@okaxis&pn=Ujjawal%20Kushwaha&am=51&cu=INR" class="btn btn-primary btn-block upi-pay-now-btn" id="upi-direct-pay-link">
+                            <i class="fa-solid fa-bolt-lightning"></i>
+                            <span id="upi-pay-btn-label">Pay ₹51 Directly via UPI App</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+
+                        <!-- Supported Apps Bar -->
+                        <div class="upi-apps-row">
+                            <span class="upi-app-badge"><i class="fa-brands fa-google-pay"></i> GPay</span>
+                            <span class="upi-app-badge"><i class="fa-solid fa-mobile-screen-button"></i> PhonePe</span>
+                            <span class="upi-app-badge"><i class="fa-solid fa-wallet"></i> Paytm</span>
+                            <span class="upi-app-badge"><i class="fa-solid fa-building-columns"></i> BHIM</span>
+                            <span class="upi-app-badge"><i class="fa-solid fa-credit-card"></i> Cred</span>
+                        </div>
+
+                        <!-- Heartbeat note -->
+                        <div class="upi-note">
+                            <i class="fa-solid fa-heart upi-heartbeat-anim"></i> Every tip fuels independent software creation!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="section-header reveal-element">
+                <p class="section-tag">[SYS.SEC_06 // TRANSMISSION]</p>
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-cards">
+                    <div class="glass-card contact-info-card tilt-card reveal-element">
+                        <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
+                        <div>
+                            <h4>Email Me</h4>
+                            <p>ujjawal.kushwaha@example.com</p>
+                            <a href="mailto:ujjawal.kushwaha@example.com" class="contact-link">Send an email &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card contact-info-card tilt-card reveal-element">
+                        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <h4>Current Location</h4>
+                            <p>New Delhi, India</p>
+                            <span class="contact-status"><span class="badge-dot"></span> Open to remote & on-site</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card contact-info-card tilt-card reveal-element">
+                        <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+                        <div>
+                            <h4>Professional Network</h4>
+                            <p>linkedin.com/in/ujjawalkushwaha</p>
+                            <a href="https://linkedin.com/in/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="contact-link">Connect on LinkedIn &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="glass-card contact-info-card tilt-card reveal-element">
+                        <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+                        <div>
+                            <h4>Source Code & Repos</h4>
+                            <p>github.com/ujjawalkushwaha</p>
+                            <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="contact-link">Explore Repositories &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card contact-form-card reveal-element">
+                    <h3>Send a Message</h3>
+                    <p class="form-desc">Whether you have an internship opportunity, a project idea, or just want to chat about 3D graphics, feel free to drop a message!</p>
+
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <div class="input-wrapper">
+                                <i class="fa-regular fa-user"></i>
+                                <input type="text" id="name" name="name" placeholder="John Doe" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <div class="input-wrapper">
+                                <i class="fa-regular fa-envelope"></i>
+                                <input type="email" id="email" name="email" placeholder="john@example.com" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-tag"></i>
+                                <input type="text" id="subject" name="subject" placeholder="Project Inquiry / Job Opportunity" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <div class="input-wrapper textarea-wrapper">
+                                <i class="fa-regular fa-comment-dots"></i>
+                                <textarea id="message" name="message" rows="4" placeholder="Hello Ujjawal, I came across your portfolio..." required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block magnetic-btn" id="submit-btn">
+                            <span>Send Message</span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                    <div id="form-feedback" class="form-feedback"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Interactive Cyber Terminal Modal -->
+    <div class="terminal-modal" id="terminal-modal">
+        <div class="terminal-backdrop" id="terminal-backdrop"></div>
+        <div class="terminal-window">
+            <div class="terminal-titlebar">
+                <div class="term-dots">
+                    <span class="dot-red close-term"></span>
+                    <span class="dot-yellow"></span>
+                    <span class="dot-green"></span>
+                </div>
+                <div class="term-title"><i class="fa-solid fa-terminal text-cyan"></i> ujjawal@cyber-terminal: ~ (Bash 5.2)</div>
+                <button class="term-close-x close-term" aria-label="Close terminal">&times;</button>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <div class="term-line welcome-line">CyberOS v4.2 [Kernel: WebGL-3D] &bull; Type <span class="highlight-cyan">'help'</span> to see available commands or click chips below.</div>
+                <div id="term-output"></div>
+                <div class="term-input-row">
+                    <span class="term-prompt">ujjawal@portfolio:~$</span>
+                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus />
+                </div>
+            </div>
+            <div class="term-quick-chips">
+                <span class="chip-cmd" data-cmd="help">help</span>
+                <span class="chip-cmd" data-cmd="about">about</span>
+                <span class="chip-cmd" data-cmd="skills">skills</span>
+                <span class="chip-cmd" data-cmd="projects">projects</span>
+                <span class="chip-cmd" data-cmd="upi">upi</span>
+                <span class="chip-cmd" data-cmd="theme synthwave">synthwave</span>
+                <span class="chip-cmd" data-cmd="theme matrix">matrix</span>
+                <span class="chip-cmd" data-cmd="theme amber">amber</span>
+                <span class="chip-cmd" data-cmd="theme cyan">cyan</span>
+                <span class="chip-cmd" data-cmd="matrix">matrix</span>
+                <span class="chip-cmd" data-cmd="clear">clear</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cyber Dock (Bottom Quick Navigation) -->
+    <div class="cyber-dock" id="cyber-dock">
+        <a href="#home" class="dock-item" title="Home"><i class="fa-solid fa-house"></i></a>
+        <a href="#about" class="dock-item" title="About"><i class="fa-solid fa-user-astronaut"></i></a>
+        <a href="#skills" class="dock-item" title="Skills"><i class="fa-solid fa-code"></i></a>
+        <a href="#projects" class="dock-item" title="Projects"><i class="fa-solid fa-folder-open"></i></a>
+        <a href="#experience" class="dock-item" title="Timeline"><i class="fa-solid fa-timeline"></i></a>
+        <a href="#upi-support" class="dock-item dock-upi-item" title="Support via UPI"><i class="fa-solid fa-indian-rupee-sign"></i></a>
+        <button class="dock-item" id="dock-term-btn" title="Open Terminal"><i class="fa-solid fa-terminal"></i></button>
+        <button class="dock-item" id="dock-theme-btn" title="Cycle Theme"><i class="fa-solid fa-palette"></i></button>
+        <a href="#home" class="dock-item" title="Back to Top"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+
+    <!-- Footer with Live Clock & Social Connections -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="#home" class="logo">
+                    <span class="logo-bracket">&lt;</span>Ujjawal<span class="gradient-text">.Dev</span><span class="logo-bracket">/&gt;</span>
+                </a>
+                <p>Building high-performance, visually interactive experiences on the web.</p>
+                <div class="live-clock-badge" id="live-clock-badge">
+                    <i class="fa-regular fa-clock text-cyan"></i>
+                    <span>New Delhi, IST: <strong id="live-clock-text">--:--:--</strong></span>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Navigation</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills & Stack</a></li>
+                    <li><a href="#projects">Featured Projects</a></li>
+                    <li><a href="#upi-support">Support via UPI</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-socials">
+                <h4>Connect & Code</h4>
+                <div class="social-icons">
+                    <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://linkedin.com/in/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://codepen.io" target="_blank" rel="noopener noreferrer" aria-label="CodePen"><i class="fa-brands fa-codepen"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Ujjawal Kushwaha &bull; Crafted with Three.js & Modern Web Technologies.</p>
+            <a href="#home" class="back-to-top" id="back-to-top" aria-label="Back to top">
+                <i class="fa-solid fa-chevron-up"></i>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
