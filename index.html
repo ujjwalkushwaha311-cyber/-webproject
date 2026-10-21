@@ -1,1066 +1,1603 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cyan">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ujjawal Kushwaha | 3D Interactive Portfolio & Creative Developer</title>
-    <meta name="description" content="Portfolio of Ujjawal Kushwaha - Computer Science Undergrad, Full-Stack Developer, and 3D Web Graphics Enthusiast." />
-    <link rel="stylesheet" href="style.css" />
-    <!-- Font Awesome for modern icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <!-- Three.js CDN for 3D graphics -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXORA by Ujjwal - Experience the future of mobile innovation with 120Hz AMOLED, 4nm AI processor, 108MP camera, and 120W HyperCharge starting at ₹29,999.">
+  <title>NEXORA by Ujjwal | Flagship Smartphone of Tomorrow</title>
 
+  <!-- Google Fonts: Plus Jakarta Sans for Display & Inter for Body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
-    <!-- Scroll Progress Indicator -->
-    <div id="scroll-progress"></div>
+  <!-- ========================================================
+       TOP SCROLL PROGRESS INDICATOR
+       ======================================================== -->
+  <div class="scroll-progress-bar" id="scrollProgress" aria-hidden="true"></div>
 
-    <!-- Custom Cyber Cursor -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-outline" id="cursor-outline"></div>
+  <!-- ========================================================
+       TOP NOTIFICATION BANNER
+       ======================================================== -->
+  <div class="top-banner" id="topBanner">
+    <div class="container top-banner-content">
+      <span class="badge-pulse">EXCLUSIVE LAUNCH</span>
+      <p>Special Introductory Offer: Pre-order NEXORA today and receive free wireless earbuds worth ₹3,999! <span class="demo-tag">[Demo Project]</span></p>
+      <button class="top-banner-close" id="closeBanner" aria-label="Dismiss banner">&times;</button>
+    </div>
+  </div>
 
-    <!-- Background 3D Canvas -->
-    <canvas id="bg-3d-canvas"></canvas>
+  <!-- ========================================================
+       A. NAVIGATION BAR
+       ======================================================== -->
+  <header class="site-header" id="header">
+    <div class="container navbar">
+      <!-- Logo -->
+      <a href="#hero" class="brand-logo" aria-label="NEXORA Home">
+        <div class="logo-mark">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M16 2L2 9L16 16L30 9L16 2Z" fill="url(#logo_grad1)"/>
+            <path d="M2 23L16 30L30 23V16L16 23L2 16V23Z" fill="url(#logo_grad2)"/>
+            <defs>
+              <linearGradient id="logo_grad1" x1="2" y1="2" x2="30" y2="16" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#00e5ff"/>
+                <stop offset="1" stop-color="#0066ff"/>
+              </linearGradient>
+              <linearGradient id="logo_grad2" x1="2" y1="16" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#0066ff"/>
+                <stop offset="1" stop-color="#00e5ff"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="logo-text-group">
+          <span class="logo-name">NEXORA</span>
+          <span class="logo-sub">by Ujjwal</span>
+        </div>
+      </a>
 
-    <!-- Matrix Digital Rain Canvas Overlay (Interactive Easter Egg) -->
-    <canvas id="matrix-canvas" class="matrix-canvas"></canvas>
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#hero" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+          <li class="nav-item"><a href="#battery-sim" class="nav-link">120W Speed</a></li>
+          <li class="nav-item"><a href="#specs" class="nav-link">Specifications</a></li>
+          <li class="nav-item"><a href="#camera-zoom" class="nav-link">Camera</a></li>
+          <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
+          <li class="nav-item"><a href="#comparison" class="nav-link">Compare</a></li>
+          <li class="nav-item"><a href="#why-nexora" class="nav-link">Why NEXORA</a></li>
+          <li class="nav-item"><a href="#reviews" class="nav-link">Reviews</a></li>
+          <li class="nav-item"><a href="#faq" class="nav-link">FAQ</a></li>
+        </ul>
+      </nav>
 
-    <!-- Background Ambient Aurora Mesh Orbs (Continuous Animation) -->
-    <div class="aurora-orb orb-1"></div>
-    <div class="aurora-orb orb-2"></div>
-    <div class="aurora-orb orb-3"></div>
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Interactive UI Theme & Multi-Color Switcher Trigger -->
+        <button class="theme-nav-btn" id="navThemeBtn" aria-label="Switch UI Color Theme" title="Customize UI Colors">
+          <span class="theme-dot-preview" id="navThemeDot"></span>
+          <span class="theme-text">Colors</span>
+        </button>
 
-    <!-- Floating Always-Animated UPI Quick-Action Button -->
-    <div class="floating-upi-container" id="floating-upi">
-        <a href="#upi-support" class="floating-upi-btn" id="floating-upi-btn" aria-label="Support Ujjawal via UPI">
-            <span class="upi-pulse-ring ring-1"></span>
-            <span class="upi-pulse-ring ring-2"></span>
-            <span class="upi-pulse-ring ring-3"></span>
-            <span class="upi-btn-content">
-                <i class="fa-solid fa-indian-rupee-sign upi-currency-icon"></i>
-                <span class="upi-btn-text">Support / UPI</span>
-            </span>
+        <!-- Interactive Tech Sound FX Toggle -->
+        <button class="sound-toggle-btn" id="soundToggle" aria-label="Toggle interactive audio feedback" title="Futuristic UI Sound Effects">
+          <svg class="sound-icon sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg class="sound-icon sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+          <span class="sound-text">SFX</span>
+        </button>
+
+        <button class="btn btn-primary nav-buy-btn" id="navBuyBtn" type="button">
+          <span>Buy Now</span>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <ul class="mobile-nav-list">
+        <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+        <li><a href="#features" class="mobile-nav-link">Features</a></li>
+        <li><a href="#battery-sim" class="mobile-nav-link">120W Speed Simulator</a></li>
+        <li><a href="#specs" class="mobile-nav-link">Specifications</a></li>
+        <li><a href="#camera-zoom" class="mobile-nav-link">108MP Camera Lab</a></li>
+        <li><a href="#gallery" class="mobile-nav-link">Product Gallery</a></li>
+        <li><a href="#comparison" class="mobile-nav-link">Compare Flagships</a></li>
+        <li><a href="#why-nexora" class="mobile-nav-link">Why NEXORA</a></li>
+        <li><a href="#reviews" class="mobile-nav-link">Reviews</a></li>
+        <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+      </ul>
+      <div class="mobile-drawer-cta">
+        <button class="btn btn-primary btn-block" id="mobileBuyBtn" type="button">Buy Now — ₹29,999</button>
+      </div>
+    </div>
+    <!-- Mobile Backdrop -->
+    <div class="mobile-backdrop" id="mobileBackdrop"></div>
+  </header>
+
+  <main>
+    <!-- ========================================================
+         B. HERO SECTION
+         ======================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="hero-glow hero-glow-1" id="heroGlow1" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-2" id="heroGlow2" aria-hidden="true"></div>
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+
+      <div class="container hero-container">
+        <!-- Hero Text Content -->
+        <div class="hero-content">
+          <div class="hero-tagline">
+            <span class="hero-pill-dot"></span>
+            <span>NEXT-GEN FLAGSHIP SMARTPHONE</span>
+          </div>
+
+          <h1 class="hero-title">
+            Meet the Future.<br>
+            Meet <span class="gradient-text">NEXORA.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Powerful performance. Stunning visuals. A smarter everyday experience. Crafted with aerospace-grade titanium and powered by the revolutionary 4nm AI processor.
+          </p>
+
+          <!-- Interactive Hero Finish Color Switcher -->
+          <div class="hero-finish-picker">
+            <span class="finish-label">Select Color Finish:</span>
+            <div class="finish-pills" role="radiogroup" aria-label="Device Color Finishes">
+              <button type="button" class="finish-pill active" data-color="blue" data-hex="#00d2ff" title="Cyber Blue finish">
+                <span class="finish-dot blue-dot"></span>
+                <span>Cyber Blue</span>
+              </button>
+              <button type="button" class="finish-pill" data-color="purple" data-hex="#a855f7" title="Cosmic Purple finish">
+                <span class="finish-dot purple-dot"></span>
+                <span>Cosmic Purple</span>
+              </button>
+              <button type="button" class="finish-pill" data-color="emerald" data-hex="#10b981" title="Aurora Emerald finish">
+                <span class="finish-dot emerald-dot"></span>
+                <span>Aurora Emerald</span>
+              </button>
+              <button type="button" class="finish-pill" data-color="crimson" data-hex="#f43f5e" title="Sunset Crimson finish">
+                <span class="finish-dot crimson-dot"></span>
+                <span>Sunset Crimson</span>
+              </button>
+              <button type="button" class="finish-pill" data-color="silver" data-hex="#e2e8f0" title="Titanium Silver finish">
+                <span class="finish-dot silver-dot"></span>
+                <span>Titanium Silver</span>
+              </button>
+              <button type="button" class="finish-pill" data-color="black" data-hex="#111827" title="Phantom Black finish">
+                <span class="finish-dot black-dot"></span>
+                <span>Phantom Black</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Pricing Pill -->
+          <div class="hero-price-pill">
+            <span class="price-label">Starting Price</span>
+            <div class="price-value-row">
+              <span class="price-currency">₹</span>
+              <span class="price-amount">29,999</span>
+              <span class="price-original">₹34,999</span>
+              <span class="discount-badge">Save ₹5,000</span>
+            </div>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="hero-cta-group">
+            <button class="btn btn-primary btn-glow" id="heroBuyBtn" type="button">
+              <span>Buy Now</span>
+              <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <a href="#features" class="btn btn-secondary">
+              <span>Explore Features</span>
+              <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Key Highlights Quick Bar -->
+          <div class="hero-stats">
+            <div class="stat-item stat-display">
+              <span class="stat-number">120Hz</span>
+              <span class="stat-label">LTPO AMOLED</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item stat-chip">
+              <span class="stat-number">4nm</span>
+              <span class="stat-label">AI Chipset</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item stat-camera">
+              <span class="stat-number">108MP</span>
+              <span class="stat-label">OIS Camera</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item stat-charge">
+              <span class="stat-number">120W</span>
+              <span class="stat-label">HyperCharge</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase with 3D Parallax & Interactive Hotspots -->
+        <div class="hero-visual" id="heroVisual">
+          <div class="hero-device-wrapper" id="heroDeviceWrapper">
+            <div class="phone-ambient-ring" id="heroRing"></div>
+            
+            <div class="phone-frame" id="heroPhoneFrame">
+              <img 
+                src="assets/images/hero-phone.jpg" 
+                alt="NEXORA Flagship Smartphone featuring curved edge display and electric blue ambient rim lighting" 
+                class="hero-phone-img" 
+                id="heroImage"
+                loading="eager"
+              >
+              <!-- Specular 3D Light Glare Overlay -->
+              <div class="phone-glare" id="phoneGlare" aria-hidden="true"></div>
+              <!-- Dynamic Phone Face Color Accent Tint -->
+              <div class="phone-color-tint" id="phoneColorTint" aria-hidden="true"></div>
+
+              <!-- Interactive Hotspot 1: Camera -->
+              <div class="hotspot-pin hotspot-camera" tabindex="0" role="button" aria-label="Camera Module Details">
+                <span class="hotspot-pulse"></span>
+                <span class="hotspot-icon">+</span>
+                <div class="hotspot-tooltip">
+                  <strong>108MP Quantum Lens</strong>
+                  <p>f/1.6 Aperture with 4-Axis Hardware Optical Stabilization</p>
+                </div>
+              </div>
+
+              <!-- Interactive Hotspot 2: Display -->
+              <div class="hotspot-pin hotspot-screen" tabindex="0" role="button" aria-label="Display Panel Details">
+                <span class="hotspot-pulse"></span>
+                <span class="hotspot-icon">+</span>
+                <div class="hotspot-tooltip">
+                  <strong>6.7" QHD+ AMOLED</strong>
+                  <p>1-120Hz Variable Refresh Rate &amp; 2000 Nits Peak Brightness</p>
+                </div>
+              </div>
+
+              <!-- Interactive Hotspot 3: Frame -->
+              <div class="hotspot-pin hotspot-frame" tabindex="0" role="button" aria-label="Titanium Chassis Details">
+                <span class="hotspot-pulse"></span>
+                <span class="hotspot-icon">+</span>
+                <div class="hotspot-tooltip">
+                  <strong>Aerospace Titanium</strong>
+                  <p>Grade-5 Micro-Milled Chassis with 7.8mm Featherweight Profile</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Badges -->
+            <div class="floating-badge badge-top-right">
+              <div class="badge-icon-wrap blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+              </div>
+              <div class="badge-text">
+                <span class="badge-title">120W HyperCharge</span>
+                <span class="badge-desc">100% in 18 minutes</span>
+              </div>
+            </div>
+
+            <div class="floating-badge badge-bottom-left">
+              <div class="badge-icon-wrap cyan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 18.07 7H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/>
+                </svg>
+              </div>
+              <div class="badge-text">
+                <span class="badge-title">108MP Quantum Lens</span>
+                <span class="badge-desc">Cinematic 8K Video</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         C. PRODUCT FEATURES
+         ======================================================== -->
+    <section class="section features-section" id="features">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">ENGINEERED TO PERFECTION</span>
+          <h2 class="section-title">Breakthrough Features. Zero Compromise.</h2>
+          <p class="section-desc">Every component of NEXORA is designed to deliver industry-defining power, elegance, and durability.</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card feature-card-cyan reveal-on-scroll">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <div class="feature-tag">Visuals</div>
+            <h3 class="feature-title">High-Resolution AMOLED Display</h3>
+            <p class="feature-text">
+              Immerse yourself in a 6.7" QHD+ LTPO 120Hz curved AMOLED panel with 2,000 nits peak brightness and HDR10+ certified color calibration.
+            </p>
+            <ul class="feature-bullets">
+              <li>1-120Hz Adaptive Refresh Rate</li>
+              <li>1.07 Billion True-Color Depth</li>
+            </ul>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card feature-card-purple reveal-on-scroll">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <line x1="9" y1="1" x2="9" y2="4"/>
+                <line x1="15" y1="1" x2="15" y2="4"/>
+                <line x1="9" y1="20" x2="9" y2="23"/>
+                <line x1="15" y1="20" x2="15" y2="23"/>
+                <line x1="20" y1="9" x2="23" y2="9"/>
+                <line x1="20" y1="14" x2="23" y2="14"/>
+                <line x1="1" y1="9" x2="4" y2="9"/>
+                <line x1="1" y1="14" x2="4" y2="14"/>
+              </svg>
+            </div>
+            <div class="feature-tag">Speed</div>
+            <h3 class="feature-title">Powerful 4nm AI Processor</h3>
+            <p class="feature-text">
+              Built on cutting-edge 4-nanometer architecture, the octa-core neural chipset delivers effortless multitasking, ray-traced gaming, and deep AI enhancements.
+            </p>
+            <ul class="feature-bullets">
+              <li>3.4 GHz Clock Speed</li>
+              <li>Next-Gen Liquid Cooling Chamber</li>
+            </ul>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card feature-card-emerald reveal-on-scroll">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+            </div>
+            <div class="feature-tag">Photography</div>
+            <h3 class="feature-title">Advanced Camera System</h3>
+            <p class="feature-text">
+              Capture hyper-detailed memories with the 108MP Quad OIS main sensor, 50MP ultra-wide lens, 5x periscope optical zoom, and 8K cinematic recording.
+            </p>
+            <ul class="feature-bullets">
+              <li>NightVision Ultra Low-Light Mode</li>
+              <li>Optical Image Stabilization (OIS)</li>
+            </ul>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card feature-card-coral reveal-on-scroll">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon">
+                <rect x="2" y="7" width="16" height="12" rx="2"/>
+                <line x1="22" y1="11" x2="22" y2="15"/>
+                <line x1="6" y1="11" x2="6" y2="15"/>
+                <line x1="10" y1="11" x2="10" y2="15"/>
+              </svg>
+            </div>
+            <div class="feature-tag">Endurance</div>
+            <h3 class="feature-title">Long-Lasting 5000mAh Battery</h3>
+            <p class="feature-text">
+              Powered by advanced dual-cell silicon-carbon technology, NEXORA comfortably sails through up to 32 hours of intensive mixed usage on a single charge.
+            </p>
+            <ul class="feature-bullets">
+              <li>Intelligent AI Power Saving</li>
+              <li>1600+ Full Health Charge Cycles</li>
+            </ul>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card feature-card-amber reveal-on-scroll">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <div class="feature-tag">Charging</div>
+            <h3 class="feature-title">120W HyperCharge Tech</h3>
+            <p class="feature-text">
+              Say goodbye to charging anxiety. Achieve a 50% charge in just 7 minutes and a complete 100% charge in 18 minutes with the included GaN safety adapter.
+            </p>
+            <ul class="feature-bullets">
+              <li>50W Magnetic Wireless Charging</li>
+              <li>10W Reverse Wireless Sharing</li>
+            </ul>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-card feature-card-blue reveal-on-scroll">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <div class="feature-tag">Build</div>
+            <h3 class="feature-title">Aerospace Titanium Design</h3>
+            <p class="feature-text">
+              Sculpted with Grade-5 aerospace titanium, tactile micro-textured matte glass, and diamond-cut edges. Rated IP68 for water, spill, and dust resistance.
+            </p>
+            <ul class="feature-bullets">
+              <li>IP68 Water & Dust Submersion</li>
+              <li>Ultra-Slim 7.8mm Ergonomic Body</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         INTERACTIVE 120W HYPERCHARGE SIMULATOR SECTION
+         ======================================================== -->
+    <section class="section battery-sim-section" id="battery-sim">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">INTERACTIVE HARDWARE LAB</span>
+          <h2 class="section-title">Speed of Light. Zero Waiting.</h2>
+          <p class="section-desc">Drag the slider or click Simulate to experience the sheer speed of 120W HyperCharge in real time.</p>
+        </div>
+
+        <div class="sim-card reveal-on-scroll">
+          <div class="sim-grid">
+            <!-- Left: Graphic Battery Visualizer -->
+            <div class="sim-visual-box">
+              <div class="battery-cylinder">
+                <div class="battery-terminal"></div>
+                <div class="battery-hull">
+                  <div class="battery-liquid" id="batteryLiquid" style="height: 50%;">
+                    <div class="liquid-wave"></div>
+                  </div>
+                  <div class="battery-center-readout">
+                    <span class="battery-pct" id="batteryPctText">50%</span>
+                    <span class="battery-status" id="batteryStatusText">⚡ HyperCharging</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="charging-lightning-aura"></div>
+            </div>
+
+            <!-- Right: Controls & Real-Time Estimation -->
+            <div class="sim-controls-box">
+              <div class="slider-header">
+                <label for="chargeSlider" class="slider-label">Charge Duration (Minutes):</label>
+                <span class="slider-value-display" id="chargeMinutesDisplay">7 Minutes</span>
+              </div>
+
+              <!-- Scrub Slider -->
+              <input 
+                type="range" 
+                id="chargeSlider" 
+                class="sim-range" 
+                min="0" 
+                max="18" 
+                value="7" 
+                step="1"
+                aria-label="Charging duration slider from 0 to 18 minutes"
+              >
+
+              <div class="sim-timeline-ticks">
+                <span>0m (Empty)</span>
+                <span>7m (50%)</span>
+                <span>12m (80%)</span>
+                <span>18m (100%)</span>
+              </div>
+
+              <div class="sim-action-row">
+                <button type="button" class="btn btn-secondary sim-play-btn" id="simPlayBtn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>Auto Simulate 0 &rarr; 100%</span>
+                </button>
+              </div>
+
+              <!-- Estimated Endurance Outputs -->
+              <div class="sim-metrics-grid">
+                <div class="sim-metric-box">
+                  <span class="metric-icon">📞</span>
+                  <span class="metric-num" id="calcTalkTime">16.0 hrs</span>
+                  <span class="metric-sub">Voice Calls</span>
+                </div>
+                <div class="sim-metric-box">
+                  <span class="metric-icon">🎬</span>
+                  <span class="metric-num" id="calcVideoTime">11.5 hrs</span>
+                  <span class="metric-sub">4K Video Stream</span>
+                </div>
+                <div class="sim-metric-box">
+                  <span class="metric-icon">🎮</span>
+                  <span class="metric-num" id="calcGameTime">5.2 hrs</span>
+                  <span class="metric-sub">High-FPS Gaming</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         D. SPECIFICATIONS SECTION
+         ======================================================== -->
+    <section class="section specs-section" id="specs">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">FULL TECHNICAL HARDWARE</span>
+          <h2 class="section-title">Flagship Specifications</h2>
+          <p class="section-desc">Inspect every fine engineering parameter powering the NEXORA smartphone experience.</p>
+        </div>
+
+        <div class="specs-disclaimer reveal-on-scroll">
+          <svg viewBox="0 0 20 20" fill="currentColor" class="disclaimer-icon" aria-hidden="true">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <span><strong>Project Note:</strong> All technical specifications listed below are fictional sample parameters created for this academic web design project.</span>
+        </div>
+
+        <div class="specs-table-wrapper reveal-on-scroll">
+          <table class="specs-table" aria-label="NEXORA Smartphone Specifications">
+            <thead>
+              <tr>
+                <th scope="col" class="th-param">Hardware Category</th>
+                <th scope="col" class="th-detail">Official Technical Specifications</th>
+                <th scope="col" class="th-highlight">Performance Advantage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="spec-category">
+                  <div class="cat-cell"><span class="spec-dot"></span><strong>Display</strong></div>
+                </td>
+                <td class="spec-details">
+                  6.7-inch Quad HD+ (3200 &times; 1440) Curved LTPO AMOLED, 1&ndash;120Hz Variable Refresh Rate, 2,000 Nits Peak Brightness, Corning&reg; Gorilla&reg; Armor Glass
+                </td>
+                <td class="spec-badge-cell"><span class="tech-badge">True QHD+ HDR10+</span></td>
+              </tr>
+              <tr>
+                <td class="spec-category">
+                  <div class="cat-cell"><span class="spec-dot"></span><strong>Processor</strong></div>
+                </td>
+                <td class="spec-details">
+                  Next-Gen 4nm Octa-Core AI Flagship Chipset (Cortex-X4 @ 3.4GHz + 3x A720 + 4x A520), Adreno 750 Ultra GPU, 45 TOPS NPU
+                </td>
+                <td class="spec-badge-cell"><span class="tech-badge">4nm Architecture</span></td>
+              </tr>
+              <tr>
+                <td class="spec-category">
+                  <div class="cat-cell"><span class="spec-dot"></span><strong>RAM &amp; Storage</strong></div>
+                </td>
+                <td class="spec-details">
+                  8GB / 12GB LPDDR5X RAM (8533 Mbps) paired with 128GB / 256GB / 512GB Ultra-Fast UFS 4.0 Flash Storage
+                </td>
+                <td class="spec-badge-cell"><span class="tech-badge">LPDDR5X + UFS 4.0</span></td>
+              </tr>
+              <tr>
+                <td class="spec-category">
+                  <div class="cat-cell"><span class="spec-dot"></span><strong>Rear Camera</strong></div>
+                </td>
+                <td class="spec-details">
+                  Triple Array: 108MP Main (f/1.6, OIS, 1/1.33") + 50MP Ultra-Wide (120&deg; FOV, Macro) + 12MP Periscope Telephoto (5x Optical Zoom, 50x Digital, OIS)
+                </td>
+                <td class="spec-badge-cell"><span class="tech-badge">8K @ 30fps Cinema</span></td>
+              </tr>
+              <tr>
+                <td class="spec-category">
+                  <div class="cat-cell"><span class="spec-dot"></span><strong>Front Camera</strong></div>
+                </td>
+                <td class="spec-details">
+                  32MP Ultra-Clear Sensor (f/2.2, 90&deg; FOV) with AI Beautification, Auto-Focus, and 4K 60fps HDR Video Recording
+                </td>
+                <td class="spec-badge-cell"><span class="tech-badge">4K Selfie Studio</span></td>
+              </tr>
+              <tr>
+                <td class="spec-category">
+                  <div class="cat-cell"><span class="spec-dot"></span><strong>Battery</strong></div>
+                </td>
+                <td class="spec-details">
+                  5,000 mAh High-Density Dual-Cell Silicon-Carbon Battery with Smart Temperature Management
+                </td>
+                <td class="spec-badge-cell"><span class="tech-badge">All-Day 32h Endurance</span></td>
+              </tr>
+              <tr>
+                <td class="spec-category">
+                  <div class="cat-cell"><span class="spec-dot"></span><strong>Charging</strong></div>
+                </td>
+                <td class="spec-details">
+                  120W Wired HyperCharge (0-100% in 18 min), 50W Fast Wireless Qi-2 Charging, 10W Reverse Wireless Charging
+                </td>
+                <td class="spec-badge-cell"><span class="tech-badge">120W GaN In-Box</span></td>
+              </tr>
+              <tr>
+                <td class="spec-category">
+                  <div class="cat-cell"><span class="spec-dot"></span><strong>Operating System</strong></div>
+                </td>
+                <td class="spec-details">
+                  NexOS 14 (Optimized Android 14 base), Clean UI, Zero Bloatware, 4 Years of Major OS Updates &amp; 5 Years of Security Patches
+                </td>
+                <td class="spec-badge-cell"><span class="tech-badge">Clean &amp; Bloatware-Free</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         INTERACTIVE 108MP CAMERA LAB SECTION
+         ======================================================== -->
+    <section class="section camera-lab-section" id="camera-zoom">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">OPTICAL ENGINEERING</span>
+          <h2 class="section-title">Master Every Focal Length</h2>
+          <p class="section-desc">Toggle between lenses below to preview the studio-grade versatility of the 108MP Quantum Camera system.</p>
+        </div>
+
+        <div class="camera-lab-card reveal-on-scroll">
+          <!-- Viewfinder Window -->
+          <div class="viewfinder-window">
+            <div class="viewfinder-lens-view" id="cameraViewContainer">
+              <img src="assets/images/phone-camera.jpg" alt="108MP Quantum Optics Lens closeup" id="cameraSampleImg" class="camera-sample-img">
+              <div class="viewfinder-grid-overlay" aria-hidden="true">
+                <div class="grid-crosshair"></div>
+                <div class="viewfinder-corner top-left"></div>
+                <div class="viewfinder-corner top-right"></div>
+                <div class="viewfinder-corner bottom-left"></div>
+                <div class="viewfinder-corner bottom-right"></div>
+              </div>
+            </div>
+
+            <!-- On-Screen Telemetry HUD -->
+            <div class="viewfinder-hud">
+              <div class="hud-item"><span class="hud-label">APERTURE</span><span class="hud-val" id="hudAperture">f/1.6</span></div>
+              <div class="hud-item"><span class="hud-label">FOCAL</span><span class="hud-val" id="hudFocal">24mm Equivalent</span></div>
+              <div class="hud-item"><span class="hud-label">ISO / SHUTTER</span><span class="hud-val">ISO 64 &bull; 1/1200s</span></div>
+              <div class="hud-item"><span class="hud-label">STABILIZATION</span><span class="hud-val highlight-hud">QUAD-OIS ACTIVE</span></div>
+            </div>
+          </div>
+
+          <!-- Lens Selector Controls -->
+          <div class="lens-selector-bar">
+            <button type="button" class="lens-btn" data-lens="wide" data-aperture="f/2.2" data-focal="14mm Ultra-Wide" data-scale="1" data-desc="120° Panoramic Ultra-Wide Angle with edge distortion correction">
+              <span class="lens-zoom">0.5x</span>
+              <span class="lens-name">Ultra-Wide</span>
+            </button>
+            <button type="button" class="lens-btn active" data-lens="main" data-aperture="f/1.6" data-focal="24mm Main" data-scale="1.25" data-desc="108MP Quantum Main Sensor with 9-in-1 pixel binning for cinematic dynamic range">
+              <span class="lens-zoom">1.0x</span>
+              <span class="lens-name">108MP Main</span>
+            </button>
+            <button type="button" class="lens-btn" data-lens="tele" data-aperture="f/3.0" data-focal="120mm Telephoto" data-scale="1.6" data-desc="5x Optical Periscope Zoom with dedicated hardware gyro stabilization">
+              <span class="lens-zoom">5.0x</span>
+              <span class="lens-name">Optical Tele</span>
+            </button>
+            <button type="button" class="lens-btn" data-lens="macro" data-aperture="f/2.0" data-focal="Macro 2.5cm" data-scale="1.95" data-desc="Extreme Macro Inspection revealing micro textures invisible to the naked eye">
+              <span class="lens-zoom">Macro</span>
+              <span class="lens-name">Ultra Macro</span>
+            </button>
+          </div>
+
+          <p class="lens-desc-text" id="lensDescription">108MP Quantum Main Sensor with 9-in-1 pixel binning for cinematic dynamic range.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         E. PRODUCT GALLERY
+         ======================================================== -->
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">360° PERSPECTIVE</span>
+          <h2 class="section-title">Designed to Captivate</h2>
+          <p class="section-desc">Click any perspective below to examine the precision craftsmanship of the NEXORA smartphone.</p>
+        </div>
+
+        <div class="gallery-wrapper reveal-on-scroll">
+          <!-- Main Display Card -->
+          <div class="gallery-main-card">
+            <div class="gallery-image-container">
+              <img 
+                src="assets/images/hero-phone.jpg" 
+                alt="NEXORA Front Curved AMOLED Display Angle" 
+                class="gallery-main-img" 
+                id="galleryMainImg"
+              >
+            </div>
+            <div class="gallery-caption-bar">
+              <div class="caption-info">
+                <span class="caption-tag" id="galleryViewTag">Angle 1 of 4</span>
+                <h4 class="caption-title" id="galleryViewTitle">Front View: 120Hz Curved Edge AMOLED Display</h4>
+                <p class="caption-desc" id="galleryViewDesc">Edge-to-edge immersive panel surrounded by subtle electric-blue accent ambient luminescence.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thumbnails Strip -->
+          <div class="gallery-thumbnails" role="tablist" aria-label="Product views gallery">
+            <button 
+              class="thumb-btn active" 
+              data-img="assets/images/hero-phone.jpg" 
+              data-tag="Angle 1 of 4"
+              data-title="Front View: 120Hz Curved Edge AMOLED Display"
+              data-desc="Edge-to-edge immersive panel surrounded by subtle electric-blue accent ambient luminescence."
+              aria-label="View 1: Front Display"
+              role="tab"
+              aria-selected="true"
+            >
+              <img src="assets/images/hero-phone.jpg" alt="Front angle thumbnail">
+              <span class="thumb-label">Front Display</span>
+            </button>
+
+            <button 
+              class="thumb-btn" 
+              data-img="assets/images/phone-back.jpg" 
+              data-tag="Angle 2 of 4"
+              data-title="Rear View: Matte Titanium &amp; Geometric Precision"
+              data-desc="Sculpted matte backplate featuring high-precision camera island with electric-blue metallic lens rings."
+              aria-label="View 2: Rear Plate"
+              role="tab"
+              aria-selected="false"
+            >
+              <img src="assets/images/phone-back.jpg" alt="Rear plate thumbnail">
+              <span class="thumb-label">Titanium Back</span>
+            </button>
+
+            <button 
+              class="thumb-btn" 
+              data-img="assets/images/phone-side.jpg" 
+              data-tag="Angle 3 of 4"
+              data-title="Side Profile: Ultra-Slim 7.8mm Aerospace Frame"
+              data-desc="Diamond-milled titanium frame with tactile mechanical buttons and illuminated status indicator."
+              aria-label="View 3: Side Profile"
+              role="tab"
+              aria-selected="false"
+            >
+              <img src="assets/images/phone-side.jpg" alt="Side profile thumbnail">
+              <span class="thumb-label">Slim Profile</span>
+            </button>
+
+            <button 
+              class="thumb-btn" 
+              data-img="assets/images/phone-camera.jpg" 
+              data-tag="Angle 4 of 4"
+              data-title="Camera Array: 108MP Quantum Optics Lens"
+              data-desc="Multi-element sapphire glass lens with anti-reflective coating engineered for studio-grade mobile imaging."
+              aria-label="View 4: Camera Macro"
+              role="tab"
+              aria-selected="false"
+            >
+              <img src="assets/images/phone-camera.jpg" alt="Camera module thumbnail">
+              <span class="thumb-label">108MP Optics</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         FLAGSHIP VALUE COMPARISON TABLE
+         ======================================================== -->
+    <section class="section comparison-section" id="comparison">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">UNMATCHED VALUE MATRIX</span>
+          <h2 class="section-title">NEXORA vs The Competition</h2>
+          <p class="section-desc">See how NEXORA delivers uncompromising flagship specifications at a fraction of competitors' pricing.</p>
+        </div>
+
+        <div class="comparison-card reveal-on-scroll">
+          <div class="comparison-table-wrapper">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="comp-col-feature">Flagship Features</th>
+                  <th scope="col" class="comp-col-nexora highlight-col">
+                    <div class="comp-header-badge">UNBEATABLE VALUE</div>
+                    <span class="comp-brand">NEXORA Flagship</span>
+                    <span class="comp-price">₹29,999</span>
+                  </th>
+                  <th scope="col" class="comp-col-other">
+                    <span class="comp-brand">Typical Competitor</span>
+                    <span class="comp-price">₹79,999+</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="comp-feat-name">Display Tech</td>
+                  <td class="comp-nexora highlight-cell">✅ 6.7" QHD+ LTPO 120Hz (2000 Nits)</td>
+                  <td class="comp-other">⚠️ FHD+ 60Hz/120Hz (1200 Nits)</td>
+                </tr>
+                <tr>
+                  <td class="comp-feat-name">Processor</td>
+                  <td class="comp-nexora highlight-cell">✅ 4nm AI Octa-Core (3.4 GHz)</td>
+                  <td class="comp-other">⚠️ 4nm Standard Chip (Downclocked)</td>
+                </tr>
+                <tr>
+                  <td class="comp-feat-name">Wired Fast Charge</td>
+                  <td class="comp-nexora highlight-cell">⚡ 120W HyperCharge (18 min 100%)</td>
+                  <td class="comp-other">❌ 25W - 45W (70+ min full charge)</td>
+                </tr>
+                <tr>
+                  <td class="comp-feat-name">Power Adapter In Box</td>
+                  <td class="comp-nexora highlight-cell">🎁 Included 120W GaN Adapter</td>
+                  <td class="comp-other">❌ Not Included (Buy for ₹3,499)</td>
+                </tr>
+                <tr>
+                  <td class="comp-feat-name">Chassis Material</td>
+                  <td class="comp-nexora highlight-cell">🛡️ Grade-5 Aerospace Titanium</td>
+                  <td class="comp-other">⚠️ Anodized Aluminum / Polymer</td>
+                </tr>
+                <tr>
+                  <td class="comp-feat-name">Operating System</td>
+                  <td class="comp-nexora highlight-cell">🚀 NexOS (Zero Ads, Zero Bloat)</td>
+                  <td class="comp-other">❌ Pre-installed promotional apps</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         F. WHY CHOOSE NEXORA?
+         ======================================================== -->
+    <section class="section why-section" id="why-nexora">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">THE NEXORA ADVANTAGE</span>
+          <h2 class="section-title">Why Choose NEXORA?</h2>
+          <p class="section-desc">We reimagined what a flagship smartphone should be, prioritizing tactile luxury, pure software, and raw power.</p>
+        </div>
+
+        <div class="pillars-grid">
+          <!-- Pillar 1 -->
+          <div class="pillar-card reveal-on-scroll">
+            <div class="pillar-number">01</div>
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Premium User Experience</h3>
+            <p class="pillar-text">
+              From our custom ceramic haptic motor providing tactile micro-feedback to the ultra-clean, bloatware-free NexOS interface, every interaction feels fluid, intuitive, and remarkably refined.
+            </p>
+            <div class="pillar-metric">
+              <span class="metric-val">99.4%</span>
+              <span class="metric-label">Satisfaction Score</span>
+            </div>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="pillar-card highlight-pillar reveal-on-scroll">
+            <div class="pillar-number">02</div>
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                <polyline points="2 17 12 22 22 17"/>
+                <polyline points="2 12 12 17 22 12"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Modern Futuristic Design</h3>
+            <p class="pillar-text">
+              Aerospace-grade Grade 5 titanium chassis combined with electric blue micro-accent rim illumination. Engineered to stand out while fitting effortlessly in your palm with balanced weight distribution.
+            </p>
+            <div class="pillar-metric">
+              <span class="metric-val">7.8mm</span>
+              <span class="metric-label">Ultra-Slim Profile</span>
+            </div>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="pillar-card reveal-on-scroll">
+            <div class="pillar-number">03</div>
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Excellent Everyday Performance</h3>
+            <p class="pillar-text">
+              Effortless multitasking with 12GB LPDDR5X RAM, instant thermal dissipation via 3D vapor chamber, and revolutionary 120W HyperCharge giving you a full day of battery in under 10 minutes.
+            </p>
+            <div class="pillar-metric">
+              <span class="metric-val">18 Min</span>
+              <span class="metric-label">100% Full Charge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         G. CUSTOMER REVIEWS
+         ======================================================== -->
+    <section class="section reviews-section" id="reviews">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">COMMUNITY FEEDBACK</span>
+          <h2 class="section-title">Loved by Early Adopters</h2>
+          <p class="section-desc">Discover what tech enthusiasts and creatives think about their NEXORA experience.</p>
+        </div>
+
+        <div class="reviews-disclaimer reveal-on-scroll">
+          <svg viewBox="0 0 20 20" fill="currentColor" class="disclaimer-icon" aria-hidden="true">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          <span><strong>Notice:</strong> Sample testimonial reviews created as fictional demonstration feedback for this academic project.</span>
+        </div>
+
+        <div class="reviews-grid">
+          <!-- Review 1 -->
+          <div class="review-card reveal-on-scroll">
+            <div class="review-rating" aria-label="5 out of 5 stars">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+            </div>
+            <p class="review-quote">
+              "The 120Hz curved AMOLED panel is easily the sharpest screen I've ever experienced in this price bracket. The electric blue aesthetic gives it such a distinct, premium identity. Battery easily lasts 1.5 days!"
+            </p>
+            <div class="reviewer-profile">
+              <div class="reviewer-avatar">AM</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name">Aarav Mehta</span>
+                <span class="reviewer-role">Tech Reviewer &bull; Mumbai</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="review-card reveal-on-scroll">
+            <div class="review-rating" aria-label="5 out of 5 stars">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+            </div>
+            <p class="review-quote">
+              "As a digital designer, color accuracy is non-negotiable for me. The 108MP camera captures rich textures and dynamic range that rival my mirrorless rig. And charging in 18 minutes has genuinely eliminated morning battery panic."
+            </p>
+            <div class="reviewer-profile">
+              <div class="reviewer-avatar">PS</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name">Priya Sharma</span>
+                <span class="reviewer-role">Creative Director &bull; Bengaluru</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="review-card reveal-on-scroll">
+            <div class="review-rating" aria-label="5 out of 5 stars">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+            </div>
+            <p class="review-quote">
+              "Clean software makes or breaks a flagship. NexOS 14 is blazing fast with zero bloatware or ads. The 4nm chip handles heavy compilation and high-framerate gaming without breaking a sweat or throttling."
+            </p>
+            <div class="reviewer-profile">
+              <div class="reviewer-avatar">RV</div>
+              <div class="reviewer-meta">
+                <span class="reviewer-name">Rohan Varma</span>
+                <span class="reviewer-role">Software Architect &bull; Hyderabad</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         H. FAQ SECTION (ACCORDION)
+         ======================================================== -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-header text-center reveal-on-scroll">
+          <span class="section-tag">GOT QUESTIONS?</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-desc">Everything you need to know about purchasing, owning, and experiencing NEXORA.</p>
+        </div>
+
+        <div class="faq-accordion" id="faqAccordion">
+          <!-- FAQ 1 -->
+          <div class="faq-item reveal-on-scroll">
+            <button class="faq-question" aria-expanded="false">
+              <span>What accessories are included inside the retail box?</span>
+              <span class="faq-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>Every NEXORA retail package includes the flagship smartphone, a 120W GaN Super Fast Power Adapter, a reinforced Type-C to Type-C Braided Cable (1.5m), a premium matte protective bumper case, a pre-applied Corning screen shield, a SIM ejector tool, and quick-start documentation.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item reveal-on-scroll">
+            <button class="faq-question" aria-expanded="false">
+              <span>Does NEXORA support 5G dual connectivity and eSIM?</span>
+              <span class="faq-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>Yes. NEXORA features true dual 5G Standalone (SA) and Non-Standalone (NSA) support with coverage for over 14 global 5G frequency bands. It features dual nano-SIM slots as well as embedded eSIM support for seamless international travel.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item reveal-on-scroll">
+            <button class="faq-question" aria-expanded="false">
+              <span>How safe is the 120W HyperCharge technology for battery health?</span>
+              <span class="faq-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>The 120W HyperCharge system is protected by 34 individual multi-point hardware safety safeguards and TÜV Rheinland safe fast-charge certification. Its dual-cell architecture charges cells concurrently at lower thermals, preserving over 80% battery health even after 1,600 full charge cycles (equivalent to 4+ years of daily charging).</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item reveal-on-scroll">
+            <button class="faq-question" aria-expanded="false">
+              <span>What is the software update and security patch policy?</span>
+              <span class="faq-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>NEXORA ships with NexOS 14 based on Android 14. We guarantee 4 major Android OS version upgrades (up to Android 18) and 5 continuous years of bi-monthly security patches to keep your smartphone secure, fast, and feature-rich.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item reveal-on-scroll">
+            <button class="faq-question" aria-expanded="false">
+              <span>Is the device protected against water and liquid submersion?</span>
+              <span class="faq-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>Yes. NEXORA carries an official IP68 rating under IEC standard 60529, certified to withstand freshwater submersion up to 1.5 meters deep for up to 30 minutes. It is fully protected against dust, monsoon splashes, and beverage spills.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 6 -->
+          <div class="faq-item reveal-on-scroll">
+            <button class="faq-question" aria-expanded="false">
+              <span>What is the return and replacement policy?</span>
+              <span class="faq-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>We provide a 15-day doorstep replacement guarantee in case of any manufacturing defects, along with a standard 1-Year Comprehensive Manufacturer Warranty and 1 free screen replacement during the first 6 months of purchase.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         I. CALL-TO-ACTION (CTA) SECTION
+         ======================================================== -->
+    <section class="section cta-section" id="cta">
+      <div class="cta-backdrop-glow" aria-hidden="true"></div>
+      <div class="container cta-container">
+        <div class="cta-box reveal-on-scroll">
+          <div class="cta-badge">SPECIAL LAUNCH WINDOW</div>
+          <h2 class="cta-title">Your Next Upgrade Starts Here.</h2>
+          <p class="cta-subtitle">
+            Step into the next era of mobile technology. Pre-order NEXORA today starting at just ₹29,999 and claim ₹5,000 worth of exclusive early-bird accessories.
+          </p>
+
+          <div class="cta-actions">
+            <button class="btn btn-primary btn-glow btn-lg" id="ctaBuyBtn" type="button">
+              <span>Get Started &bull; Buy Now</span>
+              <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <a href="#specs" class="btn btn-secondary btn-lg">
+              <span>Compare Specs</span>
+            </a>
+          </div>
+
+          <div class="cta-trust-bar">
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Free Express Delivery Across India</span>
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>1-Year Official Warranty</span>
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>15-Day Hassle-Free Replacement</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         NEWSLETTER / DEMO CONTACT FORM
+         ======================================================== -->
+    <section class="section newsletter-section">
+      <div class="container">
+        <div class="newsletter-card reveal-on-scroll">
+          <div class="newsletter-text">
+            <h3 class="newsletter-title">Stay in the Loop with NEXORA</h3>
+            <p class="newsletter-desc">Subscribe for firmware update news, exclusive accessory discounts, and product drops.</p>
+          </div>
+          <form class="newsletter-form" id="newsletterForm" novalidate>
+            <div class="form-input-group">
+              <input 
+                type="email" 
+                id="newsletterEmail" 
+                class="form-control" 
+                placeholder="Enter your email address" 
+                required 
+                aria-label="Email address for newsletter"
+              >
+              <button type="submit" class="btn btn-primary newsletter-btn">
+                <span>Subscribe</span>
+              </button>
+            </div>
+            <div class="form-message" id="newsletterFeedback" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       J. FOOTER
+       ======================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-col brand-col">
+        <a href="#hero" class="brand-logo footer-logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M16 2L2 9L16 16L30 9L16 2Z" fill="url(#foot_grad1)"/>
+              <path d="M2 23L16 30L30 23V16L16 23L2 16V23Z" fill="url(#foot_grad2)"/>
+              <defs>
+                <linearGradient id="foot_grad1" x1="2" y1="2" x2="30" y2="16" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#00e5ff"/>
+                  <stop offset="1" stop-color="#0066ff"/>
+                </linearGradient>
+                <linearGradient id="foot_grad2" x1="2" y1="16" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#0066ff"/>
+                  <stop offset="1" stop-color="#00e5ff"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="logo-text-group">
+            <span class="logo-name">NEXORA</span>
+            <span class="logo-sub">by Ujjwal</span>
+          </div>
         </a>
+        <p class="footer-desc">
+          NEXORA by Ujjwal is a next-generation flagship smartphone concept merging titanium engineering, AI imaging, and hyper-speed performance.
+        </p>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <a href="mailto:support@nexora-ujjwal.demo" class="footer-email">support@nexora-ujjwal.demo</a>
+        </div>
+        <p class="footer-location">Tech Innovation Park, Sector 62, Noida, UP, India</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#features">Key Features</a></li>
+          <li><a href="#battery-sim">120W Speed Lab</a></li>
+          <li><a href="#specs">Full Specifications</a></li>
+          <li><a href="#camera-zoom">108MP Camera</a></li>
+          <li><a href="#gallery">Product Gallery</a></li>
+          <li><a href="#comparison">Comparison Matrix</a></li>
+          <li><a href="#why-nexora">Why NEXORA</a></li>
+          <li><a href="#reviews">User Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Hardware Overview</h4>
+        <ul class="footer-links">
+          <li><a href="#specs">6.7" QHD+ LTPO 120Hz</a></li>
+          <li><a href="#specs">4nm AI Flagship SoC</a></li>
+          <li><a href="#specs">108MP Quad OIS Camera</a></li>
+          <li><a href="#specs">120W HyperCharge</a></li>
+          <li><a href="#specs">Grade-5 Titanium Body</a></li>
+          <li><a href="#specs">IP68 Water Resistance</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Connect &amp; Social</h4>
+        <p class="footer-muted">Follow the official project showcase across social channels:</p>
+        <div class="footer-socials">
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="NEXORA on Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="NEXORA on Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="NEXORA on YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="NEXORA on LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="NEXORA Source Code on GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+        </div>
+        <div class="footer-badge-box">
+          <span class="pulse-green"></span>
+          <span>College Web Design Project Demonstration</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Floating Island Navigation Bar -->
-    <header class="navbar-wrapper">
-        <nav class="navbar" id="navbar">
-            <a href="#home" class="logo">
-                <span class="logo-bracket">&lt;</span>Ujjawal<span class="gradient-text">.Dev</span><span class="logo-bracket">/&gt;</span>
-            </a>
-
-            <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#experience" class="nav-link">Timeline</a>
-                <a href="#upi-support" class="nav-link upi-nav-link"><i class="fa-solid fa-bolt-lightning text-cyan"></i> UPI Tip</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-
-            <div class="nav-actions">
-                <!-- Live Audio Harmonic Visualizer -->
-                <div class="audio-pulse-indicator" id="sound-indicator" title="Spatial Frequency Simulation">
-                    <div class="sound-bars"><span></span><span></span><span></span><span></span></div>
-                    <span class="sound-lbl">60 FPS</span>
-                </div>
-
-                <!-- Theme Switcher Button -->
-                <button class="theme-switch-btn" id="theme-switch-btn" aria-label="Switch UI Theme" title="Cycle Themes: Cyan | Synthwave | Matrix | Amber">
-                    <i class="fa-solid fa-palette"></i>
-                </button>
-
-                <!-- Terminal Trigger Button -->
-                <button class="terminal-trigger-btn" id="terminal-trigger-btn" aria-label="Open Cyber Console" title="Open Interactive CLI">
-                    <i class="fa-solid fa-terminal"></i>
-                    <span class="term-lbl">CLI</span>
-                </button>
-
-                <!-- Live Availability Badge -->
-                <div class="live-status-pill">
-                    <span class="live-dot-pulse"></span>
-                    <span class="status-text">Available</span>
-                </div>
-
-                <a href="#contact" class="btn btn-sm btn-outline nav-cta-btn">Let's Talk</a>
-                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-section" id="home">
-            <div class="hero-content reveal-element">
-                <div class="hero-badge shimmer-effect">
-                    <span class="badge-dot"></span>
-                    <span>3D Creative Engineer &bull; B.Tech CSE</span>
-                    <span class="badge-sparkle"><i class="fa-solid fa-sparkles"></i></span>
-                </div>
-
-                <!-- Futuristic HUD Telemetry Bar -->
-                <div class="hud-telemetry-bar">
-                    <span class="hud-tag"><i class="fa-solid fa-circle-dot live-dot-pulse"></i> SYS.ONLINE</span>
-                    <span class="hud-divider">|</span>
-                    <span class="hud-tag"><i class="fa-solid fa-microchip"></i> NEURAL 60 FPS</span>
-                    <span class="hud-divider">|</span>
-                    <span class="hud-tag"><i class="fa-solid fa-signal"></i> 14ms DEL</span>
-                    <span class="hud-divider">|</span>
-                    <span class="hud-tag"><i class="fa-solid fa-cubes"></i> WEBGL 2.0</span>
-                </div>
-
-                <h1 class="hero-title">
-                    Crafting <span class="gradient-text glow shimmer-text">Immersive 3D</span><br>
-                    & Scalable Web Realities
-                </h1>
-
-                <h2 class="hero-subtitle">
-                    Hi, I'm <strong>Ujjawal Kushwaha</strong> &mdash; <span class="typing-text" id="typing-text"></span><span class="cursor">&nbsp;</span>
-                </h2>
-
-                <p class="hero-description">
-                    Blending rigorous computer science algorithms with fluid WebGL graphics. Passionate about 60 FPS spatial interfaces, modern cloud architectures, and user-centric design.
-                </p>
-
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary magnetic-btn">
-                        <span>Explore Creations</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a href="#upi-support" class="btn btn-secondary magnetic-btn upi-highlight-btn">
-                        <i class="fa-solid fa-bolt-lightning text-cyan"></i>
-                        <span>Support via UPI</span>
-                    </a>
-                    <a href="#contact" class="btn btn-secondary magnetic-btn">
-                        <span>Get In Touch</span>
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </a>
-                </div>
-
-                <!-- Quick Hero Stats Cards -->
-                <div class="hero-stats-row">
-                    <div class="hero-stat-pill">
-                        <span class="stat-num">15+</span>
-                        <span class="stat-desc">Projects Shipped</span>
-                    </div>
-                    <div class="hero-stat-pill">
-                        <span class="stat-num">3+</span>
-                        <span class="stat-desc">Years Coding</span>
-                    </div>
-                    <div class="hero-stat-pill">
-                        <span class="stat-num">8.8</span>
-                        <span class="stat-desc">CGPA B.Tech</span>
-                    </div>
-                </div>
-
-                <div class="hero-socials">
-                    <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://linkedin.com/in/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="mailto:ujjawal.kushwaha@example.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
-                </div>
-            </div>
-
-            <!-- 3D Model / Canvas Container in Hero -->
-            <div class="hero-3d-wrapper reveal-element">
-                <div id="hero-3d-container"></div>
-                <div class="hero-3d-hint pulse-anim">
-                    <i class="fa-solid fa-hand-pointer"></i> Drag to Fling &bull; Click for Energy Shockwave
-                </div>
-                <div class="hero-floating-card tech-pill-1 float-anim-1">
-                    <i class="fa-brands fa-react"></i>
-                    <div>
-                        <strong>React & Next.js</strong>
-                        <span>Frontend Craft</span>
-                    </div>
-                </div>
-                <div class="hero-floating-card tech-pill-2 float-anim-2">
-                    <i class="fa-solid fa-cube"></i>
-                    <div>
-                        <strong>Three.js & WebGL</strong>
-                        <span>3D Interactive</span>
-                    </div>
-                </div>
-                <div class="hero-floating-card tech-pill-3 float-anim-3">
-                    <i class="fa-solid fa-bolt-lightning text-cyan"></i>
-                    <div>
-                        <strong>Real-time 60 FPS</strong>
-                        <span>GPU Accelerated</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Continuous Infinite Tech Stack Marquee (Always Animated) -->
-        <section class="marquee-section" aria-label="Tech Stack Strip">
-            <div class="marquee-container">
-                <div class="marquee-track">
-                    <div class="marquee-item"><i class="fa-brands fa-react text-cyan"></i> React.js</div>
-                    <div class="marquee-item"><i class="fa-solid fa-cube text-cyan"></i> Three.js / WebGL</div>
-                    <div class="marquee-item"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript ES6+</div>
-                    <div class="marquee-item"><i class="fa-brands fa-node-js" style="color: #68a063;"></i> Node.js & Express</div>
-                    <div class="marquee-item"><i class="fa-brands fa-python" style="color: #3776ab;"></i> Python & DSA</div>
-                    <div class="marquee-item"><i class="fa-brands fa-html5" style="color: #e44d26;"></i> HTML5 Semantic</div>
-                    <div class="marquee-item"><i class="fa-brands fa-css3-alt" style="color: #264de4;"></i> CSS3 & 3D Web</div>
-                    <div class="marquee-item"><i class="fa-solid fa-database" style="color: #4db33d;"></i> MongoDB & SQL</div>
-                    <div class="marquee-item"><i class="fa-brands fa-git-alt" style="color: #f05032;"></i> Git & GitHub</div>
-                    <div class="marquee-item"><i class="fa-solid fa-bolt text-cyan"></i> WebSockets & REST</div>
-                    <!-- Duplicate items for seamless continuous infinite loop -->
-                    <div class="marquee-item"><i class="fa-brands fa-react text-cyan"></i> React.js</div>
-                    <div class="marquee-item"><i class="fa-solid fa-cube text-cyan"></i> Three.js / WebGL</div>
-                    <div class="marquee-item"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript ES6+</div>
-                    <div class="marquee-item"><i class="fa-brands fa-node-js" style="color: #68a063;"></i> Node.js & Express</div>
-                    <div class="marquee-item"><i class="fa-brands fa-python" style="color: #3776ab;"></i> Python & DSA</div>
-                    <div class="marquee-item"><i class="fa-brands fa-html5" style="color: #e44d26;"></i> HTML5 Semantic</div>
-                    <div class="marquee-item"><i class="fa-brands fa-css3-alt" style="color: #264de4;"></i> CSS3 & 3D Web</div>
-                    <div class="marquee-item"><i class="fa-solid fa-database" style="color: #4db33d;"></i> MongoDB & SQL</div>
-                    <div class="marquee-item"><i class="fa-brands fa-git-alt" style="color: #f05032;"></i> Git & GitHub</div>
-                    <div class="marquee-item"><i class="fa-solid fa-bolt text-cyan"></i> WebSockets & REST</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Me Section -->
-        <section class="section" id="about">
-            <div class="section-header reveal-element">
-                <p class="section-tag">[SYS.SEC_01 // IDENTITY]</p>
-                <h2 class="section-title">About Me</h2>
-                <div class="section-divider"></div>
-            </div>
-
-            <div class="about-grid">
-                <div class="glass-card about-bio-card tilt-card reveal-element">
-                    <div class="bio-header">
-                        <div class="bio-avatar glow-box">
-                            <i class="fa-solid fa-terminal"></i>
-                        </div>
-                        <div>
-                            <h3>Computer Science Undergrad & Creative Engineer</h3>
-                            <p class="bio-location"><i class="fa-solid fa-location-dot"></i> New Delhi, India &bull; <span class="text-cyan">Available for 2025/2026 Internships</span></p>
-                        </div>
-                    </div>
-                    <p class="bio-text">
-                        Currently in my 3rd year pursuing B.Tech in Computer Science & Engineering. My passion is bridging theoretical computer science algorithms with fluid, GPU-accelerated 3D graphics on the modern web.
-                    </p>
-                    <p class="bio-text">
-                        I specialize in developing high-framerate interactive Three.js environments, scalable React/Node.js full-stack architectures, and intuitive micro-interactions that leave lasting impressions.
-                    </p>
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <span class="highlight-number counter-number" data-target="3" data-suffix="+">0</span>
-                            <span class="highlight-label">Years of Coding</span>
-                        </div>
-                        <div class="highlight-item">
-                            <span class="highlight-number counter-number" data-target="15" data-suffix="+">0</span>
-                            <span class="highlight-label">Projects Built</span>
-                        </div>
-                        <div class="highlight-item">
-                            <span class="highlight-number counter-number" data-target="8.8" data-decimals="1" data-suffix="">0</span>
-                            <span class="highlight-label">Academic CGPA</span>
-                        </div>
-                        <div class="highlight-item">
-                            <span class="highlight-number counter-number" data-target="5" data-suffix="+">0</span>
-                            <span class="highlight-label">Hackathons Won</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-details-column">
-                    <div class="glass-card detail-card tilt-card reveal-element">
-                        <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                        <div>
-                            <h4>Academic Background</h4>
-                            <p class="detail-subtitle">B.Tech in Computer Science & Engineering</p>
-                            <p class="detail-info">ABC Institute of Technology (2022 - 2026)</p>
-                            <span class="detail-badge">Data Structures &bull; Computer Graphics &bull; OS &bull; Networks</span>
-                        </div>
-                    </div>
-
-                    <div class="glass-card detail-card tilt-card reveal-element">
-                        <div class="card-icon"><i class="fa-solid fa-compass-drafting"></i></div>
-                        <div>
-                            <h4>Creative & Engineering Vision</h4>
-                            <p class="detail-subtitle">Full-Stack / Creative Frontend Architect</p>
-                            <p class="detail-info">Designing responsive web experiences with spatial 3D capabilities, clean state architecture, and microsecond latency.</p>
-                            <span class="detail-badge">60 FPS &bull; Accessible &bull; Modular Systems</span>
-                        </div>
-                    </div>
-
-                    <div class="glass-card detail-card tilt-card reveal-element">
-                        <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
-                        <div>
-                            <h4>Key Accolades</h4>
-                            <p class="detail-subtitle">Hackathon Champion & Community Lead</p>
-                            <p class="detail-info">Winner at College SIH Hackathon &bull; Lead Frontend Mentor at Google Developer Student Club (GDSC).</p>
-                            <span class="detail-badge">Mentored 80+ Students &bull; Open-Source Contributor</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section with Bento Grid & Real-time Progress Lights -->
-        <section class="section" id="skills">
-            <div class="section-header reveal-element">
-                <p class="section-tag">[SYS.SEC_02 // PROFICIENCY]</p>
-                <h2 class="section-title">My Skills & Stack</h2>
-                <div class="section-divider"></div>
-            </div>
-
-            <!-- Filter Buttons -->
-            <div class="skills-filter-row reveal-element">
-                <button class="skill-filter-btn active" data-filter="all">All Skills</button>
-                <button class="skill-filter-btn" data-filter="frontend">Frontend & 3D</button>
-                <button class="skill-filter-btn" data-filter="backend">Backend & DB</button>
-                <button class="skill-filter-btn" data-filter="tools">DevOps & Core</button>
-            </div>
-
-            <div class="skills-grid" id="skills-grid">
-                <!-- HTML5 -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
-                    <div class="skill-header">
-                        <div class="skill-icon html"><i class="fa-brands fa-html5"></i></div>
-                        <div class="skill-info">
-                            <h4>HTML5</h4>
-                            <span>Semantic & Accessible Web</span>
-                        </div>
-                        <div class="skill-percentage">95%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="95%"></div>
-                    </div>
-                </div>
-
-                <!-- CSS3 & 3D -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
-                    <div class="skill-header">
-                        <div class="skill-icon css"><i class="fa-brands fa-css3-alt"></i></div>
-                        <div class="skill-info">
-                            <h4>CSS3 & 3D Transitions</h4>
-                            <span>Grid, Flexbox & Shaders</span>
-                        </div>
-                        <div class="skill-percentage">90%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="90%"></div>
-                    </div>
-                </div>
-
-                <!-- JavaScript -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
-                    <div class="skill-header">
-                        <div class="skill-icon js"><i class="fa-brands fa-js"></i></div>
-                        <div class="skill-info">
-                            <h4>JavaScript (ES6+)</h4>
-                            <span>Async, DOM APIs & Performance</span>
-                        </div>
-                        <div class="skill-percentage">88%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="88%"></div>
-                    </div>
-                </div>
-
-                <!-- Three.js & WebGL -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
-                    <div class="skill-header">
-                        <div class="skill-icon three"><i class="fa-solid fa-cube"></i></div>
-                        <div class="skill-info">
-                            <h4>Three.js & WebGL</h4>
-                            <span>3D Shaders, Lights, Meshes</span>
-                        </div>
-                        <div class="skill-percentage">85%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="85%"></div>
-                    </div>
-                </div>
-
-                <!-- React.js & Next.js -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="frontend">
-                    <div class="skill-header">
-                        <div class="skill-icon react"><i class="fa-brands fa-react"></i></div>
-                        <div class="skill-info">
-                            <h4>React & Next.js</h4>
-                            <span>Hooks, State & SSR</span>
-                        </div>
-                        <div class="skill-percentage">86%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="86%"></div>
-                    </div>
-                </div>
-
-                <!-- Node.js & Express -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="backend">
-                    <div class="skill-header">
-                        <div class="skill-icon node"><i class="fa-brands fa-node-js"></i></div>
-                        <div class="skill-info">
-                            <h4>Node.js & Express</h4>
-                            <span>REST APIs, WebSockets & Auth</span>
-                        </div>
-                        <div class="skill-percentage">80%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="80%"></div>
-                    </div>
-                </div>
-
-                <!-- Python & Algorithms -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="backend">
-                    <div class="skill-header">
-                        <div class="skill-icon python"><i class="fa-brands fa-python"></i></div>
-                        <div class="skill-info">
-                            <h4>Python & DSA</h4>
-                            <span>Algorithms, Graph & Optimization</span>
-                        </div>
-                        <div class="skill-percentage">84%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="84%"></div>
-                    </div>
-                </div>
-
-                <!-- Database / SQL & MongoDB -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="backend">
-                    <div class="skill-header">
-                        <div class="skill-icon db"><i class="fa-solid fa-database"></i></div>
-                        <div class="skill-info">
-                            <h4>SQL & MongoDB</h4>
-                            <span>Relational & Document DBs</span>
-                        </div>
-                        <div class="skill-percentage">78%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="78%"></div>
-                    </div>
-                </div>
-
-                <!-- Git & DevOps Basics -->
-                <div class="glass-card skill-card tilt-card reveal-element" data-category="tools">
-                    <div class="skill-header">
-                        <div class="skill-icon git"><i class="fa-brands fa-git-alt"></i></div>
-                        <div class="skill-info">
-                            <h4>Git & DevOps Tools</h4>
-                            <span>CI/CD, GitHub Actions & Docker</span>
-                        </div>
-                        <div class="skill-percentage">85%</div>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" data-progress="85%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section with Live Interactive Preview Screens -->
-        <section class="section" id="projects">
-            <div class="section-header reveal-element">
-                <p class="section-tag">[SYS.SEC_03 // CREATIONS]</p>
-                <h2 class="section-title">Projects & Demos</h2>
-                <div class="section-divider"></div>
-            </div>
-
-            <div class="projects-grid">
-                <!-- Project 1: CosmoSphere 3D -->
-                <div class="glass-card project-card tilt-card reveal-element">
-                    <div class="project-banner project-banner-1">
-                        <div class="project-banner-overlay">
-                            <span class="project-category"><i class="fa-solid fa-cube"></i> WebGL / 3D</span>
-                            <div class="project-links">
-                                <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="icon-circle" title="View Code"><i class="fa-brands fa-github"></i></a>
-                                <a href="#home" class="icon-circle" title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                            </div>
-                        </div>
-                        <div class="banner-visual-3d">
-                            <div class="orbit-circle circle-1"></div>
-                            <div class="orbit-circle circle-2"></div>
-                            <div class="planet-marker planet-sun"></div>
-                            <div class="planet-marker planet-earth"></div>
-                            <i class="fa-solid fa-globe banner-center-icon"></i>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-tabs">
-                            <button class="p-tab active" data-tab="preview">Preview</button>
-                            <button class="p-tab" data-tab="arch">Architecture</button>
-                            <button class="p-tab" data-tab="specs">Specs</button>
-                        </div>
-                        <h3>CosmoSphere 3D Solar Explorer</h3>
-                        <p class="project-desc">
-                            An interactive real-time 3D planetary physics engine with accurate orbital dynamics, custom GLSL lighting shaders, orbital mouse controls, and educational data overlays.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Three.js</span>
-                            <span class="tag">WebGL</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">GLSL Shaders</span>
-                        </div>
-                        <div class="project-footer">
-                            <a href="#home" class="btn-link">Launch Demo <i class="fa-solid fa-arrow-right"></i></a>
-                            <span class="project-date">2024</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2: CodeSync Live IDE (with Live Typing Simulator) -->
-                <div class="glass-card project-card tilt-card reveal-element">
-                    <div class="project-banner project-banner-2">
-                        <div class="project-banner-overlay">
-                            <span class="project-category"><i class="fa-solid fa-bolt"></i> Full-Stack App</span>
-                            <div class="project-links">
-                                <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="icon-circle" title="View Code"><i class="fa-brands fa-github"></i></a>
-                                <a href="#home" class="icon-circle" title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                            </div>
-                        </div>
-                        <div class="banner-visual-3d">
-                            <div class="code-editor-preview">
-                                <div class="code-dots"><span></span><span></span><span></span></div>
-                                <span class="code-snippet" id="live-code-snippet">&gt; const room = new Room();</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-tabs">
-                            <button class="p-tab active" data-tab="preview">Preview</button>
-                            <button class="p-tab" data-tab="arch">Architecture</button>
-                            <button class="p-tab" data-tab="specs">Specs</button>
-                        </div>
-                        <h3>CodeSync Live Collaborative IDE</h3>
-                        <p class="project-desc">
-                            A cloud collaborative IDE featuring sub-50ms multi-user syntax highlighting, WebSockets live cursor sharing, audio channels, and sandboxed Docker code execution.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">Socket.io</span>
-                            <span class="tag">Monaco Editor</span>
-                        </div>
-                        <div class="project-footer">
-                            <a href="#home" class="btn-link">Launch Demo <i class="fa-solid fa-arrow-right"></i></a>
-                            <span class="project-date">2024</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3: PulseMetric AI Analytics -->
-                <div class="glass-card project-card tilt-card reveal-element">
-                    <div class="project-banner project-banner-3">
-                        <div class="project-banner-overlay">
-                            <span class="project-category"><i class="fa-solid fa-chart-line"></i> AI & Data</span>
-                            <div class="project-links">
-                                <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="icon-circle" title="View Code"><i class="fa-brands fa-github"></i></a>
-                                <a href="#home" class="icon-circle" title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                            </div>
-                        </div>
-                        <div class="banner-visual-3d">
-                            <div class="metric-graph-preview">
-                                <div class="bar bar-1"></div>
-                                <div class="bar bar-2"></div>
-                                <div class="bar bar-3"></div>
-                                <div class="bar bar-4"></div>
-                                <div class="bar bar-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-tabs">
-                            <button class="p-tab active" data-tab="preview">Preview</button>
-                            <button class="p-tab" data-tab="arch">Architecture</button>
-                            <button class="p-tab" data-tab="specs">Specs</button>
-                        </div>
-                        <h3>PulseMetric AI Developer Analytics</h3>
-                        <p class="project-desc">
-                            An AI developer dashboard that aggregates GitHub pull requests, commits, and code churn, predicting delivery bottlenecks using lightweight machine learning regression.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">FastAPI</span>
-                            <span class="tag">React</span>
-                            <span class="tag">Chart.js</span>
-                        </div>
-                        <div class="project-footer">
-                            <a href="#home" class="btn-link">Launch Demo <i class="fa-solid fa-arrow-right"></i></a>
-                            <span class="project-date">2023</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4: SonicWave 3D Visualizer -->
-                <div class="glass-card project-card tilt-card reveal-element">
-                    <div class="project-banner project-banner-4">
-                        <div class="project-banner-overlay">
-                            <span class="project-category"><i class="fa-solid fa-headphones"></i> Creative Audio</span>
-                            <div class="project-links">
-                                <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="icon-circle" title="View Code"><i class="fa-brands fa-github"></i></a>
-                                <a href="#home" class="icon-circle" title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                            </div>
-                        </div>
-                        <div class="banner-visual-3d">
-                            <div class="sound-wave-preview">
-                                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-tabs">
-                            <button class="p-tab active" data-tab="preview">Preview</button>
-                            <button class="p-tab" data-tab="arch">Architecture</button>
-                            <button class="p-tab" data-tab="specs">Specs</button>
-                        </div>
-                        <h3>SonicWave 3D Audio Visualizer</h3>
-                        <p class="project-desc">
-                            Dynamic audio reactive web application that maps Web Audio API frequency matrices into an undulating 3D particle vortex with real-time bloom shaders.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Web Audio API</span>
-                            <span class="tag">Three.js</span>
-                            <span class="tag">Canvas</span>
-                            <span class="tag">Audio Reactivity</span>
-                        </div>
-                        <div class="project-footer">
-                            <a href="#home" class="btn-link">Launch Demo <i class="fa-solid fa-arrow-right"></i></a>
-                            <span class="project-date">2023</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience / Timeline Section -->
-        <section class="section" id="experience">
-            <div class="section-header reveal-element">
-                <p class="section-tag">[SYS.SEC_04 // TIMELINE]</p>
-                <h2 class="section-title">Education & Experience</h2>
-                <div class="section-divider"></div>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-item left reveal-element">
-                    <div class="timeline-dot pulse-dot-glow"></div>
-                    <div class="glass-card timeline-card tilt-card">
-                        <span class="timeline-year">2024 - Present</span>
-                        <h3>Frontend & 3D Web Lead</h3>
-                        <h4>Google Developer Student Club (GDSC)</h4>
-                        <p>Organized hands-on workshops on Three.js, React, and WebGL basics. Mentored 80+ fellow computer science peers in crafting modern frontends.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item right reveal-element">
-                    <div class="timeline-dot pulse-dot-glow"></div>
-                    <div class="glass-card timeline-card tilt-card">
-                        <span class="timeline-year">2023 - 2024</span>
-                        <h3>Full-Stack Web Intern</h3>
-                        <h4>InnoTech Labs</h4>
-                        <p>Built modular UI components and connected Node.js endpoints. Improved client portal responsiveness and reduced first contentful paint by 35%.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item left reveal-element">
-                    <div class="timeline-dot pulse-dot-glow"></div>
-                    <div class="glass-card timeline-card tilt-card">
-                        <span class="timeline-year">2023</span>
-                        <h3>1st Place - Smart India Hackathon (College Level)</h3>
-                        <h4>National Innovation Cell</h4>
-                        <p>Designed and presented an automated disaster logistics tracking system with a 4-person team within 36 high-intensity hours.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item right reveal-element">
-                    <div class="timeline-dot pulse-dot-glow"></div>
-                    <div class="glass-card timeline-card tilt-card">
-                        <span class="timeline-year">2022 - 2026</span>
-                        <h3>B.Tech in Computer Science & Engineering</h3>
-                        <h4>ABC Institute of Technology</h4>
-                        <p>Consistent 8.8/10 CGPA. Core coursework in Data Structures, Algorithms, Computer Graphics, Operating Systems, Database Systems, and Networks.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Dedicated Always-Animated UPI Support & Tipping Section -->
-        <section class="section upi-support-section" id="upi-support">
-            <div class="section-header reveal-element">
-                <p class="section-tag">[SYS.SEC_05 // CYBER SUPPORT]</p>
-                <h2 class="section-title">Support My Work via <span class="gradient-text glow shimmer-text">UPI</span></h2>
-                <div class="section-divider"></div>
-            </div>
-
-            <div class="upi-showcase-container reveal-element">
-                <!-- Always-Animated Holographic UPI Card -->
-                <div class="upi-hologram-card tilt-card" id="upi-card-element">
-                    <!-- Rotating Conic Glow Border Wrapper -->
-                    <div class="upi-rotating-border"></div>
-
-                    <!-- Floating Currency Particles -->
-                    <div class="upi-floating-token token-1">₹</div>
-                    <div class="upi-floating-token token-2"><i class="fa-solid fa-bolt-lightning"></i></div>
-                    <div class="upi-floating-token token-3">₹</div>
-                    <div class="upi-floating-token token-4">☕</div>
-                    <div class="upi-floating-token token-5">💎</div>
-
-                    <div class="upi-card-inner">
-                        <div class="upi-card-topbar">
-                            <div class="upi-live-beacon">
-                                <span class="live-dot-pulse"></span>
-                                <span>ALWAYS ANIMATED &bull; ZERO FEE</span>
-                            </div>
-                            <div class="upi-logo-chip">
-                                <i class="fa-solid fa-bolt-lightning text-cyan upi-flash-anim"></i>
-                                <span>UPI 2.0</span>
-                            </div>
-                        </div>
-
-                        <h3 class="upi-card-headline">Scan & Tip in Seconds</h3>
-                        <p class="upi-card-sub">Fuel coffee, server costs, and open-source 3D graphics development</p>
-
-                        <!-- Interactive Quick Tip Presets -->
-                        <div class="upi-tip-presets" id="upi-tip-presets">
-                            <span class="presets-label"><i class="fa-solid fa-coins text-cyan"></i> Instant Tip Preset:</span>
-                            <div class="preset-buttons">
-                                <button class="preset-btn" data-amount="21">₹21 <span>Chai</span></button>
-                                <button class="preset-btn active" data-amount="51">₹51 <span>Coffee</span></button>
-                                <button class="preset-btn" data-amount="101">₹101 <span>RedBull</span></button>
-                                <button class="preset-btn" data-amount="501">₹501 <span>Server</span></button>
-                                <button class="preset-btn" id="custom-tip-toggle">Custom</button>
-                            </div>
-                            <div class="custom-tip-input-wrapper" id="custom-tip-wrapper" style="display: none;">
-                                <input type="number" id="custom-amount-input" min="1" max="100000" placeholder="Custom amount (₹)..." />
-                                <button class="btn btn-sm btn-primary" id="apply-custom-amount-btn">Set</button>
-                            </div>
-                        </div>
-
-                        <!-- Cyber QR Container with Continuous Laser Scanner -->
-                        <div class="upi-qr-box">
-                            <!-- Laser Scanning Beam -->
-                            <div class="qr-laser-scanner"></div>
-
-                            <!-- Futuristic Tech Corner Reticles -->
-                            <div class="qr-reticle reticle-tl"></div>
-                            <div class="qr-reticle reticle-tr"></div>
-                            <div class="qr-reticle reticle-bl"></div>
-                            <div class="qr-reticle reticle-br"></div>
-
-                            <!-- Sharp Cyber QR Code SVG -->
-                            <svg class="upi-qr-svg" id="upi-qr-code-svg" viewBox="0 0 200 200" width="165" height="165" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="10" y="10" width="48" height="48" rx="8" fill="none" stroke="#00f2fe" stroke-width="5"/>
-                                <rect x="22" y="22" width="24" height="24" rx="4" fill="#00f2fe"/>
-
-                                <rect x="142" y="10" width="48" height="48" rx="8" fill="none" stroke="#00f2fe" stroke-width="5"/>
-                                <rect x="154" y="22" width="24" height="24" rx="4" fill="#00f2fe"/>
-
-                                <rect x="10" y="142" width="48" height="48" rx="8" fill="none" stroke="#00f2fe" stroke-width="5"/>
-                                <rect x="22" y="154" width="24" height="24" rx="4" fill="#00f2fe"/>
-
-                                <g fill="#f8fafc" opacity="0.95">
-                                    <rect x="68" y="14" width="8" height="8" rx="2"/>
-                                    <rect x="84" y="14" width="8" height="8" rx="2"/>
-                                    <rect x="100" y="14" width="8" height="8" rx="2"/>
-                                    <rect x="116" y="14" width="8" height="8" rx="2"/>
-
-                                    <rect x="68" y="30" width="8" height="8" rx="2"/>
-                                    <rect x="100" y="30" width="8" height="8" rx="2"/>
-                                    <rect x="116" y="30" width="8" height="8" rx="2"/>
-
-                                    <rect x="84" y="46" width="8" height="8" rx="2"/>
-                                    <rect x="116" y="46" width="8" height="8" rx="2"/>
-
-                                    <rect x="14" y="70" width="8" height="8" rx="2"/>
-                                    <rect x="30" y="70" width="8" height="8" rx="2"/>
-                                    <rect x="46" y="70" width="8" height="8" rx="2"/>
-                                    <rect x="62" y="70" width="8" height="8" rx="2"/>
-                                    <rect x="116" y="70" width="8" height="8" rx="2"/>
-                                    <rect x="132" y="70" width="8" height="8" rx="2"/>
-                                    <rect x="164" y="70" width="8" height="8" rx="2"/>
-                                    <rect x="180" y="70" width="8" height="8" rx="2"/>
-
-                                    <rect x="14" y="86" width="8" height="8" rx="2"/>
-                                    <rect x="46" y="86" width="8" height="8" rx="2"/>
-                                    <rect x="132" y="86" width="8" height="8" rx="2"/>
-                                    <rect x="148" y="86" width="8" height="8" rx="2"/>
-                                    <rect x="180" y="86" width="8" height="8" rx="2"/>
-
-                                    <rect x="30" y="102" width="8" height="8" rx="2"/>
-                                    <rect x="46" y="102" width="8" height="8" rx="2"/>
-                                    <rect x="62" y="102" width="8" height="8" rx="2"/>
-                                    <rect x="132" y="102" width="8" height="8" rx="2"/>
-                                    <rect x="164" y="102" width="8" height="8" rx="2"/>
-
-                                    <rect x="14" y="118" width="8" height="8" rx="2"/>
-                                    <rect x="30" y="118" width="8" height="8" rx="2"/>
-                                    <rect x="62" y="118" width="8" height="8" rx="2"/>
-                                    <rect x="78" y="118" width="8" height="8" rx="2"/>
-                                    <rect x="116" y="118" width="8" height="8" rx="2"/>
-                                    <rect x="148" y="118" width="8" height="8" rx="2"/>
-                                    <rect x="180" y="118" width="8" height="8" rx="2"/>
-
-                                    <rect x="68" y="146" width="8" height="8" rx="2"/>
-                                    <rect x="84" y="146" width="8" height="8" rx="2"/>
-                                    <rect x="116" y="146" width="8" height="8" rx="2"/>
-                                    <rect x="148" y="146" width="8" height="8" rx="2"/>
-                                    <rect x="164" y="146" width="8" height="8" rx="2"/>
-
-                                    <rect x="68" y="162" width="8" height="8" rx="2"/>
-                                    <rect x="100" y="162" width="8" height="8" rx="2"/>
-                                    <rect x="132" y="162" width="8" height="8" rx="2"/>
-                                    <rect x="164" y="162" width="8" height="8" rx="2"/>
-
-                                    <rect x="84" y="178" width="8" height="8" rx="2"/>
-                                    <rect x="116" y="178" width="8" height="8" rx="2"/>
-                                    <rect x="148" y="178" width="8" height="8" rx="2"/>
-                                    <rect x="180" y="178" width="8" height="8" rx="2"/>
-                                </g>
-
-                                <rect x="74" y="74" width="52" height="52" rx="10" fill="#060813" stroke="#00f2fe" stroke-width="2.5"/>
-                                <text x="100" y="106" font-family="'Space Grotesk', sans-serif" font-weight="800" font-size="16" fill="#00f2fe" text-anchor="middle">UPI</text>
-                            </svg>
-                        </div>
-
-                        <!-- Copyable UPI ID Box -->
-                        <div class="upi-id-pill" id="copy-upi-container">
-                            <div class="upi-id-meta">
-                                <span class="upi-id-prefix">UPI ID</span>
-                                <span class="upi-id-text" id="upi-id-display">ujjawal.kushwaha@okaxis</span>
-                            </div>
-                            <button class="upi-copy-action-btn" id="copy-upi-btn" aria-label="Copy UPI ID">
-                                <i class="fa-regular fa-copy" id="copy-upi-icon"></i>
-                                <span id="copy-upi-tooltip">Copy</span>
-                            </button>
-                        </div>
-
-                        <!-- Mobile Instant Pay Link -->
-                        <a href="upi://pay?pa=ujjawal.kushwaha@okaxis&pn=Ujjawal%20Kushwaha&am=51&cu=INR" class="btn btn-primary btn-block upi-pay-now-btn" id="upi-direct-pay-link">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                            <span id="upi-pay-btn-label">Pay ₹51 Directly via UPI App</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-
-                        <!-- Supported Apps Bar -->
-                        <div class="upi-apps-row">
-                            <span class="upi-app-badge"><i class="fa-brands fa-google-pay"></i> GPay</span>
-                            <span class="upi-app-badge"><i class="fa-solid fa-mobile-screen-button"></i> PhonePe</span>
-                            <span class="upi-app-badge"><i class="fa-solid fa-wallet"></i> Paytm</span>
-                            <span class="upi-app-badge"><i class="fa-solid fa-building-columns"></i> BHIM</span>
-                            <span class="upi-app-badge"><i class="fa-solid fa-credit-card"></i> Cred</span>
-                        </div>
-
-                        <!-- Heartbeat note -->
-                        <div class="upi-note">
-                            <i class="fa-solid fa-heart upi-heartbeat-anim"></i> Every tip fuels independent software creation!
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section" id="contact">
-            <div class="section-header reveal-element">
-                <p class="section-tag">[SYS.SEC_06 // TRANSMISSION]</p>
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="section-divider"></div>
-            </div>
-
-            <div class="contact-grid">
-                <div class="contact-info-cards">
-                    <div class="glass-card contact-info-card tilt-card reveal-element">
-                        <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
-                        <div>
-                            <h4>Email Me</h4>
-                            <p>ujjawal.kushwaha@example.com</p>
-                            <a href="mailto:ujjawal.kushwaha@example.com" class="contact-link">Send an email &rarr;</a>
-                        </div>
-                    </div>
-
-                    <div class="glass-card contact-info-card tilt-card reveal-element">
-                        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
-                        <div>
-                            <h4>Current Location</h4>
-                            <p>New Delhi, India</p>
-                            <span class="contact-status"><span class="badge-dot"></span> Open to remote & on-site</span>
-                        </div>
-                    </div>
-
-                    <div class="glass-card contact-info-card tilt-card reveal-element">
-                        <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
-                        <div>
-                            <h4>Professional Network</h4>
-                            <p>linkedin.com/in/ujjawalkushwaha</p>
-                            <a href="https://linkedin.com/in/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="contact-link">Connect on LinkedIn &rarr;</a>
-                        </div>
-                    </div>
-
-                    <div class="glass-card contact-info-card tilt-card reveal-element">
-                        <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
-                        <div>
-                            <h4>Source Code & Repos</h4>
-                            <p>github.com/ujjawalkushwaha</p>
-                            <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" class="contact-link">Explore Repositories &rarr;</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card contact-form-card reveal-element">
-                    <h3>Send a Message</h3>
-                    <p class="form-desc">Whether you have an internship opportunity, a project idea, or just want to chat about 3D graphics, feel free to drop a message!</p>
-
-                    <form id="contact-form" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <div class="input-wrapper">
-                                <i class="fa-regular fa-user"></i>
-                                <input type="text" id="name" name="name" placeholder="John Doe" required />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <div class="input-wrapper">
-                                <i class="fa-regular fa-envelope"></i>
-                                <input type="email" id="email" name="email" placeholder="john@example.com" required />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <div class="input-wrapper">
-                                <i class="fa-solid fa-tag"></i>
-                                <input type="text" id="subject" name="subject" placeholder="Project Inquiry / Job Opportunity" required />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <div class="input-wrapper textarea-wrapper">
-                                <i class="fa-regular fa-comment-dots"></i>
-                                <textarea id="message" name="message" rows="4" placeholder="Hello Ujjawal, I came across your portfolio..." required></textarea>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block magnetic-btn" id="submit-btn">
-                            <span>Send Message</span>
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </form>
-
-                    <div id="form-feedback" class="form-feedback"></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Interactive Cyber Terminal Modal -->
-    <div class="terminal-modal" id="terminal-modal">
-        <div class="terminal-backdrop" id="terminal-backdrop"></div>
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="term-dots">
-                    <span class="dot-red close-term"></span>
-                    <span class="dot-yellow"></span>
-                    <span class="dot-green"></span>
-                </div>
-                <div class="term-title"><i class="fa-solid fa-terminal text-cyan"></i> ujjawal@cyber-terminal: ~ (Bash 5.2)</div>
-                <button class="term-close-x close-term" aria-label="Close terminal">&times;</button>
-            </div>
-            <div class="terminal-body" id="terminal-body">
-                <div class="term-line welcome-line">CyberOS v4.2 [Kernel: WebGL-3D] &bull; Type <span class="highlight-cyan">'help'</span> to see available commands or click chips below.</div>
-                <div id="term-output"></div>
-                <div class="term-input-row">
-                    <span class="term-prompt">ujjawal@portfolio:~$</span>
-                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus />
-                </div>
-            </div>
-            <div class="term-quick-chips">
-                <span class="chip-cmd" data-cmd="help">help</span>
-                <span class="chip-cmd" data-cmd="about">about</span>
-                <span class="chip-cmd" data-cmd="skills">skills</span>
-                <span class="chip-cmd" data-cmd="projects">projects</span>
-                <span class="chip-cmd" data-cmd="upi">upi</span>
-                <span class="chip-cmd" data-cmd="theme synthwave">synthwave</span>
-                <span class="chip-cmd" data-cmd="theme matrix">matrix</span>
-                <span class="chip-cmd" data-cmd="theme amber">amber</span>
-                <span class="chip-cmd" data-cmd="theme cyan">cyan</span>
-                <span class="chip-cmd" data-cmd="matrix">matrix</span>
-                <span class="chip-cmd" data-cmd="clear">clear</span>
-            </div>
-        </div>
+    <div class="sub-footer">
+      <div class="container sub-footer-content">
+        <p class="copyright">&copy; 2026 NEXORA by Ujjwal. All rights reserved. Built with HTML5, CSS3 &amp; Vanilla JavaScript.</p>
+        <p class="disclaimer-mini">Fictional Smartphone Brand &bull; For Academic Evaluation Only</p>
+      </div>
     </div>
+  </footer>
 
-    <!-- Floating Cyber Dock (Bottom Quick Navigation) -->
-    <div class="cyber-dock" id="cyber-dock">
-        <a href="#home" class="dock-item" title="Home"><i class="fa-solid fa-house"></i></a>
-        <a href="#about" class="dock-item" title="About"><i class="fa-solid fa-user-astronaut"></i></a>
-        <a href="#skills" class="dock-item" title="Skills"><i class="fa-solid fa-code"></i></a>
-        <a href="#projects" class="dock-item" title="Projects"><i class="fa-solid fa-folder-open"></i></a>
-        <a href="#experience" class="dock-item" title="Timeline"><i class="fa-solid fa-timeline"></i></a>
-        <a href="#upi-support" class="dock-item dock-upi-item" title="Support via UPI"><i class="fa-solid fa-indian-rupee-sign"></i></a>
-        <button class="dock-item" id="dock-term-btn" title="Open Terminal"><i class="fa-solid fa-terminal"></i></button>
-        <button class="dock-item" id="dock-theme-btn" title="Cycle Theme"><i class="fa-solid fa-palette"></i></button>
-        <a href="#home" class="dock-item" title="Back to Top"><i class="fa-solid fa-arrow-up"></i></a>
+  <!-- ========================================================
+       FLOATING INTERACTIVE UI THEME & MULTI-COLOR SELECTOR
+       ======================================================== -->
+  <aside class="ui-color-dock" id="uiColorDock" aria-label="UI Color Themes">
+    <button class="ui-color-toggle" id="uiColorToggle" aria-expanded="false" title="Customize UI Colors">
+      <span class="palette-icon-spin">🎨</span>
+      <span class="ui-color-toggle-label">UI Colors</span>
+    </button>
+    <div class="ui-color-menu" id="uiColorMenu">
+      <div class="ui-color-header">
+        <span class="ui-color-title">UI Theme Palette</span>
+        <span class="ui-active-badge" id="activeThemeBadge">Cyber Cyan</span>
+      </div>
+      <div class="ui-theme-grid">
+        <button type="button" class="theme-btn active" data-theme="cyber-blue" title="Cyber Cyan / Electric Blue">
+          <span class="theme-swatch cyan-theme-swatch"></span>
+          <span>Cyan</span>
+        </button>
+        <button type="button" class="theme-btn" data-theme="neon-violet" title="Cosmic Violet / Neon Purple">
+          <span class="theme-swatch violet-theme-swatch"></span>
+          <span>Violet</span>
+        </button>
+        <button type="button" class="theme-btn" data-theme="aurora-emerald" title="Aurora Emerald / Cyber Mint">
+          <span class="theme-swatch emerald-theme-swatch"></span>
+          <span>Emerald</span>
+        </button>
+        <button type="button" class="theme-btn" data-theme="sunset-crimson" title="Sunset Crimson / Flame Ruby">
+          <span class="theme-swatch crimson-theme-swatch"></span>
+          <span>Crimson</span>
+        </button>
+        <button type="button" class="theme-btn" data-theme="cyber-gold" title="Solar Gold / Amber Cyberpunk">
+          <span class="theme-swatch gold-theme-swatch"></span>
+          <span>Gold</span>
+        </button>
+        <button type="button" class="theme-btn prism-theme-btn" data-theme="prism-rainbow" title="Prism Spectrum / Dynamic Multi-Color Rainbow">
+          <span class="theme-swatch rainbow-theme-swatch"></span>
+          <span>Prism 🌈</span>
+        </button>
+      </div>
+      <div class="ui-color-footer">
+        <label class="sync-checkbox-label" title="Sync UI colors when choosing phone finish">
+          <input type="checkbox" id="syncColorWithDevice" checked>
+          <span>Sync UI with Phone Color</span>
+        </label>
+      </div>
     </div>
+  </aside>
 
-    <!-- Footer with Live Clock & Social Connections -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <a href="#home" class="logo">
-                    <span class="logo-bracket">&lt;</span>Ujjawal<span class="gradient-text">.Dev</span><span class="logo-bracket">/&gt;</span>
-                </a>
-                <p>Building high-performance, visually interactive experiences on the web.</p>
-                <div class="live-clock-badge" id="live-clock-badge">
-                    <i class="fa-regular fa-clock text-cyan"></i>
-                    <span>New Delhi, IST: <strong id="live-clock-text">--:--:--</strong></span>
-                </div>
-            </div>
+  <!-- ========================================================
+       FLOATING SCROLL-TO-TOP BUTTON
+       ======================================================== -->
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll back to top of page">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
-            <div class="footer-links">
-                <h4>Quick Navigation</h4>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills & Stack</a></li>
-                    <li><a href="#projects">Featured Projects</a></li>
-                    <li><a href="#upi-support">Support via UPI</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-socials">
-                <h4>Connect & Code</h4>
-                <div class="social-icons">
-                    <a href="https://github.com/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://linkedin.com/in/ujjawalkushwaha" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://codepen.io" target="_blank" rel="noopener noreferrer" aria-label="CodePen"><i class="fa-brands fa-codepen"></i></a>
-                </div>
-            </div>
+  <!-- ========================================================
+       INTERACTIVE BUY NOW DEMO MODAL WITH COUPON CODE
+       ======================================================== -->
+  <div class="modal-backdrop" id="purchaseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-pretitle">DEMO CHECKOUT</span>
+          <h3 class="modal-title" id="modalTitle">Order Your NEXORA</h3>
         </div>
+        <button class="modal-close-btn" id="closeModalBtn" aria-label="Close purchase modal">&times;</button>
+      </div>
 
-        <div class="footer-bottom">
-            <p>&copy; 2025 Ujjawal Kushwaha &bull; Crafted with Three.js & Modern Web Technologies.</p>
-            <a href="#home" class="back-to-top" id="back-to-top" aria-label="Back to top">
-                <i class="fa-solid fa-chevron-up"></i>
-            </a>
+      <div class="demo-warning-banner">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="warning-icon" aria-hidden="true">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        <span>Demo Only &mdash; No real payment will be processed.</span>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <form id="purchaseForm" novalidate>
+          <div class="modal-product-summary">
+            <img src="assets/images/hero-phone.jpg" alt="Selected NEXORA phone thumbnail" class="modal-thumb" id="modalProductThumb">
+            <div class="modal-summary-details">
+              <h4 class="summary-name">NEXORA Flagship</h4>
+              <p class="summary-variant" id="modalSelectedSummary">8GB RAM + 128GB Storage &bull; Cyber Blue</p>
+              <div class="modal-price-wrap">
+                <span class="modal-price-tag" id="modalDisplayPrice">₹29,999</span>
+                <span class="modal-discount-tag" id="modalDiscountTag" style="display: none;">-₹1,000 COUPON</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Configuration Variant -->
+          <div class="form-group">
+            <label class="form-label">Select Configuration:</label>
+            <div class="variant-chips" role="radiogroup" aria-label="Storage capacity">
+              <label class="variant-chip active">
+                <input type="radio" name="storage" value="128" data-price="29999" data-name="8GB RAM + 128GB Storage" checked>
+                <span class="chip-content">
+                  <span class="chip-title">8GB + 128GB</span>
+                  <span class="chip-price">₹29,999</span>
+                </span>
+              </label>
+
+              <label class="variant-chip">
+                <input type="radio" name="storage" value="256" data-price="34999" data-name="12GB RAM + 256GB Storage">
+                <span class="chip-content">
+                  <span class="chip-title">12GB + 256GB</span>
+                  <span class="chip-price">₹34,999</span>
+                </span>
+              </label>
+
+              <label class="variant-chip">
+                <input type="radio" name="storage" value="512" data-price="39999" data-name="16GB RAM + 512GB Storage">
+                <span class="chip-content">
+                  <span class="chip-title">16GB + 512GB</span>
+                  <span class="chip-price">₹39,999</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Finish Selection -->
+          <div class="form-group">
+            <label class="form-label">Select Finish:</label>
+            <div class="color-options" role="radiogroup" aria-label="Device color">
+              <label class="color-opt active" title="Cyber Blue">
+                <input type="radio" name="deviceColor" value="Cyber Blue" checked>
+                <span class="color-swatch color-blue"></span>
+                <span class="color-name">Cyber Blue</span>
+              </label>
+
+              <label class="color-opt" title="Cosmic Purple">
+                <input type="radio" name="deviceColor" value="Cosmic Purple">
+                <span class="color-swatch color-purple"></span>
+                <span class="color-name">Cosmic Purple</span>
+              </label>
+
+              <label class="color-opt" title="Aurora Emerald">
+                <input type="radio" name="deviceColor" value="Aurora Emerald">
+                <span class="color-swatch color-emerald"></span>
+                <span class="color-name">Aurora Emerald</span>
+              </label>
+
+              <label class="color-opt" title="Sunset Crimson">
+                <input type="radio" name="deviceColor" value="Sunset Crimson">
+                <span class="color-swatch color-crimson"></span>
+                <span class="color-name">Sunset Crimson</span>
+              </label>
+
+              <label class="color-opt" title="Titanium Silver">
+                <input type="radio" name="deviceColor" value="Titanium Silver">
+                <span class="color-swatch color-silver"></span>
+                <span class="color-name">Titanium Silver</span>
+              </label>
+
+              <label class="color-opt" title="Phantom Black">
+                <input type="radio" name="deviceColor" value="Phantom Black">
+                <span class="color-swatch color-black"></span>
+                <span class="color-name">Phantom Black</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Promo Code Applicator -->
+          <div class="form-group promo-group">
+            <label class="form-label" for="couponInput">Have a Launch Code? (Try <strong class="promo-suggestion">UJJWAL2026</strong>)</label>
+            <div class="promo-input-row">
+              <input type="text" id="couponInput" class="form-control" placeholder="Enter coupon code" uppercase>
+              <button type="button" class="btn btn-secondary promo-apply-btn" id="applyCouponBtn">Apply</button>
+            </div>
+            <span class="promo-feedback" id="couponFeedback"></span>
+          </div>
+
+          <!-- Customer Form -->
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="orderName" class="form-label">Full Name *</label>
+              <input type="text" id="orderName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+              <span class="field-error" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="orderEmail" class="form-label">Email Address *</label>
+              <input type="email" id="orderEmail" class="form-control" placeholder="e.g. rahul@example.com" required>
+              <span class="field-error" id="emailError"></span>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="orderPhone" class="form-label">Phone Number *</label>
+              <input type="tel" id="orderPhone" class="form-control" placeholder="10-digit mobile number" maxlength="10" required>
+              <span class="field-error" id="phoneError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="orderPincode" class="form-label">Delivery PIN Code *</label>
+              <input type="text" id="orderPincode" class="form-control" placeholder="6-digit PIN code" maxlength="6" required>
+              <span class="field-error" id="pincodeError"></span>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary btn-glow btn-block" id="confirmOrderBtn">
+              <span>Confirm Demo Order &bull; <span id="btnPriceAmount">₹29,999</span></span>
+            </button>
+            <p class="modal-secure-note">
+              🔒 256-bit Simulated Secure Checkout &bull; No credit card or banking details required.
+            </p>
+          </div>
+        </form>
+
+        <!-- Order Success State -->
+        <div class="order-success-card" id="orderSuccess" style="display: none;">
+          <div class="success-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h4 class="success-title">Demo Order Placed Successfully!</h4>
+          <p class="success-subtitle">Thank you for testing the NEXORA marketing landing page demo.</p>
+          
+          <div class="receipt-box">
+            <div class="receipt-row">
+              <span class="r-label">Order Number:</span>
+              <strong class="r-val" id="receiptOrderId">#NX-89241</strong>
+            </div>
+            <div class="receipt-row">
+              <span class="r-label">Model:</span>
+              <span class="r-val" id="receiptModel">NEXORA 8GB + 128GB (Cyber Blue)</span>
+            </div>
+            <div class="receipt-row">
+              <span class="r-label">Total Amount:</span>
+              <span class="r-val highlight-val" id="receiptPrice">₹29,999</span>
+            </div>
+            <div class="receipt-row">
+              <span class="r-label">Customer:</span>
+              <span class="r-val" id="receiptCustomer">Rahul Sharma</span>
+            </div>
+            <div class="receipt-row">
+              <span class="r-label">Estimated Delivery:</span>
+              <span class="r-val">3-5 Business Days (Free Express)</span>
+            </div>
+          </div>
+
+          <div class="demo-success-reminder">
+            This was an academic demonstration test. No actual payment was charged and no shipment will be dispatched.
+          </div>
+
+          <button class="btn btn-primary btn-block" id="resetModalBtn" type="button">Done &amp; Close</button>
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
 
-    <!-- Interactive Logic Script -->
-    <script src="script.js"></script>
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Vanilla JavaScript Logic -->
+  <script src="script.js"></script>
 </body>
-
 </html>
